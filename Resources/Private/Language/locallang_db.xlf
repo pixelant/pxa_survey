@@ -1,53 +1,69 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2017-11-13T15:58:32Z" product-name="pxa_survey">
-		<header/>
-		<body>
-			<trans-unit id="tx_pxasurvey_domain_model_survey">
-				<source>Survey</source>
-			</trans-unit>
-			<trans-unit id="tx_pxasurvey_domain_model_survey.name">
-				<source>Name</source>
-			</trans-unit>
-			<trans-unit id="tx_pxasurvey_domain_model_survey.title">
-				<source>Title</source>
-			</trans-unit>
-			<trans-unit id="tx_pxasurvey_domain_model_survey.description">
-				<source>Description</source>
-			</trans-unit>
-			<trans-unit id="tx_pxasurvey_domain_model_survey.questions">
-				<source>Questions</source>
-			</trans-unit>
-			<trans-unit id="tx_pxasurvey_domain_model_question">
-				<source>Question</source>
-			</trans-unit>
-			<trans-unit id="tx_pxasurvey_domain_model_question.text">
-				<source>Text</source>
-			</trans-unit>
-			<trans-unit id="tx_pxasurvey_domain_model_question.type">
-				<source>Type</source>
-			</trans-unit>
-			<trans-unit id="tx_pxasurvey_domain_model_question.answers">
-				<source>Answers</source>
-			</trans-unit>
-			<trans-unit id="tx_pxasurvey_domain_model_answer">
-				<source>Answer</source>
-			</trans-unit>
-			<trans-unit id="tx_pxasurvey_domain_model_answer.text">
-				<source>Text</source>
-			</trans-unit>
-			<trans-unit id="tx_pxasurvey_domain_model_useranswer">
-				<source>User Answer</source>
-			</trans-unit>
-			<trans-unit id="tx_pxasurvey_domain_model_useranswer.custom_value">
-				<source>Custom Value</source>
-			</trans-unit>
-			<trans-unit id="tx_pxasurvey_domain_model_useranswer.question">
-				<source>Question</source>
-			</trans-unit>
-			<trans-unit id="tx_pxasurvey_domain_model_useranswer.answer">
-				<source>Answer</source>
-			</trans-unit>
-		</body>
-	</file>
+    <file source-language="en" datatype="plaintext" original="messages" date="2017-11-13T15:58:32Z"
+          product-name="pxa_survey">
+        <header/>
+        <body>
+            <trans-unit id="tx_pxasurvey_domain_model_survey">
+                <source>Survey</source>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_survey.name">
+                <source>Name</source>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_survey.title">
+                <source>Title</source>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_survey.description">
+                <source>Description</source>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_survey.questions">
+                <source>Questions</source>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_question">
+                <source>Question</source>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_question.text">
+                <source>Text</source>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_question.append_with_input">
+                <source>Add free input field after options</source>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_question.type">
+                <source>Type</source>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_question.type.1">
+                <source>Radio button (Single answer)</source>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_question.type.2">
+                <source>Checkboxes (Multiple answers)</source>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_question.type.3">
+                <source>Input field (Custom text answer)</source>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_question.answers">
+                <source>Answers</source>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_answer">
+                <source>Answer</source>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_answer.text">
+                <source>Text</source>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_useranswer">
+                <source>User Answer</source>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_useranswer.custom_value">
+                <source>Custom Value</source>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_useranswer.question">
+                <source>Question</source>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_useranswer.answer">
+                <source>Answer</source>
+            </trans-unit>
+            <trans-unit id="tabs.questions">
+                <source>Questions</source>
+            </trans-unit>
+        </body>
+    </file>
 </xliff>

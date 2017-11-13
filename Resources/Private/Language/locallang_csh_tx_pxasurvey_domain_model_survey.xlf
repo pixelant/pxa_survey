@@ -4,16 +4,16 @@
 		<header/>
 		<body>
 			<trans-unit id="name.description">
-				<source>name</source>
+				<source>System name of survey</source>
 			</trans-unit>
 			<trans-unit id="title.description">
-				<source>title</source>
+				<source>Title of survey</source>
 			</trans-unit>
 			<trans-unit id="description.description">
-				<source>description</source>
+				<source>Short description</source>
 			</trans-unit>
 			<trans-unit id="questions.description">
-				<source>List of question </source>
+				<source>List of question</source>
 			</trans-unit>
 		</body>
 	</file>

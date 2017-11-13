@@ -1,12 +1,15 @@
 <?php
+$ll = 'LLL:EXT:pxa_survey/Resources/Private/Language/locallang_db.xlf:';
+
 return [
     'ctrl' => [
-        'title' => 'LLL:EXT:pxa_survey/Resources/Private/Language/locallang_db.xlf:tx_pxasurvey_domain_model_question',
+        'title' => $ll .'tx_pxasurvey_domain_model_question',
         'label' => 'text',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
         'versioningWS' => true,
+        'sortby' => 'sorting',
         'languageField' => 'sys_language_uid',
         'transOrigPointerField' => 'l10n_parent',
         'transOrigDiffSourceField' => 'l10n_diffsource',
@@ -16,14 +19,22 @@ return [
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
+        'type' => 'type',
+
         'searchFields' => 'text,type,answers',
-        'iconfile' => 'EXT:pxa_survey/Resources/Public/Icons/tx_pxasurvey_domain_model_question.gif'
+        'iconfile' => 'EXT:pxa_survey/Resources/Public/Icons/tx_question.svg'
     ],
     'interface' => [
         'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, text, type, answers',
     ],
     'types' => [
-        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, text, type, answers, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
+        // remove default fields to make it more compact
+        '1' => ['showitem' => '--palette--;;options, text, answers'],
+        // remove access tab.
+        //, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime
+    ],
+    'palettes' => [
+        'options' => ['showitem' => 'type, append_with_input']
     ],
     'columns' => [
         'sys_language_uid' => [
@@ -88,6 +99,7 @@ return [
             'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.starttime',
             'config' => [
                 'type' => 'input',
+                'renderType' => 'inputDateTime',
                 'size' => 13,
                 'eval' => 'datetime',
                 'default' => 0,
@@ -99,6 +111,7 @@ return [
             'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.endtime',
             'config' => [
                 'type' => 'input',
+                'renderType' => 'inputDateTime',
                 'size' => 13,
                 'eval' => 'datetime',
                 'default' => 0,
@@ -110,39 +123,65 @@ return [
 
         'text' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:pxa_survey/Resources/Private/Language/locallang_db.xlf:tx_pxasurvey_domain_model_question.text',
+            'label' => $ll .'tx_pxasurvey_domain_model_question.text',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'trim'
+                'eval' => 'trim,required'
             ],
         ],
         'type' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:pxa_survey/Resources/Private/Language/locallang_db.xlf:tx_pxasurvey_domain_model_question.type',
+            'label' => $ll .'tx_pxasurvey_domain_model_question.type',
             'config' => [
-                'type' => 'input',
-                'size' => 4,
-                'eval' => 'int'
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                // @codingStandardsIgnoreStart
+                'items' => [
+                    [$ll . 'tx_pxasurvey_domain_model_question.type.' . \Pixelant\PxaSurvey\Domain\Model\Question::ANSWER_TYPE_RADIO, \Pixelant\PxaSurvey\Domain\Model\Question::ANSWER_TYPE_RADIO],
+                    [$ll . 'tx_pxasurvey_domain_model_question.type.' . \Pixelant\PxaSurvey\Domain\Model\Question::ANSWER_TYPE_CHECKBOXES, \Pixelant\PxaSurvey\Domain\Model\Question::ANSWER_TYPE_CHECKBOXES],
+                    [$ll . 'tx_pxasurvey_domain_model_question.type.' . \Pixelant\PxaSurvey\Domain\Model\Question::ANSWER_TYPE_INPUT, \Pixelant\PxaSurvey\Domain\Model\Question::ANSWER_TYPE_INPUT]
+                ]
+                // @codingStandardsIgnoreEnd
             ]
+        ],
+        'append_with_input' => [
+            'exclude' => true,
+            'displayCond' => [
+                'OR' => [
+                    'FIELD:type:=:' . \Pixelant\PxaSurvey\Domain\Model\Question::ANSWER_TYPE_RADIO,
+                    'FIELD:type:=:' . \Pixelant\PxaSurvey\Domain\Model\Question::ANSWER_TYPE_CHECKBOXES
+                ]
+            ],
+            'label' => $ll .'tx_pxasurvey_domain_model_question.append_with_input',
+            'config' => [
+                'type' => 'check',
+                'default' => 0
+            ],
         ],
         'answers' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:pxa_survey/Resources/Private/Language/locallang_db.xlf:tx_pxasurvey_domain_model_question.answers',
+            'displayCond' => [
+                'OR' => [
+                    'FIELD:type:=:' . \Pixelant\PxaSurvey\Domain\Model\Question::ANSWER_TYPE_RADIO,
+                    'FIELD:type:=:' . \Pixelant\PxaSurvey\Domain\Model\Question::ANSWER_TYPE_CHECKBOXES
+                ]
+            ],
+            'label' => $ll .'tx_pxasurvey_domain_model_question.answers',
             'config' => [
                 'type' => 'inline',
                 'foreign_table' => 'tx_pxasurvey_domain_model_answer',
                 'foreign_field' => 'question',
                 'maxitems' => 9999,
+                'minitems' => 1,
                 'appearance' => [
-                    'collapseAll' => 0,
+                    'collapseAll' => 1,
                     'levelLinksPosition' => 'top',
                     'showSynchronizationLink' => 1,
                     'showPossibleLocalizationRecords' => 1,
                     'showAllLocalizationLink' => 1
                 ],
             ],
-
         ],
     
         'survey' => [

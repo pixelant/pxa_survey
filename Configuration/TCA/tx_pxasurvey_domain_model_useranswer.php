@@ -16,8 +16,9 @@ return [
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
+        'hideTable' => true,
         'searchFields' => 'custom_value,question,answer',
-        'iconfile' => 'EXT:pxa_survey/Resources/Public/Icons/tx_pxasurvey_domain_model_useranswer.gif'
+        'iconfile' => 'EXT:pxa_survey/Resources/Public/Icons/tx_user_answer.svg'
     ],
     'interface' => [
         'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, custom_value, question, answer',

@@ -1,12 +1,15 @@
 <?php
+$ll = 'LLL:EXT:pxa_survey/Resources/Private/Language/locallang_db.xlf:';
+
 return [
     'ctrl' => [
-        'title' => 'LLL:EXT:pxa_survey/Resources/Private/Language/locallang_db.xlf:tx_pxasurvey_domain_model_survey',
+        'title' => $ll . 'tx_pxasurvey_domain_model_survey',
         'label' => 'name',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
         'versioningWS' => true,
+        'sortby' => 'sorting',
         'languageField' => 'sys_language_uid',
         'transOrigPointerField' => 'l10n_parent',
         'transOrigDiffSourceField' => 'l10n_diffsource',
@@ -17,13 +20,19 @@ return [
             'endtime' => 'endtime',
         ],
         'searchFields' => 'name,title,description,questions',
-        'iconfile' => 'EXT:pxa_survey/Resources/Public/Icons/tx_pxasurvey_domain_model_survey.gif'
+        'iconfile' => 'EXT:pxa_survey/Resources/Public/Icons/tx_survey.svg'
     ],
     'interface' => [
+        // @codingStandardsIgnoreStart
         'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name, title, description, questions',
+        // @codingStandardsIgnoreEnd
     ],
     'types' => [
-        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name, title, description, questions, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
+        '1' => [
+            'showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name, title, description,
+            --div--;' . $ll . 'tabs.questions, questions,
+            --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'
+        ],
     ],
     'columns' => [
         'sys_language_uid' => [
@@ -54,7 +63,9 @@ return [
                     ['', 0],
                 ],
                 'foreign_table' => 'tx_pxasurvey_domain_model_survey',
+                // @codingStandardsIgnoreStart
                 'foreign_table_where' => 'AND tx_pxasurvey_domain_model_survey.pid=###CURRENT_PID### AND tx_pxasurvey_domain_model_survey.sys_language_uid IN (-1,0)',
+                // @codingStandardsIgnoreEnd
             ],
         ],
         'l10n_diffsource' => [
@@ -88,6 +99,7 @@ return [
             'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.starttime',
             'config' => [
                 'type' => 'input',
+                'renderType' => 'inputDateTime',
                 'size' => 13,
                 'eval' => 'datetime',
                 'default' => 0,
@@ -99,6 +111,7 @@ return [
             'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.endtime',
             'config' => [
                 'type' => 'input',
+                'renderType' => 'inputDateTime',
                 'size' => 13,
                 'eval' => 'datetime',
                 'default' => 0,
@@ -110,16 +123,16 @@ return [
 
         'name' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:pxa_survey/Resources/Private/Language/locallang_db.xlf:tx_pxasurvey_domain_model_survey.name',
+            'label' => $ll . 'tx_pxasurvey_domain_model_survey.name',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'trim'
+                'eval' => 'trim,required'
             ],
         ],
         'title' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:pxa_survey/Resources/Private/Language/locallang_db.xlf:tx_pxasurvey_domain_model_survey.title',
+            'label' => $ll . 'tx_pxasurvey_domain_model_survey.title',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -128,33 +141,31 @@ return [
         ],
         'description' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:pxa_survey/Resources/Private/Language/locallang_db.xlf:tx_pxasurvey_domain_model_survey.description',
+            'label' => $ll . 'tx_pxasurvey_domain_model_survey.description',
             'config' => [
                 'type' => 'text',
                 'cols' => 40,
                 'rows' => 15,
                 'eval' => 'trim',
-            ],
-            'defaultExtras' => 'richtext:rte_transform'
+                'enableRichtext' => true
+            ]
         ],
         'questions' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:pxa_survey/Resources/Private/Language/locallang_db.xlf:tx_pxasurvey_domain_model_survey.questions',
+            'label' => $ll . 'tx_pxasurvey_domain_model_survey.questions',
             'config' => [
                 'type' => 'inline',
                 'foreign_table' => 'tx_pxasurvey_domain_model_question',
                 'foreign_field' => 'survey',
                 'maxitems' => 9999,
                 'appearance' => [
-                    'collapseAll' => 0,
+                    'collapseAll' => 1,
                     'levelLinksPosition' => 'top',
                     'showSynchronizationLink' => 1,
                     'showPossibleLocalizationRecords' => 1,
                     'showAllLocalizationLink' => 1
                 ],
             ],
-
         ],
-    
     ],
 ];

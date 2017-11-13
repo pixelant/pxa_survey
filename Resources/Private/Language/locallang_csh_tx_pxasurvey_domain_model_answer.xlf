@@ -4,7 +4,7 @@
 		<header/>
 		<body>
 			<trans-unit id="text.description">
-				<source>text</source>
+				<source>Text of answer</source>
 			</trans-unit>
 		</body>
 	</file>

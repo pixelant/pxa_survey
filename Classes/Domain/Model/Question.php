@@ -1,4 +1,5 @@
 <?php
+
 namespace Pixelant\PxaSurvey\Domain\Model;
 
 /***
@@ -17,6 +18,21 @@ namespace Pixelant\PxaSurvey\Domain\Model;
  */
 class Question extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
+    /**
+     * Type of answer for question radio boxes
+     */
+    const ANSWER_TYPE_RADIO = 1;
+
+    /**
+     * Type of answer for question checkboxes
+     */
+    const ANSWER_TYPE_CHECKBOXES = 2;
+
+    /**
+     * Type of answer for question custom input
+     */
+    const ANSWER_TYPE_INPUT = 3;
+
     /**
      * text
      *

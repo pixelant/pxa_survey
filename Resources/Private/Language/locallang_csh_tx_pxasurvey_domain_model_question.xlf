@@ -4,13 +4,16 @@
 		<header/>
 		<body>
 			<trans-unit id="text.description">
-				<source>text</source>
+				<source>Question text</source>
 			</trans-unit>
 			<trans-unit id="type.description">
-				<source>type</source>
+				<source>Type of question</source>
 			</trans-unit>
 			<trans-unit id="answers.description">
 				<source>answers</source>
+			</trans-unit>
+			<trans-unit id="append_with_input.description">
+			    <source>Add text field where user can enter his/her own answer.</source>
 			</trans-unit>
 		</body>
 	</file>

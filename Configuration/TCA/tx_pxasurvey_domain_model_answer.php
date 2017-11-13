@@ -1,12 +1,15 @@
 <?php
+$ll = 'LLL:EXT:pxa_survey/Resources/Private/Language/locallang_db.xlf:';
+
 return [
     'ctrl' => [
-        'title' => 'LLL:EXT:pxa_survey/Resources/Private/Language/locallang_db.xlf:tx_pxasurvey_domain_model_answer',
+        'title' => $ll .'tx_pxasurvey_domain_model_answer',
         'label' => 'text',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
         'versioningWS' => true,
+        'sortby' => 'sorting',
         'languageField' => 'sys_language_uid',
         'transOrigPointerField' => 'l10n_parent',
         'transOrigDiffSourceField' => 'l10n_diffsource',
@@ -17,13 +20,14 @@ return [
             'endtime' => 'endtime',
         ],
         'searchFields' => 'text',
-        'iconfile' => 'EXT:pxa_survey/Resources/Public/Icons/tx_pxasurvey_domain_model_answer.gif'
+        'iconfile' => 'EXT:pxa_survey/Resources/Public/Icons/tx_answer.svg'
     ],
     'interface' => [
         'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, text',
     ],
     'types' => [
-        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, text, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
+        // show only text field
+        '1' => ['showitem' => 'text'],
     ],
     'columns' => [
         'sys_language_uid' => [
@@ -88,6 +92,7 @@ return [
             'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.starttime',
             'config' => [
                 'type' => 'input',
+                'renderType' => 'inputDateTime',
                 'size' => 13,
                 'eval' => 'datetime',
                 'default' => 0,
@@ -99,6 +104,7 @@ return [
             'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.endtime',
             'config' => [
                 'type' => 'input',
+                'renderType' => 'inputDateTime',
                 'size' => 13,
                 'eval' => 'datetime',
                 'default' => 0,
@@ -110,11 +116,11 @@ return [
 
         'text' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:pxa_survey/Resources/Private/Language/locallang_db.xlf:tx_pxasurvey_domain_model_answer.text',
+            'label' => $ll .'tx_pxasurvey_domain_model_answer.text',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'trim'
+                'eval' => 'trim,required'
             ],
         ],
     
