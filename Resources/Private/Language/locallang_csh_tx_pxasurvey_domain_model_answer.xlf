@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2017-11-13T15:58:32Z" product-name="pxa_survey">
+		<header/>
+		<body>
+			<trans-unit id="text.description">
+				<source>text</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

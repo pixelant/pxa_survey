@@ -1,0 +1,19 @@
+{
+    "name": "pixelant/pxa-survey",
+    "type": "typo3-cms-extension",
+    "description": "Create simple survey. View results in the BE module",
+    "authors": [
+        {
+            "name": "Andriy Oprysko",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "typo3/cms-core": "^8.7.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Pixelant\\PxaSurvey\\": "Classes"
+        }
+    }
+}
