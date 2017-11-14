@@ -25,7 +25,7 @@ return [
         'iconfile' => 'EXT:pxa_survey/Resources/Public/Icons/tx_question.svg'
     ],
     'interface' => [
-        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, text, type, answers',
+        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, text, type, append_with_input, required, answers',
     ],
     'types' => [
         // remove default fields to make it more compact
@@ -34,7 +34,7 @@ return [
         //, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime
     ],
     'palettes' => [
-        'options' => ['showitem' => 'type, append_with_input']
+        'options' => ['showitem' => 'type, required, append_with_input']
     ],
     'columns' => [
         'sys_language_uid' => [
@@ -147,26 +147,24 @@ return [
         ],
         'append_with_input' => [
             'exclude' => true,
-            'displayCond' => [
-                'OR' => [
-                    'FIELD:type:=:' . \Pixelant\PxaSurvey\Domain\Model\Question::ANSWER_TYPE_RADIO,
-                    'FIELD:type:=:' . \Pixelant\PxaSurvey\Domain\Model\Question::ANSWER_TYPE_CHECKBOXES
-                ]
-            ],
+            'displayCond' => 'FIELD:type:!=:' . \Pixelant\PxaSurvey\Domain\Model\Question::ANSWER_TYPE_INPUT,
             'label' => $ll .'tx_pxasurvey_domain_model_question.append_with_input',
             'config' => [
                 'type' => 'check',
                 'default' => 0
             ],
         ],
+        'required' => [
+            'exclude' => true,
+            'label' => $ll .'tx_pxasurvey_domain_model_question.required',
+            'config' => [
+                'type' => 'check',
+                'default' => 1
+            ],
+        ],
         'answers' => [
             'exclude' => true,
-            'displayCond' => [
-                'OR' => [
-                    'FIELD:type:=:' . \Pixelant\PxaSurvey\Domain\Model\Question::ANSWER_TYPE_RADIO,
-                    'FIELD:type:=:' . \Pixelant\PxaSurvey\Domain\Model\Question::ANSWER_TYPE_CHECKBOXES
-                ]
-            ],
+            'displayCond' => 'FIELD:type:!=:' . \Pixelant\PxaSurvey\Domain\Model\Question::ANSWER_TYPE_INPUT,
             'label' => $ll .'tx_pxasurvey_domain_model_question.answers',
             'config' => [
                 'type' => 'inline',

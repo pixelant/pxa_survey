@@ -1,0 +1,12 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+
+<f:comment>Simple input with user answer.</f:comment>
+
+<div class="form-group">
+    <label for="other-answer-{question.uid}"><f:translate key="fe.other_answer_label"/></label>
+    <f:form.textfield
+            name="answers[{question.uid}][otherAnswer]"
+            class="form-control"
+            id="other-answer-{question.uid}"/>
+</div>
+</html>

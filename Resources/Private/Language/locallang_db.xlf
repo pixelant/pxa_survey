@@ -28,6 +28,9 @@
             <trans-unit id="tx_pxasurvey_domain_model_question.append_with_input">
                 <source>Add free input field after options</source>
             </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_question.required">
+                <source>Question is required to be answered.</source>
+            </trans-unit>
             <trans-unit id="tx_pxasurvey_domain_model_question.type">
                 <source>Type</source>
             </trans-unit>
@@ -58,8 +61,11 @@
             <trans-unit id="tx_pxasurvey_domain_model_useranswer.question">
                 <source>Question</source>
             </trans-unit>
-            <trans-unit id="tx_pxasurvey_domain_model_useranswer.answer">
-                <source>Answer</source>
+            <trans-unit id="tx_pxasurvey_domain_model_useranswer.answers">
+                <source>Answers</source>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_useranswer.frontend_user">
+                <source>Frontend user</source>
             </trans-unit>
             <trans-unit id="tabs.questions">
                 <source>Questions</source>

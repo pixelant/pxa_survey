@@ -7,10 +7,11 @@ call_user_func(
             'Pixelant.PxaSurvey',
             'Survey',
             [
-                'Survey' => 'show'
+                'Survey' => 'show, answer, finish'
             ],
             // non-cacheable actions
             [
+                'Survey' => 'answer'
             ]
         );
 

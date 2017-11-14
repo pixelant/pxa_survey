@@ -16,6 +16,6 @@ namespace Pixelant\PxaSurvey\Domain\Repository;
 /**
  * The repository for Surveys
  */
-class SurveyRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
+class UserAnswerRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
 }

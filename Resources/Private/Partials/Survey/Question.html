@@ -1,0 +1,29 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:pxa="http://typo3.org/ns/Pixelant/PxaSurvey/ViewHelpers" data-namespace-typo3-fluid="true">
+
+<f:alias map="{validation: '{pxa:validationResults(for: \'survey.question-{question.uid}\')}'}">
+    <f:if condition="{validation.errors}">
+        <f:then>
+            <div class="has-error">
+                <f:render section="questionBody" arguments="{question: question}"/>
+
+                <f:for each="{validation.errors}" as="error">
+                    <span class="help-block">{error.message}</span>
+                </f:for>
+            </div>
+        </f:then>
+        <f:else>
+            <f:render section="questionBody" arguments="{question: question}"/>
+        </f:else>
+    </f:if>
+</f:alias>
+
+<f:section name="questionBody">
+    <hr>
+    <p>{question.text}<f:if condition="{question.required}"> <span>*</span></f:if></p>
+    <f:render partial="Answers/AnswerType-{question.type}" arguments="{question: question}"/>
+
+    <f:if condition="{question.appendWithInput}">
+        <f:render partial="Answers/AnswerTypeUserAnswer" arguments="{question: question}"/>
+    </f:if>
+</f:section>
+</html>

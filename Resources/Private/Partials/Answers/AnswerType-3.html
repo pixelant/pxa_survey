@@ -1,0 +1,15 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+
+<f:comment>Simple input with user answer.</f:comment>
+
+<div class="form-group">
+    <label for="user-answer-{question.uid}">
+        <f:translate key="fe.user_answer_label"/>
+    </label>
+    <f:form.textfield
+            name="answers[{question.uid}][answer]"
+            class="form-control"
+            id="user-answer-{question.uid}"
+            placeholder="{f:translate(key: 'fe.user_answer_placeholder')}"/>
+</div>
+</html>

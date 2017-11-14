@@ -3,12 +3,6 @@ defined('TYPO3_MODE') || die('Access denied.');
 
 call_user_func(
     function () {
-        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-            'Pixelant.PxaSurvey',
-            'Survey',
-            'Simple Survey'
-        );
-
         if (TYPO3_MODE === 'BE') {
             \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
                 'Pixelant.PxaSurvey',
@@ -25,6 +19,23 @@ call_user_func(
                     'labels' => 'LLL:EXT:pxa_survey/Resources/Private/Language/locallang_surveyanalysis.xlf',
                 ]
             );
+
+            $icons = [
+                'ext-pxa-survey-wizard-icon' => 'user_plugin_survey.svg',
+            ];
+
+            /** @var \TYPO3\CMS\Core\Imaging\IconRegistry $iconRegistry */
+            $iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(
+                \TYPO3\CMS\Core\Imaging\IconRegistry::class
+            );
+
+            foreach ($icons as $identifier => $path) {
+                $iconRegistry->registerIcon(
+                    $identifier,
+                    \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
+                    ['source' => 'EXT:pxa_survey/Resources/Public/Icons/' . $path]
+                );
+            }
         }
 
         $tables = [
@@ -40,5 +51,8 @@ call_user_func(
             );
             \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages($table);
         }
+        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages(
+            'tx_pxasurvey_domain_model_useranswer'
+        );
     }
 );

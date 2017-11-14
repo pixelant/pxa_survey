@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file source-language="en" datatype="plaintext" original="messages" date="2017-11-13T15:58:32Z"
+          product-name="pxa_survey">
+        <header/>
+        <body>
+            <trans-unit id="flexform.sheet_title">
+                <source>Configuration</source>
+            </trans-unit>
+            <trans-unit id="flexform.mode">
+                <source>Plugin mode</source>
+            </trans-unit>
+            <trans-unit id="flexform.choose_survey">
+                <source>Choose survey</source>
+            </trans-unit>
+            <trans-unit id="flexform.show_all_questions">
+                <source>Show all questions at once</source>
+            </trans-unit>
+
+            <trans-unit id="plugin.name">
+                <source>Simple survey</source>
+            </trans-unit>
+            <trans-unit id="plugin.description">
+                <source>Survey form output.</source>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

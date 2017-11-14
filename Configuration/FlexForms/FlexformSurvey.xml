@@ -1,0 +1,43 @@
+<T3DataStructure>
+    <sheets>
+        <sDEF>
+            <ROOT>
+                <TCEforms>
+                    <sheetTitle>LLL:EXT:pxa_survey/Resources/Private/Language/locallang_be.xlf:flexform.sheet_title</sheetTitle>
+                </TCEforms>
+                <type>array</type>
+                <el>
+                    <settings.survey>
+                        <TCEforms>
+                            <label>LLL:EXT:pxa_survey/Resources/Private/Language/locallang_be.xlf:flexform.choose_survey</label>
+                            <config>
+                                <type>group</type>
+                                <internal_type>db</internal_type>
+                                <allowed>tx_pxasurvey_domain_model_survey</allowed>
+                                <size>1</size>
+                                <maxitems>1</maxitems>
+                                <minitems>1</minitems>
+                                <show_thumbs>1</show_thumbs>
+                                <wizards>
+                                    <suggest>
+                                        <type>suggest</type>
+                                    </suggest>
+                                </wizards>
+                            </config>
+                        </TCEforms>
+                    </settings.survey>
+
+                    <settings.showAllQuestions>
+                        <TCEforms>
+                            <label>LLL:EXT:pxa_survey/Resources/Private/Language/locallang_be.xlf:flexform.show_all_questions</label>
+                            <config>
+                                <type>check</type>
+                                <default>0</default>
+                            </config>
+                        </TCEforms>
+                    </settings.showAllQuestions>
+                </el>
+            </ROOT>
+        </sDEF>
+    </sheets>
+</T3DataStructure>

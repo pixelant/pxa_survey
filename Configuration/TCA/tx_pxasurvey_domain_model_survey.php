@@ -160,7 +160,7 @@ return [
                 'maxitems' => 9999,
                 'appearance' => [
                     'collapseAll' => 1,
-                    'levelLinksPosition' => 'top',
+                    'levelLinksPosition' => 'bottom',
                     'showSynchronizationLink' => 1,
                     'showPossibleLocalizationRecords' => 1,
                     'showAllLocalizationLink' => 1

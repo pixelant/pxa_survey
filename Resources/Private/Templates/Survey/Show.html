@@ -1,23 +1,42 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
-<f:layout name="Default" />
 
-This Template is responsible for displaying a single view for a domain object
-
-If you modify this template, do not forget to change the overwrite settings
-in /Configuration/ExtensionBuilder/settings.yaml:
-  Resources:
-    Private:
-      Templates:
-        Show.html: keep
-
-Otherwise your changes will be overwritten the next time you save the extension in the extension builder
+<f:layout name="Default"/>
 
 <f:section name="main">
-<h1>Single View for Survey</h1>
+    <f:if condition="{survey}">
+        <f:then>
+            <h1>
+                <f:if condition="{survey.title}" then="{survey.title}" else="{survey.name}"/>
+            </h1>
+            <f:if condition="{survey.description}">
+                <f:format.html>{survey.description}</f:format.html>
+            </f:if>
 
-<f:flashMessages />
-<f:render partial="Survey/Properties" arguments="{survey:survey}" />
-<f:link.action action="list">Back to list</f:link.action><br />
-<f:link.action action="new">New Survey</f:link.action>
-	</f:section>
+            <f:form action="answer">
+                <f:form.hidden name="survey" value="{survey.uid}"/>
+                <f:form.hidden name="showAllQuestions" value="{f:if(condition: settings.showAllQuestions, then: '1', else: '0')}"/>
+
+                <f:if condition="{settings.showAllQuestions}">
+                    <f:then>
+                        <f:for each="{survey.questions}" as="question">
+                            <f:render partial="Survey/Question" arguments="{question: question}"/>
+                        </f:for>
+
+                        <button type="submit" class="btn btn-default"><f:translate key="fe.send"/></button>
+                    </f:then>
+                    <f:else>
+                        <f:render partial="Survey/Question" arguments="{question: currentQuestion}"/>
+                        <f:form.hidden name="currentQuestion" value="{currentQuestion.uid}"/>
+
+                        <button type="submit" class="btn btn-default"><f:translate key="fe.next"/></button>
+                    </f:else>
+                </f:if>
+            </f:form>
+        </f:then>
+
+        <f:else>
+            <p><i><f:translate key="fe.not_found"/></i></p>
+        </f:else>
+    </f:if>
+</f:section>
 </html>

@@ -1,7 +1,9 @@
 <?php
+$ll = 'LLL:EXT:pxa_survey/Resources/Private/Language/locallang_db.xlf:';
+
 return [
     'ctrl' => [
-        'title' => 'LLL:EXT:pxa_survey/Resources/Private/Language/locallang_db.xlf:tx_pxasurvey_domain_model_useranswer',
+        'title' => $ll . 'tx_pxasurvey_domain_model_useranswer',
         'label' => 'custom_value',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
@@ -21,10 +23,10 @@ return [
         'iconfile' => 'EXT:pxa_survey/Resources/Public/Icons/tx_user_answer.svg'
     ],
     'interface' => [
-        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, custom_value, question, answer',
+        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, custom_value, question, answers',
     ],
     'types' => [
-        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, custom_value, question, answer, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
+        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, custom_value, question, answers, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
     ],
     'columns' => [
         'sys_language_uid' => [
@@ -89,6 +91,7 @@ return [
             'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.starttime',
             'config' => [
                 'type' => 'input',
+                'renderType' => 'inputDateTime',
                 'size' => 13,
                 'eval' => 'datetime',
                 'default' => 0,
@@ -100,6 +103,7 @@ return [
             'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.endtime',
             'config' => [
                 'type' => 'input',
+                'renderType' => 'inputDateTime',
                 'size' => 13,
                 'eval' => 'datetime',
                 'default' => 0,
@@ -111,7 +115,7 @@ return [
 
         'custom_value' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:pxa_survey/Resources/Private/Language/locallang_db.xlf:tx_pxasurvey_domain_model_useranswer.custom_value',
+            'label' => $ll . 'tx_pxasurvey_domain_model_useranswer.custom_value',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -120,38 +124,45 @@ return [
         ],
         'question' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:pxa_survey/Resources/Private/Language/locallang_db.xlf:tx_pxasurvey_domain_model_useranswer.question',
+            'label' => $ll . 'tx_pxasurvey_domain_model_useranswer.question',
             'config' => [
-                'type' => 'inline',
+                'type' => 'select',
+                'renderType' => 'selectSingle',
                 'foreign_table' => 'tx_pxasurvey_domain_model_question',
-                'minitems' => 0,
-                'maxitems' => 1,
-                'appearance' => [
-                    'collapseAll' => 0,
-                    'levelLinksPosition' => 'top',
-                    'showSynchronizationLink' => 1,
-                    'showPossibleLocalizationRecords' => 1,
-                    'showAllLocalizationLink' => 1
-                ],
+                'foreign_table_where' => 'AND tx_pxasurvey_domain_model_question.deleted=0',
+                'size' => 1,
+                'maxitems' => 1
             ],
         ],
-        'answer' => [
+        'answers' => [
             'exclude' => true,
-            'label' => 'LLL:EXT:pxa_survey/Resources/Private/Language/locallang_db.xlf:tx_pxasurvey_domain_model_useranswer.answer',
+            'label' => $ll . 'tx_pxasurvey_domain_model_useranswer.answers',
             'config' => [
-                'type' => 'inline',
-                'foreign_table' => 'tx_pxasurvey_domain_model_answer',
-                'minitems' => 0,
-                'maxitems' => 1,
-                'appearance' => [
-                    'collapseAll' => 0,
-                    'levelLinksPosition' => 'top',
-                    'showSynchronizationLink' => 1,
-                    'showPossibleLocalizationRecords' => 1,
-                    'showAllLocalizationLink' => 1
+                'type' => 'group',
+                'internal_type' => 'db',
+                'allowed' => 'tx_pxasurvey_domain_model_answer',
+                'fieldControl' => [
+                    'editPopup' => [
+                        'disabled' => true
+                    ],
+                    'addRecord' => [
+                        'disabled' => true
+                    ],
+                    'listModule' => [
+                        'disabled' => true
+                    ],
                 ],
             ],
         ],
-    
-    ],
+        'frontend_user' => [
+            'exclude' => true,
+            'label' => $ll . 'tx_pxasurvey_domain_model_useranswer.frontend_user',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'foreign_table' => 'fe_users',
+                'foreign_table_where' => 'AND fe_users.deleted=0'
+            ],
+        ]
+    ]
 ];

@@ -48,6 +48,16 @@ class Question extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $type = 0;
 
     /**
+     * @var bool
+     */
+    protected $appendWithInput = false;
+
+    /**
+     * @var bool
+     */
+    protected $required = false;
+
+    /**
      * answers
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Pixelant\PxaSurvey\Domain\Model\Answer>
@@ -117,6 +127,38 @@ class Question extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setType($type)
     {
         $this->type = $type;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAppendWithInput(): bool
+    {
+        return $this->appendWithInput;
+    }
+
+    /**
+     * @param bool $appendWithInput
+     */
+    public function setAppendWithInput(bool $appendWithInput)
+    {
+        $this->appendWithInput = $appendWithInput;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isRequired(): bool
+    {
+        return $this->required;
+    }
+
+    /**
+     * @param bool $required
+     */
+    public function setRequired(bool $required)
+    {
+        $this->required = $required;
     }
 
     /**
