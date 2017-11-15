@@ -25,6 +25,9 @@
             <trans-unit id="fe.error.required">
                 <source>This question is required to be answered.</source>
             </trans-unit>
+            <trans-unit id="fe.progress">
+                <source>Question %d of %d.</source>
+            </trans-unit>
         </body>
     </file>
 </xliff>

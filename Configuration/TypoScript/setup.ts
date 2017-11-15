@@ -49,3 +49,12 @@ module.tx_pxasurvey_web_pxasurveysurveyanalysis {
         }
     }
 }
+
+page {
+    includeJSFooterlibs {
+        pxa_survey = EXT:pxa_survey/Resources/Public/Js/Survey.js
+    }
+    includeJSFooter {
+        pxa_survey = EXT:pxa_survey/Resources/Public/Js/pxa_survey.js
+    }
+}

@@ -1,4 +1,5 @@
 <?php
+
 namespace Pixelant\PxaSurvey\Controller;
 
 /***
@@ -18,11 +19,13 @@ use Pixelant\PxaSurvey\Domain\Model\Survey;
 use Pixelant\PxaSurvey\Domain\Model\UserAnswer;
 use Pixelant\PxaSurvey\Utility\SurveyMainUtility;
 use TYPO3\CMS\Core\Utility\StringUtility;
+use TYPO3\CMS\Extbase\Domain\Model\FrontendUser;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
 /**
  * SurveyController
  */
-class SurveyController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+class SurveyController extends ActionController
 {
     /**
      * Survey Repository
@@ -69,7 +72,16 @@ class SurveyController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
         }
 
         if ($survey !== null && (int)$this->settings['showAllQuestions'] === 0) {
-            $this->view->assign('currentQuestion', $this->getNextQuestion($survey));
+            $currentQuestion = $this->getNextQuestion($survey);
+            $currentPosition = $survey->getQuestions()->getPosition($currentQuestion);
+            $countAllQuestions = $survey->getQuestions()->count();
+
+            $this->view->assignMultiple([
+                'currentQuestion' => $currentQuestion,
+                'currentPosition' => $currentPosition,
+                'countAllQuestions' => $countAllQuestions,
+                'progress' => round(($currentPosition - 1) / $countAllQuestions, 2) * 100
+            ]);
         }
 
         $this->view->assign('survey', $survey);
@@ -79,15 +91,21 @@ class SurveyController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
      * answer from user survey
      *
      * @param Survey $survey
+     * @param Question $currentQuestion
      * @validate $survey \Pixelant\PxaSurvey\Domain\Validation\Validator\SurveyAnswerValidator
      */
-    public function answerAction(Survey $survey)
+    public function answerAction(Survey $survey, Question $currentQuestion = null)
     {
         $answers = $this->convertRequestToUserAnswersArray();
 
         if ((int)$this->settings['showAllQuestions']) {
             $this->saveResultAndFinish($survey, $answers);
         } else {
+            // No answer given and question is not required
+            if (empty($answers) && $currentQuestion !== null) {
+                $answers = [$currentQuestion->getUid() => ''];
+            }
+
             SurveyMainUtility::addAnswerToSessionData($survey->getUid(), $answers);
 
             // Show next question
@@ -181,25 +199,54 @@ class SurveyController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
 
             /** @var UserAnswer $userAnswer */
             $userAnswer = $this->objectManager->get(UserAnswer::class);
-            $userAnswer->setQuestion($this->getQuestionFromSurveyByUid($survey, (int)$questionUid));
+            $userAnswer->setQuestion(
+                $this->getQuestionFromSurveyByUid($survey, (int)$questionUid)
+            );
 
-            // Check if answer is option object
-            if (is_string($answerData) && StringUtility::beginsWith($answerData, '__object--')) {
-                $answerUid = (int)substr($answerData, 9);
-                /** @var Answer $answer */
-                $answer = $this->answerRepository->findByUid($answerUid);
-                $userAnswer->setAnswer($answer);
+            if (is_string($answerData)) {
+                $this->setUserAnswerFromRequestData($userAnswer, $answerData);
             } elseif (is_array($answerData)) {
-
-            } else {
-                $userAnswer->setCustomValue($answerData);
+                foreach ($answerData as $answerSingleFromMultiple) {
+                    $this->setUserAnswerFromRequestData($userAnswer, $answerSingleFromMultiple);
+                }
             }
 
-            //if (SurveyMainUtility::)
+            if (SurveyMainUtility::getTSFE()->loginUser) {
+                /** @var FrontendUser $frontendUser */
+                $frontendUser = $this->frontendUserRepository->findByUid(
+                    SurveyMainUtility::getTSFE()->fe_user->user['uid']
+                );
+                if ($frontendUser !== null) {
+                    $userAnswer->setFrontendUser($frontendUser);
+                }
+            }
+
+            $this->userAnswerRepository->add($userAnswer);
         }
 
         SurveyMainUtility::clearAnswersSessionData($survey->getUid());
         $this->redirect('finish', null, null, ['survey' => $survey]);
+    }
+
+    /**
+     * Set data from user answer
+     *
+     * @param UserAnswer $userAnswer
+     * @param string $answerData
+     */
+    protected function setUserAnswerFromRequestData(UserAnswer $userAnswer, string $answerData)
+    {
+        // Check if answer is option object
+        if (StringUtility::beginsWith($answerData, '__object--')) {
+            $answerUid = (int)substr($answerData, 10);
+            /** @var Answer $answer */
+            $answer = $this->answerRepository->findByUid($answerUid);
+            if ($answer !== null) {
+                $userAnswer->addAnswer($answer);
+            }
+        } else {
+            $userAnswer->setCustomValue($answerData);
+        }
     }
 
     /**

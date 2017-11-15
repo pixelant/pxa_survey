@@ -11,7 +11,7 @@ call_user_func(
             ],
             // non-cacheable actions
             [
-                'Survey' => 'answer'
+                'Survey' => 'show, answer'
             ]
         );
 

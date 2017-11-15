@@ -5,7 +5,7 @@
 <f:for each="{question.answers}" as="answer">
     <div class="checkbox">
         <label>
-            <f:form.checkbox name="answers[{question.uid}][answer][]" value="__object--{answer.uid}" />
+            <f:form.checkbox name="answers[{question.uid}][answer]" multiple="1" value="__object--{answer.uid}" />
             {answer.text}
         </label>
     </div>

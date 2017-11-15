@@ -12,7 +12,7 @@
                 <f:format.html>{survey.description}</f:format.html>
             </f:if>
 
-            <f:form action="answer">
+            <f:form action="answer" name="pxa-survey">
                 <f:form.hidden name="survey" value="{survey.uid}"/>
                 <f:form.hidden name="showAllQuestions" value="{f:if(condition: settings.showAllQuestions, then: '1', else: '0')}"/>
 
@@ -25,9 +25,12 @@
                         <button type="submit" class="btn btn-default"><f:translate key="fe.send"/></button>
                     </f:then>
                     <f:else>
+                        <hr>
+                        <p><f:translate key="fe.progress" arguments="{0: currentPosition, 1: countAllQuestions}"/></p>
+                        <f:render partial="Survey/ProgressBar" arguments="{progress: progress, countAllQuestions: countAllQuestions, currentPosition: currentPosition}"/>
                         <f:render partial="Survey/Question" arguments="{question: currentQuestion}"/>
-                        <f:form.hidden name="currentQuestion" value="{currentQuestion.uid}"/>
 
+                        <f:form.hidden name="currentQuestion" value="{currentQuestion.uid}"/>
                         <button type="submit" class="btn btn-default"><f:translate key="fe.next"/></button>
                     </f:else>
                 </f:if>

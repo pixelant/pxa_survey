@@ -27,6 +27,12 @@ class ValidationResultsViewHelper extends AbstractViewHelper
         // @codingStandardsIgnoreEnd
     }
 
+    /**
+     * @param array $arguments
+     * @param \Closure $renderChildrenClosure
+     * @param RenderingContextInterface $renderingContext
+     * @return Result
+     */
     public static function renderStatic(
         array $arguments,
         \Closure $renderChildrenClosure,
