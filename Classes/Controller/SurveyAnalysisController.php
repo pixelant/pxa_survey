@@ -14,8 +14,11 @@ namespace Pixelant\PxaSurvey\Controller;
  *
  ***/
 
+use Pixelant\PxaSurvey\Domain\Model\Answer;
+use Pixelant\PxaSurvey\Domain\Model\Question;
 use Pixelant\PxaSurvey\Domain\Model\Survey;
-use Pixelant\PxaSurvey\ViewHelpers\Backend\TranslateViewHelper;
+use Pixelant\PxaSurvey\Domain\Model\UserAnswer;
+use Pixelant\PxaSurvey\ViewHelpers\Backend\TranslateViewHelper as Translate;
 use TYPO3\CMS\Backend\Template\Components\ButtonBar;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Backend\View\BackendTemplateView;
@@ -24,7 +27,6 @@ use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
-use TYPO3\CMS\Extbase\Mvc\Web\Routing\UriBuilder;
 use TYPO3\CMS\Lang\LanguageService;
 
 /**
@@ -56,6 +58,14 @@ class SurveyAnalysisController extends ActionController
     protected $surveyRepository = null;
 
     /**
+     * User Answer Repository
+     *
+     * @var \Pixelant\PxaSurvey\Domain\Repository\UserAnswerRepository
+     * @inject
+     */
+    protected $userAnswerRepository = null;
+
+    /**
      * Current page
      *
      * @var int
@@ -82,9 +92,96 @@ class SurveyAnalysisController extends ActionController
         $this->view->assign('surveys', $surveys ?? []);
     }
 
+    /**
+     * Display analysis for survey
+     *
+     * @param Survey $survey
+     */
     public function seeAnalysisAction(Survey $survey)
     {
+        $data = $this->generateAnalysisData($survey);
 
+        $this->view->assign('dataJson', json_encode($data));
+        $this->view->assign('data', $data);
+    }
+
+    /**
+     * Generate data for Charts.js
+     *
+     * @param Survey $survey
+     * @return array
+     */
+    protected function generateAnalysisData(Survey $survey): array
+    {
+        $data = [];
+
+        /** @var Question $question */
+        foreach ($survey->getQuestions() as $question) {
+            $questionData = [];
+            $allAnswersCount = 0;
+
+            /** @noinspection PhpUndefinedMethodInspection */
+            $userAnswers = $this->userAnswerRepository->findByQuestion($question);
+
+            /** @var UserAnswer $userAnswer */
+            foreach ($userAnswers as $userAnswer) {
+                // if check box or radio
+                if ($userAnswer->getAnswers()->count() > 0) {
+                    /** @var Answer $answer */
+                    foreach ($userAnswer->getAnswers() as $answer) {
+                        if (!is_array($questionData[$answer->getUid()])) {
+                            $questionData[$answer->getUid()] = [
+                                'label' => $answer->getText(),
+                                'count' => 1
+                            ];
+                        } else {
+                            $questionData[$answer->getUid()]['count'] += 1;
+                        }
+
+                        $allAnswersCount++;
+                    }
+                } elseif (!empty($userAnswer->getCustomValue())) { // custom value
+                    $identifier = GeneralUtility::shortMD5($userAnswer->getCustomValue());
+
+                    if (!is_array($questionData[$identifier])) {
+                        $questionData[$identifier] = [
+                            'label' => $userAnswer->getCustomValue(),
+                            'count' => 1
+                        ];
+                    } else {
+                        $questionData[$identifier]['count'] += 1;
+                    }
+
+                    $allAnswersCount++;
+                }
+            }
+
+            // add to data array
+            $data[$question->getUid()] = [
+                'questionData' => $this->calculatePercentsForQuestionData($questionData, $allAnswersCount),
+                'labelChart' => $this->translate('module.votes', [$allAnswersCount]),
+                'label' => $question->getText(),
+                'allAnswersCount' => $allAnswersCount
+            ];
+        }
+
+        return $data;
+    }
+
+    /**
+     * Count in percents user answers
+     *
+     * @param array $questionData
+     * @param int $allAnswersCount
+     * @return array
+     */
+    protected function calculatePercentsForQuestionData(array $questionData, int $allAnswersCount): array
+    {
+        foreach ($questionData as &$questionItem) {
+            $questionItem['percents'] = round($questionItem['count'] / $allAnswersCount, 2) * 100;
+        }
+
+        return $questionData;
     }
 
     /**
@@ -110,12 +207,10 @@ class SurveyAnalysisController extends ActionController
     {
         $iconFactory = GeneralUtility::makeInstance(IconFactory::class);
         $buttonBar = $this->view->getModuleTemplate()->getDocHeaderComponent()->getButtonBar();
-        /** @var LanguageService $lng */
-        $lng = $GLOBALS['LANG'];
 
         $button = $buttonBar->makeLinkButton()
             ->setHref($this->buildNewSurveyUrl())
-            ->setTitle($lng->sL(TranslateViewHelper::$LL . 'module.new_survey'))
+            ->setTitle($this->getLanguageService()->sL(Translate::$LL . 'module.new_survey'))
             ->setIcon($iconFactory->getIcon('actions-document-new', Icon::SIZE_SMALL));
 
         $buttonBar->addButton($button, ButtonBar::BUTTON_POSITION_LEFT);
@@ -134,5 +229,34 @@ class SurveyAnalysisController extends ActionController
         ]);
 
         return $url;
+    }
+
+    /**
+     * Translate function
+     *
+     * @param string $key
+     * @param array $arguments
+     * @return string
+     */
+    protected function translate(string $key, array $arguments): string
+    {
+        $label = $this->getLanguageService()->sL(Translate::$LL . $key);
+
+        if (!empty($arguments)) {
+            $label = vsprintf(
+                $label,
+                $arguments
+            );
+        }
+
+        return $label;
+    }
+
+    /**
+     * @return LanguageService
+     */
+    protected function getLanguageService(): LanguageService
+    {
+        return $GLOBALS['LANG'];
     }
 }

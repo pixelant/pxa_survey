@@ -13,9 +13,24 @@ namespace Pixelant\PxaSurvey\Domain\Repository;
  *
  ***/
 
+use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
+use TYPO3\CMS\Extbase\Persistence\Repository;
+
 /**
  * The repository for Surveys
  */
-class UserAnswerRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
+class UserAnswerRepository extends Repository
 {
+    /**
+     * Initialize object
+     */
+    public function initializeObject()
+    {
+        /** @var $defaultQuerySettings Typo3QuerySettings */
+        $defaultQuerySettings = $this->objectManager->get(Typo3QuerySettings::class);
+        // don't add the pid constraint
+        $defaultQuerySettings->setRespectStoragePage(false);
+
+        $this->setDefaultQuerySettings($defaultQuerySettings);
+    }
 }

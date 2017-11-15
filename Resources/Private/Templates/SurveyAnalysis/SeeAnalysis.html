@@ -1,0 +1,49 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:pxa="http://typo3.org/ns/Pixelant/PxaSurvey/ViewHelpers/Backend" data-namespace-typo3-fluid="true">
+
+    <f:layout name="Backend/Default" />
+
+    <f:section name="main">
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#bar" aria-controls="bar" role="tab" data-toggle="tab"><pxa:translate key="module.bar_chart"/></a></li>
+            <li role="presentation"><a href="#pie" aria-controls="Pie" role="tab" data-toggle="tab"><pxa:translate key="module.pie_chart"/></a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="bar">
+                <f:for each="{data}" key="questionUid" as="questionItem" iteration="i">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h2>{i.cycle}. {questionItem.label}</h2>
+                            <f:if condition="{questionItem.allAnswersCount} > 0">
+                                <f:then>
+                                    <p>
+                                        <h4><pxa:translate key="module.answers_given" arguments="{0: questionItem.allAnswersCount}"/></h4>
+                                    </p>
+                                </f:then>
+                                <f:else>
+                                    <p class="text-info">
+                                        <pxa:translate key="module.no_answers"/>
+                                    </p>
+                                </f:else>
+                            </f:if>
+                        </div>
+                        <div class="col-md-8">
+                            <canvas id="chart-bar-{questionUid}"></canvas>
+                        </div>
+                    </div>
+                </f:for>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="pie">
+                pie
+            </div>
+        </div>
+
+        <script>
+			require(['TYPO3/CMS/PxaSurvey/Backend/SurveyAnalysis'], function (SurveyAnalysis) {
+				var SurveyAnalysisInstance = SurveyAnalysis.getInstance(<f:format.htmlentitiesDecode>{dataJson}</f:format.htmlentitiesDecode>);
+
+				SurveyAnalysisInstance.init();
+			});
+        </script>
+    </f:section>
+</html>
