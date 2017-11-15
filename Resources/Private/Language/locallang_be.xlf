@@ -23,6 +23,36 @@
             <trans-unit id="plugin.description">
                 <source>Survey form output.</source>
             </trans-unit>
+
+            <!--MODULE:START-->
+            <trans-unit id="module.no_survey_found_title">
+                <source>No surveys found</source>
+            </trans-unit>
+            <trans-unit id="module.no_survey_found_desc">
+                <source>The current page does not contain any survey records. Select another page.</source>
+            </trans-unit>
+            <trans-unit id="module.header">
+                <source>Survey analysis</source>
+            </trans-unit>
+            <trans-unit id="module.survey_name">
+                <source>Survey name</source>
+            </trans-unit>
+            <trans-unit id="module.analysis">
+                <source>Analysis</source>
+            </trans-unit>
+            <trans-unit id="module.see_analysis">
+                <source>See analysis</source>
+            </trans-unit>
+            <trans-unit id="module.edit">
+                <source>Edit</source>
+            </trans-unit>
+            <trans-unit id="module.edit_survey">
+                <source>Edit survey</source>
+            </trans-unit>
+            <trans-unit id="module.new_survey">
+                <source>Create survey</source>
+            </trans-unit>
+            <!--MODULE:END-->
         </body>
     </file>
 </xliff>

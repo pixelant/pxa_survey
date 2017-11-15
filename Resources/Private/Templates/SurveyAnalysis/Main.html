@@ -1,0 +1,71 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:pxa="http://typo3.org/ns/Pixelant/PxaSurvey/ViewHelpers/Backend" data-namespace-typo3-fluid="true">
+
+<f:layout name="Backend/Default"/>
+
+<f:section name="main">
+    <h1>
+        <pxa:translate key="module.header"/>
+    </h1>
+    <f:if condition="{surveys -> f:count()}">
+        <f:then>
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th># UID</th>
+                    <th>
+                        <pxa:translate key="module.survey_name"/>
+                    </th>
+                    <th>
+                        <pxa:translate key="module.analysis"/>
+                    </th>
+                    <th>
+                        <pxa:translate key="module.edit"/>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <f:for each="{surveys}" as="survey">
+                    <tr>
+                        <th scope="row">{survey.uid}</th>
+                        <td>
+                            {survey.name}
+                        </td>
+                        <td>
+                            <f:link.action action="seeAnalysis" arguments="{survey: survey}">
+                                <pxa:translate key="module.see_analysis"/>
+                            </f:link.action>
+                        </td>
+                        <td>
+                            <a href="{pxa:recordEditUrl(uid: survey.uid)}" title="UID: {popup.uid}">
+                                <pxa:translate key="module.edit_survey"/>
+                            </a>
+                        </td>
+                    </tr>
+                </f:for>
+                </tbody>
+            </table>
+        </f:then>
+        <f:else>
+            <div class="callout callout-info">
+                <div class="media">
+                    <div class="media-left">
+						<span class="fa-stack fa-lg callout-icon"> <i class="fa fa-circle fa-stack-2x"></i>
+							<i class="fa fa-info fa-stack-1x"></i> </span>
+                    </div>
+                    <div class="media-body">
+                        <h4 class="callout-title">
+                            <pxa:translate key="module.no_survey_found_title"/>
+                        </h4>
+                        <div class="callout-body">
+                            <p>
+                                <pxa:translate key="module.no_survey_found_desc"/>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </f:else>
+    </f:if>
+</f:section>
+</html>

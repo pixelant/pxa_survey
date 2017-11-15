@@ -13,9 +13,25 @@ namespace Pixelant\PxaSurvey\Domain\Repository;
  *
  ***/
 
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
+use TYPO3\CMS\Extbase\Persistence\Repository;
+
 /**
  * The repository for Surveys
  */
-class SurveyRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
+class SurveyRepository extends Repository
 {
+    /**
+     * Find by storage
+     *
+     * @param int $pid
+     * @return QueryResultInterface
+     */
+    public function findByPid(int $pid): QueryResultInterface
+    {
+        $query = $this->createQuery();
+        $query->getQuerySettings()->setStoragePageIds([$pid]);
+
+        return $query->execute();
+    }
 }
