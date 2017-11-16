@@ -2,21 +2,14 @@
 
 namespace Pixelant\PxaSurvey\ViewHelpers\Backend;
 
+use Pixelant\PxaSurvey\Utility\SurveyMainUtility;
 use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3\CMS\Lang\LanguageService;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 class TranslateViewHelper extends AbstractViewHelper
 {
     use CompileWithRenderStatic;
-
-    /**
-     * Path to translation file
-     *
-     * @var string
-     */
-    public static $LL = 'LLL:EXT:pxa_survey/Resources/Private/Language/locallang_be.xlf:';
 
     /**
      * Initialize arguments
@@ -45,22 +38,6 @@ class TranslateViewHelper extends AbstractViewHelper
         $key = $arguments['key'];
         $arguments = $arguments['arguments'];
 
-        $label = self::getLanguageService()->sL(self::$LL . $key);
-        if (!empty($arguments)) {
-            $label = vsprintf(
-                $label,
-                $arguments
-            );
-        }
-
-        return $label;
-    }
-
-    /**
-     * @return LanguageService
-     */
-    protected static function getLanguageService(): LanguageService
-    {
-        return $GLOBALS['LANG'];
+        return SurveyMainUtility::translate($key, $arguments);
     }
 }

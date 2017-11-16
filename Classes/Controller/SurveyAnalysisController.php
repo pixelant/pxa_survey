@@ -17,7 +17,7 @@ use Pixelant\PxaSurvey\Domain\Model\Answer;
 use Pixelant\PxaSurvey\Domain\Model\Question;
 use Pixelant\PxaSurvey\Domain\Model\Survey;
 use Pixelant\PxaSurvey\Domain\Model\UserAnswer;
-use Pixelant\PxaSurvey\ViewHelpers\Backend\TranslateViewHelper as Translate;
+use Pixelant\PxaSurvey\Utility\SurveyMainUtility;
 use TYPO3\CMS\Backend\Template\Components\ButtonBar;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Backend\View\BackendTemplateView;
@@ -26,7 +26,6 @@ use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
-use TYPO3\CMS\Lang\LanguageService;
 
 /**
  * Class SurveyAnalysisController
@@ -158,7 +157,7 @@ class SurveyAnalysisController extends ActionController
             // add to data array
             $data[$question->getUid()] = [
                 'questionData' => $this->calculatePercentsForQuestionData($questionData, $allAnswersCount),
-                'labelChart' => $this->translate('module.percentages'),
+                'labelChart' => SurveyMainUtility::translate('module.percentages'),
                 'label' => $question->getText(),
                 'allAnswersCount' => $allAnswersCount
             ];
@@ -209,7 +208,7 @@ class SurveyAnalysisController extends ActionController
 
         $button = $buttonBar->makeLinkButton()
             ->setHref($this->buildNewSurveyUrl())
-            ->setTitle($this->getLanguageService()->sL(Translate::$LL . 'module.new_survey'))
+            ->setTitle(SurveyMainUtility::translate('module.new_survey'))
             ->setIcon($iconFactory->getIcon('actions-document-new', Icon::SIZE_SMALL));
 
         $buttonBar->addButton($button, ButtonBar::BUTTON_POSITION_LEFT);
@@ -228,34 +227,5 @@ class SurveyAnalysisController extends ActionController
         ]);
 
         return $url;
-    }
-
-    /**
-     * Translate function
-     *
-     * @param string $key
-     * @param array $arguments
-     * @return string
-     */
-    protected function translate(string $key, array $arguments = []): string
-    {
-        $label = $this->getLanguageService()->sL(Translate::$LL . $key);
-
-        if (!empty($arguments)) {
-            $label = vsprintf(
-                $label,
-                $arguments
-            );
-        }
-
-        return $label;
-    }
-
-    /**
-     * @return LanguageService
-     */
-    protected function getLanguageService(): LanguageService
-    {
-        return $GLOBALS['LANG'];
     }
 }

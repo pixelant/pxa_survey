@@ -3,6 +3,10 @@ defined('TYPO3_MODE') || die('Access denied.');
 
 call_user_func(
     function () {
+        // Registre hook for plugin preview
+        $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['cms/layout/class.tx_cms_layout.php']['list_type_Info']['pxasurvey_survey']['pxa_survey'] =
+            \Pixelant\PxaSurvey\Hooks\ListTypeInfoPreviewHook::class . '->getExtensionSummary';
+
         if (TYPO3_MODE === 'BE') {
             \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
                 'Pixelant.PxaSurvey',

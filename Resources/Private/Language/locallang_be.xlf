@@ -24,6 +24,24 @@
                 <source>Survey form output.</source>
             </trans-unit>
 
+            <!--Plugin BE View:START-->
+            <trans-unit id="extension_info.name">
+                <source>Simple survey</source>
+            </trans-unit>
+            <trans-unit id="extension_info.yes">
+                <source>Yes</source>
+            </trans-unit>
+            <trans-unit id="extension_info.no">
+                <source>No</source>
+            </trans-unit>
+            <trans-unit id="extension_info.survey">
+                <source>Survey</source>
+            </trans-unit>
+            <trans-unit id="extension_info.show_all">
+                <source>Show all question</source>
+            </trans-unit>
+            <!--Plugin BE View:END-->
+
             <!--MODULE:START-->
             <trans-unit id="module.no_survey_found_title">
                 <source>No surveys found</source>

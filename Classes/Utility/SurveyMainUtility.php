@@ -3,6 +3,7 @@
 namespace Pixelant\PxaSurvey\Utility;
 
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
+use TYPO3\CMS\Lang\LanguageService;
 
 /**
  * Main utility
@@ -13,6 +14,13 @@ class SurveyMainUtility
      * Store in session with such name
      */
     const SESSION_KEY = 'pxa_survey_answers';
+
+    /**
+     * Path to translation file
+     *
+     * @var string
+     */
+    public static $LL = 'LLL:EXT:pxa_survey/Resources/Private/Language/locallang_be.xlf:';
 
     /**
      * Extension configuration
@@ -89,6 +97,39 @@ class SurveyMainUtility
         }
 
         self::storeDataInSession($data);
+    }
+
+    /**
+     * Translate function
+     *
+     * @param string $key
+     * @param array $arguments
+     * @return string
+     */
+    public static function translate(string $key, array $arguments = []): string
+    {
+        if (TYPO3_MODE !== 'BE') {
+            return '';
+        }
+
+        $label = self::getLanguageService()->sL(self::$LL . $key);
+
+        if (!empty($arguments)) {
+            $label = vsprintf(
+                $label,
+                $arguments
+            );
+        }
+
+        return $label;
+    }
+
+    /**
+     * @return LanguageService
+     */
+    public static function getLanguageService(): LanguageService
+    {
+        return $GLOBALS['LANG'];
     }
 
     /**
