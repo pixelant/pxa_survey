@@ -9,7 +9,7 @@
     }
   ],
   "require": {
-    "typo3/cms-core": ">=7.6",
+    "typo3/cms-core": "^8.7",
     "php": ">=7.0"
   },
   "autoload": {
