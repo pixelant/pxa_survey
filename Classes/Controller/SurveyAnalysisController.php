@@ -104,6 +104,69 @@ class SurveyAnalysisController extends ActionController
     }
 
     /**
+     * Export data as csv file
+     *
+     * @param Survey $survey
+     */
+    public function exportCsvAction(Survey $survey)
+    {
+        $data = $this->generateAnalysisData($survey);
+
+        $lines = [
+            [$survey->getName() . ($survey->getTitle() ? (' (' . $survey->getTitle() . ')') : '')]
+        ];
+
+        foreach ($data as $questionData) {
+            $lines[] = []; // empty line
+            $lines[] = [$questionData['label']];
+
+
+            $lines[] = []; // empty line
+            $lines[] = [
+                SurveyMainUtility::translate('module.answers'),
+                SurveyMainUtility::translate('module.percentages'),
+                SurveyMainUtility::translate('module.count'),
+            ];
+
+            foreach ($questionData['questionData'] as $questionAnswerData) {
+                $lines[] = [
+                    $questionAnswerData['label'],
+                    $questionAnswerData['percents'] . ' %',
+                    $questionAnswerData['count']
+                ];
+            }
+            $lines[] = [
+                '',
+                '',
+                SurveyMainUtility::translate('module.total_answers', [$questionData['allAnswersCount']])
+            ];
+
+            $lines[] = []; // empty line
+        }
+
+        $fileName = str_replace(' ', '_', $survey->getName()) . '.csv';
+
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename=' . $fileName,
+            'Pragma' => 'no-cache',
+            'Expires' => '0'
+        ];
+        foreach ($headers as $header => $headerValue) {
+            $this->response->setHeader($header, $headerValue);
+        }
+        $this->response->sendHeaders();
+
+        $output = fopen('php://output', 'w');
+        foreach ($lines as $singleLine) {
+            fputcsv($output, $singleLine);
+        }
+        fclose($output);
+
+        exit(0);
+    }
+
+    /**
      * Generate data for Charts.js
      *
      * @param Survey $survey

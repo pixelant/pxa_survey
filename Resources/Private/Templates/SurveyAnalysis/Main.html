@@ -17,6 +17,9 @@
                         <pxa:translate key="module.survey_name"/>
                     </th>
                     <th>
+                        <pxa:translate key="module.export"/>
+                    </th>
+                    <th>
                         <pxa:translate key="module.analysis"/>
                     </th>
                     <th>
@@ -30,6 +33,11 @@
                         <th scope="row">{survey.uid}</th>
                         <td>
                             {survey.name}
+                        </td>
+                        <td>
+                            <f:link.action action="exportCsv" arguments="{survey: survey}">
+                                <pxa:translate key="module.export_survey_csv"/>
+                            </f:link.action>
                         </td>
                         <td>
                             <f:link.action action="seeAnalysis" arguments="{survey: survey}">

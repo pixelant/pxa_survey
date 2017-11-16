@@ -37,4 +37,4 @@
 
 * In "Web" section choose "Survey Analysis" module
 * Choose storage folder
-* Find your survey and check analysis Data 
+* Find your survey and check analysis Data or export in CSV

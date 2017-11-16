@@ -14,7 +14,7 @@ call_user_func(
                 'surveyanalysis', // Submodule key
                 '', // Position
                 [
-                    'SurveyAnalysis' => 'main, seeAnalysis',
+                    'SurveyAnalysis' => 'main, seeAnalysis, exportCsv',
 
                 ],
                 [

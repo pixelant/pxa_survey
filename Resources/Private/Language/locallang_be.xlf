@@ -73,6 +73,9 @@
             <trans-unit id="module.percentages">
                 <source>Percentages</source>
             </trans-unit>
+            <trans-unit id="module.count">
+                <source>Count</source>
+            </trans-unit>
             <trans-unit id="module.no_answers">
                 <source>No answers yet.</source>
             </trans-unit>
@@ -84,6 +87,15 @@
             </trans-unit>
             <trans-unit id="module.bar_chart">
                 <source>Bar chart view</source>
+            </trans-unit>
+            <trans-unit id="module.export">
+                <source>Export in CSV format</source>
+            </trans-unit>
+            <trans-unit id="module.export_survey_csv">
+                <source>Export survey</source>
+            </trans-unit>
+            <trans-unit id="module.answers">
+                <source>Answers</source>
             </trans-unit>
             <!--MODULE:END-->
         </body>
