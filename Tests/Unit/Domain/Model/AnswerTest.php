@@ -1,27 +1,35 @@
 <?php
 namespace Pixelant\PxaSurvey\Tests\Unit\Domain\Model;
 
+use Nimut\TestingFramework\TestCase\UnitTestCase;
+use Pixelant\PxaSurvey\Domain\Model\Answer;
+
 /**
  * Test case.
  *
  * @author Andriy Oprysko 
  */
-class AnswerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
+
+/**
+ * Class AnswerTest
+ * @package Pixelant\PxaSurvey\Tests\Unit\Domain\Model
+ */
+class AnswerTest extends UnitTestCase
 {
     /**
-     * @var \Pixelant\PxaSurvey\Domain\Model\Answer
+     * @var Answer
      */
     protected $subject = null;
 
     protected function setUp()
     {
         parent::setUp();
-        $this->subject = new \Pixelant\PxaSurvey\Domain\Model\Answer();
+        $this->subject = new Answer();
     }
 
     protected function tearDown()
     {
-        parent::tearDown();
+        unset($this->subject);
     }
 
     /**
@@ -29,7 +37,7 @@ class AnswerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function getTextReturnsInitialValueForString()
     {
-        self::assertSame(
+        $this->assertEquals(
             '',
             $this->subject->getText()
         );
@@ -40,12 +48,12 @@ class AnswerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function setTextForStringSetsText()
     {
-        $this->subject->setText('Conceived at T3CON10');
+        $text = 'text';
+        $this->subject->setText($text);
 
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'text',
-            $this->subject
+        $this->assertEquals(
+            $text,
+            $this->subject->getText()
         );
     }
 }

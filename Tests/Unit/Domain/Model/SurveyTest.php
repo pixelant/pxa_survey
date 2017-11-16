@@ -1,12 +1,22 @@
 <?php
+
 namespace Pixelant\PxaSurvey\Tests\Unit\Domain\Model;
+
+use Nimut\TestingFramework\TestCase\UnitTestCase;
+use Pixelant\PxaSurvey\Domain\Model\Question;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
  * Test case.
  *
- * @author Andriy Oprysko 
+ * @author Andriy Oprysko
  */
-class SurveyTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
+
+/**
+ * Class SurveyTest
+ * @package Pixelant\PxaSurvey\Tests\Unit\Domain\Model
+ */
+class SurveyTest extends UnitTestCase
 {
     /**
      * @var \Pixelant\PxaSurvey\Domain\Model\Survey
@@ -29,7 +39,7 @@ class SurveyTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function getNameReturnsInitialValueForString()
     {
-        self::assertSame(
+        $this->assertSame(
             '',
             $this->subject->getName()
         );
@@ -40,12 +50,12 @@ class SurveyTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function setNameForStringSetsName()
     {
-        $this->subject->setName('Conceived at T3CON10');
+        $name = 'name';
+        $this->subject->setName($name);
 
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'name',
-            $this->subject
+        $this->assertEquals(
+            $name,
+            $this->subject->getName()
         );
     }
 
@@ -54,7 +64,7 @@ class SurveyTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function getTitleReturnsInitialValueForString()
     {
-        self::assertSame(
+        $this->assertSame(
             '',
             $this->subject->getTitle()
         );
@@ -65,12 +75,12 @@ class SurveyTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function setTitleForStringSetsTitle()
     {
-        $this->subject->setTitle('Conceived at T3CON10');
+        $title = 'title';
+        $this->subject->setTitle($title);
 
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'title',
-            $this->subject
+        $this->assertEquals(
+            $title,
+            $this->subject->getTitle()
         );
     }
 
@@ -79,7 +89,7 @@ class SurveyTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function getDescriptionReturnsInitialValueForString()
     {
-        self::assertSame(
+        $this->assertSame(
             '',
             $this->subject->getDescription()
         );
@@ -90,12 +100,13 @@ class SurveyTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function setDescriptionForStringSetsDescription()
     {
-        $this->subject->setDescription('Conceived at T3CON10');
+        $description = 'description';
 
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'description',
-            $this->subject
+        $this->subject->setDescription($description);
+
+        $this->assertEquals(
+            $description,
+            $this->subject->getDescription()
         );
     }
 
@@ -104,8 +115,8 @@ class SurveyTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function getQuestionsReturnsInitialValueForQuestion()
     {
-        $newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-        self::assertEquals(
+        $newObjectStorage = new ObjectStorage();
+        $this->assertEquals(
             $newObjectStorage,
             $this->subject->getQuestions()
         );
@@ -116,12 +127,12 @@ class SurveyTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function setQuestionsForObjectStorageContainingQuestionSetsQuestions()
     {
-        $question = new \Pixelant\PxaSurvey\Domain\Model\Question();
-        $objectStorageHoldingExactlyOneQuestions = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $question = new Question();
+        $objectStorageHoldingExactlyOneQuestions = new ObjectStorage();
         $objectStorageHoldingExactlyOneQuestions->attach($question);
         $this->subject->setQuestions($objectStorageHoldingExactlyOneQuestions);
 
-        self::assertAttributeEquals(
+        $this->assertAttributeEquals(
             $objectStorageHoldingExactlyOneQuestions,
             'questions',
             $this->subject
@@ -133,13 +144,13 @@ class SurveyTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function addQuestionToObjectStorageHoldingQuestions()
     {
-        $question = new \Pixelant\PxaSurvey\Domain\Model\Question();
-        $questionsObjectStorageMock = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
+        $question = new Question();
+        $questionsObjectStorageMock = $this->getMockBuilder(ObjectStorage::class)
             ->setMethods(['attach'])
             ->disableOriginalConstructor()
             ->getMock();
 
-        $questionsObjectStorageMock->expects(self::once())->method('attach')->with(self::equalTo($question));
+        $questionsObjectStorageMock->expects($this->once())->method('attach')->with($this->equalTo($question));
         $this->inject($this->subject, 'questions', $questionsObjectStorageMock);
 
         $this->subject->addQuestion($question);
@@ -150,13 +161,13 @@ class SurveyTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function removeQuestionFromObjectStorageHoldingQuestions()
     {
-        $question = new \Pixelant\PxaSurvey\Domain\Model\Question();
-        $questionsObjectStorageMock = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
+        $question = new Question();
+        $questionsObjectStorageMock = $this->getMockBuilder(ObjectStorage::class)
             ->setMethods(['detach'])
             ->disableOriginalConstructor()
             ->getMock();
 
-        $questionsObjectStorageMock->expects(self::once())->method('detach')->with(self::equalTo($question));
+        $questionsObjectStorageMock->expects($this->once())->method('detach')->with($this->equalTo($question));
         $this->inject($this->subject, 'questions', $questionsObjectStorageMock);
 
         $this->subject->removeQuestion($question);

@@ -1,12 +1,22 @@
 <?php
+
 namespace Pixelant\PxaSurvey\Tests\Unit\Domain\Model;
+
+use Nimut\TestingFramework\TestCase\UnitTestCase;
+use Pixelant\PxaSurvey\Domain\Model\Answer;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
 
 /**
  * Test case.
  *
- * @author Andriy Oprysko 
+ * @author Andriy Oprysko
  */
-class QuestionTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
+
+/**
+ * Class QuestionTest
+ * @package Pixelant\PxaSurvey\Tests\Unit\Domain\Model
+ */
+class QuestionTest extends UnitTestCase
 {
     /**
      * @var \Pixelant\PxaSurvey\Domain\Model\Question
@@ -29,7 +39,7 @@ class QuestionTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function getTextReturnsInitialValueForString()
     {
-        self::assertSame(
+        $this->assertEquals(
             '',
             $this->subject->getText()
         );
@@ -40,12 +50,12 @@ class QuestionTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function setTextForStringSetsText()
     {
-        $this->subject->setText('Conceived at T3CON10');
+        $text = 'value';
+        $this->subject->setText($text);
 
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'text',
-            $this->subject
+        $this->assertEquals(
+            $text,
+            $this->subject->getText()
         );
     }
 
@@ -54,7 +64,7 @@ class QuestionTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function getTypeReturnsInitialValueForInt()
     {
-        self::assertSame(
+        $this->assertEquals(
             0,
             $this->subject->getType()
         );
@@ -67,10 +77,9 @@ class QuestionTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     {
         $this->subject->setType(12);
 
-        self::assertAttributeEquals(
+        $this->assertEquals(
             12,
-            'type',
-            $this->subject
+            $this->subject->getType()
         );
     }
 
@@ -79,8 +88,8 @@ class QuestionTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function getAnswersReturnsInitialValueForAnswer()
     {
-        $newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-        self::assertEquals(
+        $newObjectStorage = new ObjectStorage();
+        $this->assertEquals(
             $newObjectStorage,
             $this->subject->getAnswers()
         );
@@ -91,15 +100,14 @@ class QuestionTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function setAnswersForObjectStorageContainingAnswerSetsAnswers()
     {
-        $answer = new \Pixelant\PxaSurvey\Domain\Model\Answer();
-        $objectStorageHoldingExactlyOneAnswers = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $answer = new Answer();
+        $objectStorageHoldingExactlyOneAnswers = new ObjectStorage();
         $objectStorageHoldingExactlyOneAnswers->attach($answer);
         $this->subject->setAnswers($objectStorageHoldingExactlyOneAnswers);
 
-        self::assertAttributeEquals(
+        $this->assertSame(
             $objectStorageHoldingExactlyOneAnswers,
-            'answers',
-            $this->subject
+            $this->subject->getAnswers()
         );
     }
 
@@ -108,13 +116,13 @@ class QuestionTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function addAnswerToObjectStorageHoldingAnswers()
     {
-        $answer = new \Pixelant\PxaSurvey\Domain\Model\Answer();
-        $answersObjectStorageMock = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
+        $answer = new Answer();
+        $answersObjectStorageMock = $this->getMockBuilder(ObjectStorage::class)
             ->setMethods(['attach'])
             ->disableOriginalConstructor()
             ->getMock();
 
-        $answersObjectStorageMock->expects(self::once())->method('attach')->with(self::equalTo($answer));
+        $answersObjectStorageMock->expects($this->once())->method('attach')->with($this->equalTo($answer));
         $this->inject($this->subject, 'answers', $answersObjectStorageMock);
 
         $this->subject->addAnswer($answer);
@@ -125,13 +133,13 @@ class QuestionTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function removeAnswerFromObjectStorageHoldingAnswers()
     {
-        $answer = new \Pixelant\PxaSurvey\Domain\Model\Answer();
-        $answersObjectStorageMock = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
+        $answer = new Answer();
+        $answersObjectStorageMock = $this->getMockBuilder(ObjectStorage::class)
             ->setMethods(['detach'])
             ->disableOriginalConstructor()
             ->getMock();
 
-        $answersObjectStorageMock->expects(self::once())->method('detach')->with(self::equalTo($answer));
+        $answersObjectStorageMock->expects($this->once())->method('detach')->with($this->equalTo($answer));
         $this->inject($this->subject, 'answers', $answersObjectStorageMock);
 
         $this->subject->removeAnswer($answer);
