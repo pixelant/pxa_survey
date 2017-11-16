@@ -1,0 +1,30 @@
+.bs-callout-info {
+    padding: 20px;
+    margin: 20px 0;
+    border: 1px solid #eee;
+    border-left-width: 5px;
+    border-radius: 3px;
+    border-left-color: #1b809e;
+}
+
+.bs-callout-info h4 {
+    color: #1b809e;
+    margin-top: 0;
+    margin-bottom: 5px;
+    font-size: 18px;
+}
+
+.bs-callout-info p {
+    margin-bottom: 0;
+    font-size: 14px;
+}
+
+.divider-hr {
+    margin: 5px 0;
+    background: #ccc;
+}
+
+.answers-list {
+    padding-left: 15px;
+    margin-top: 15px;
+}

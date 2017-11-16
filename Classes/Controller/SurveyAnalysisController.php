@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Pixelant\PxaSurvey\Controller;
 
 /***
@@ -159,7 +158,7 @@ class SurveyAnalysisController extends ActionController
             // add to data array
             $data[$question->getUid()] = [
                 'questionData' => $this->calculatePercentsForQuestionData($questionData, $allAnswersCount),
-                'labelChart' => $this->translate('module.votes', [$allAnswersCount]),
+                'labelChart' => $this->translate('module.percentages'),
                 'label' => $question->getText(),
                 'allAnswersCount' => $allAnswersCount
             ];
@@ -178,7 +177,7 @@ class SurveyAnalysisController extends ActionController
     protected function calculatePercentsForQuestionData(array $questionData, int $allAnswersCount): array
     {
         foreach ($questionData as &$questionItem) {
-            $questionItem['percents'] = round($questionItem['count'] / $allAnswersCount, 2) * 100;
+            $questionItem['percents'] = round($questionItem['count'] / $allAnswersCount, 3) * 100;
         }
 
         return $questionData;
@@ -238,7 +237,7 @@ class SurveyAnalysisController extends ActionController
      * @param array $arguments
      * @return string
      */
-    protected function translate(string $key, array $arguments): string
+    protected function translate(string $key, array $arguments = []): string
     {
         $label = $this->getLanguageService()->sL(Translate::$LL . $key);
 

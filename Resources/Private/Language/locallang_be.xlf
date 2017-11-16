@@ -52,19 +52,19 @@
             <trans-unit id="module.new_survey">
                 <source>Create survey</source>
             </trans-unit>
-            <trans-unit id="module.votes">
-                <source>Votes - %d</source>
+            <trans-unit id="module.percentages">
+                <source>Percentages</source>
             </trans-unit>
             <trans-unit id="module.no_answers">
                 <source>No answers yet.</source>
             </trans-unit>
-            <trans-unit id="module.answers_given">
-                <source>%d - answers</source>
+            <trans-unit id="module.total_answers">
+                <source>Total answers - %d.</source>
             </trans-unit>
-            <trans-unit id="pie_chart">
+            <trans-unit id="module.pie_chart">
                 <source>Pie chart view</source>
             </trans-unit>
-            <trans-unit id="bar_chart">
+            <trans-unit id="module.bar_chart">
                 <source>Bar chart view</source>
             </trans-unit>
             <!--MODULE:END-->

@@ -180,7 +180,7 @@ CREATE TABLE tx_pxasurvey_domain_model_useranswer (
 #
 CREATE TABLE tx_pxasurvey_domain_model_question (
 
-	survey int(11) unsigned DEFAULT '0' NOT NULL,
+	survey int(11) unsigned DEFAULT '0' NOT NULL
 
 );
 
@@ -189,6 +189,6 @@ CREATE TABLE tx_pxasurvey_domain_model_question (
 #
 CREATE TABLE tx_pxasurvey_domain_model_answer (
 
-	question int(11) unsigned DEFAULT '0' NOT NULL,
+	question int(11) unsigned DEFAULT '0' NOT NULL
 
 );

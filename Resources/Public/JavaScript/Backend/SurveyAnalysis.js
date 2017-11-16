@@ -1,5 +1,5 @@
 /**
- * Survey analisys
+ * Survey analysis
  */
 define(['jquery', 'TYPO3/CMS/PxaSurvey/Backend/Chart.min'], function ($, Chart) {
 	'use strict';
@@ -20,8 +20,38 @@ define(['jquery', 'TYPO3/CMS/PxaSurvey/Backend/Chart.min'], function ($, Chart) 
 		 * @private
 		 */
 		var _staticData = {
-			chartBarPrefix: 'chart-bar-',
-			chartPiePrefix: 'chart-pie-'
+			bar: 'chart-bar-',
+			pie: 'chart-pie-'
+		};
+
+		/**
+		 * Available types
+		 *
+		 * @type array
+		 * @private
+		 */
+		var _chartTypes = ['bar', 'pie'];
+
+		/**
+		 * Default chart options
+		 *
+		 * @type object
+		 * @private
+		 */
+		var _defaultChartOptions = {
+			bar: {
+				scales: {
+					yAxes: [{
+						ticks: {
+							min: 0,
+							max: 100,
+							callback: function (value) {
+								return value + '%';
+							}
+						}
+					}]
+				}
+			}
 		};
 
 		/**
@@ -46,51 +76,62 @@ define(['jquery', 'TYPO3/CMS/PxaSurvey/Backend/Chart.min'], function ($, Chart) 
 			 * Start everything
 			 */
 			function init() {
-				console.log(data);
 				for (var questionID in data) {
 					if (!data.hasOwnProperty(questionID) || data[questionID].allAnswersCount <= 0) {
 						continue;
 					}
 
-					var chart = document.getElementById(_getFromStaticData('chartBarPrefix') + questionID);
-					if (chart !== null) {
-						var ctx = chart.getContext('2d');
+					for (var i = 0; i < _chartTypes.length; i++) {
+						var type = _chartTypes[i],
+							chart = document.getElementById(_getFromStaticData(type) + questionID);
 
-						var chartInstance = new Chart(ctx, {
-							type: 'bar',
-							data: {
-								labels: _getChartPropertyData(data[questionID].questionData, 'label'),
-								datasets: [{
-									label: data[questionID].labelChart,
-									backgroundColor: palette('tol', _size(data[questionID].questionData)).map(function (hex) {
-										return '#' + hex;
-									}),
-									/*borderColor: data.map(function (item) {
-										return _intToRgb(item, '1');
-									}),*/
-									data: _getChartPropertyData(data[questionID].questionData, 'percents')
-								}]
-							},
+						if (chart !== null) {
+							var ctx = chart.getContext('2d');
 
-							// Configuration options go here
-							options: {
-								scales: {
-									yAxes: [{
-										ticks: {
-											min: 0,
-											max: 100,
-											callback: function(value){return value+ "%"}
-										},
-										scaleLabel: {
-											display: true,
-											labelString: "Percentage"
-										}
-									}]
-								}
-							}
-						});
+							_chartsInstances[_getFromStaticData(type) + questionID] = _createChart(ctx, data[questionID], type);
+						}
 					}
 				}
+			}
+
+			/**
+			 * Create chart
+			 *
+			 * @param ctx
+			 * @param data
+			 * @param type
+			 * @private
+			 */
+			function _createChart(ctx, data, type) {
+				var colorsRgb = palette('tol', _size(data.questionData)).map(function (hex) {
+					var bigint = parseInt(hex, 16);
+					var r = (bigint >> 16) & 255;
+					var g = (bigint >> 8) & 255;
+					var b = bigint & 255;
+
+					return r + ',' + g + ',' + b;
+				});
+
+				return new Chart(ctx, {
+					type: type,
+					data: {
+						labels: _getChartPropertyData(data.questionData, 'label'),
+						datasets: [{
+							label: data.labelChart,
+							backgroundColor: colorsRgb.map(function (rgb) {
+								return 'rgba(' + rgb + ', 0.2)';
+							}),
+							borderColor: colorsRgb.map(function (rgb) {
+								return 'rgba(' + rgb + ',1)';
+							}),
+							borderWidth: 1,
+							data: _getChartPropertyData(data.questionData, 'percents')
+						}]
+					},
+
+					// Configuration options go here
+					options: _getChartOptions(type)
+				});
 			}
 
 			/**
@@ -113,6 +154,16 @@ define(['jquery', 'TYPO3/CMS/PxaSurvey/Backend/Chart.min'], function ($, Chart) 
 				}
 
 				return data;
+			}
+
+			/**
+			 * Options of chart
+			 *
+			 * @return {Object}
+			 * @private
+			 */
+			function _getChartOptions(type) {
+				return _defaultChartOptions[type] || {};
 			}
 
 			/**
