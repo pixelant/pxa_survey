@@ -47,7 +47,7 @@ class ValidationResultsViewHelper extends AbstractViewHelper
             ->getRequest()
             ->getOriginalRequestMappingResults();
 
-        if ($validationResults !== null && $for !== '') {
+        if ($validationResults !== null) {
             $validationResults = $validationResults->forProperty($for);
         }
 

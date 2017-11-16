@@ -153,8 +153,10 @@ class SurveyAnalysisController extends ActionController
             'Expires' => '0'
         ];
         foreach ($headers as $header => $headerValue) {
+            /** @noinspection PhpUndefinedMethodInspection */
             $this->response->setHeader($header, $headerValue);
         }
+        /** @noinspection PhpUndefinedMethodInspection */
         $this->response->sendHeaders();
 
         $output = fopen('php://output', 'w');
