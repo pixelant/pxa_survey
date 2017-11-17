@@ -49,15 +49,11 @@ Simple Survey
 	**Table of Contents**
 
 .. toctree::
-	:maxdepth: 3
+	:maxdepth: 5
 	:titlesonly:
+    	:glob:
 
-	Introduction/Index
-	User/Index
-	Administrator/Index
-	Configuration/Index
-	Developer/Index
-	KnownProblems/Index
-	ToDoList/Index
-	ChangeLog/Index
-	Links
+    	Introduction/Index
+    	EditorManual/Index
+    	AdministratorManual/Index
+        BackendModuleManual/Index
