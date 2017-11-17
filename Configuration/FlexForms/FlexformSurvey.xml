@@ -43,7 +43,6 @@
                             <type>text</type>
                             <cols>40</cols>
                             <rows>15</rows>
-                            <eval>trim</eval>
                             <enableRichtext>1</enableRichtext>
                         </config>
                     </settings.thanksMessage>

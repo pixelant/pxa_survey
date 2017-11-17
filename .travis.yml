@@ -1,0 +1,41 @@
+language: php
+
+dist: precise
+
+matrix:
+  include:
+    - php: 7.1
+    - php: 7.0
+
+addons:
+  apt:
+    packages:
+      - parallel
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+
+sudo: false
+
+before_install:
+  - phpenv config-rm xdebug.ini
+  - composer self-update
+  - composer --version
+  - composer install --prefer-dist
+
+before_script:
+  - export TYPO3_PATH_WEB=$PWD/.Build/Web
+
+script:
+
+  - >
+    echo;
+    echo "Running PHP codesniffer";
+    .Build/bin/phpcs --standard=PSR2 --extensions=php --ignore=*./Tests/* --ignore=*./Configuration/* --ignore=*./.Build/* .
+    .Build/bin/phpcs -n --standard=PSR2 --extensions=php --ignore=*./Tests/* --ignore=*./Classes/* --ignore=*./.Build/* .
+
+  - >
+    echo;
+    echo "Running unit tests";
+    .Build/bin/phpunit -c Tests/Build/UnitTests.xml;
