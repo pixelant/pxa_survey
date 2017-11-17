@@ -199,6 +199,88 @@ class SurveyControllerTest extends UnitTestCase
     }
 
     /**
+     * @test
+     */
+    public function getNextActionFirstTimeReturnFirstQuestion()
+    {
+        $subject = $this->getAccessibleMock(
+            SurveyController::class,
+            ['redirect', 'forward', 'addFlashMessage', 'getQuestionFromSurveyByUid', 'setUserAnswerFromRequestData'],
+            [],
+            '',
+            false
+        );
+
+        $mockedFeUserAuth = $this->createPartialMock(FrontendUserAuthentication::class, ['getKey', 'setKey']);
+
+        $mockedTSFE = $this->getAccessibleMock(TypoScriptFrontendController::class, [], [], '', false);
+        $mockedTSFE->fe_user = $mockedFeUserAuth;
+        $GLOBALS['TSFE'] = $mockedTSFE;
+
+        $mockedFeUserAuth->expects($this->once())->method('getKey')->willReturn([]);
+
+        $survey = new Survey();
+        $survey->_setProperty('uid', 1);
+        $question1 = new Question();
+        $question2 = new Question();
+
+        $survey->addQuestion($question1);
+        $survey->addQuestion($question2);
+
+        $this->assertSame(
+            $question1,
+            $subject->_call('getNextQuestion', $survey)
+        );
+
+        unset($GLOBALS['TSFE']);
+    }
+
+    /**
+     * @test
+     */
+    public function getNextActionWillReturnNextQuestion()
+    {
+        $subject = $this->getAccessibleMock(
+            SurveyController::class,
+            ['redirect', 'forward', 'addFlashMessage', 'getQuestionFromSurveyByUid', 'setUserAnswerFromRequestData'],
+            [],
+            '',
+            false
+        );
+
+        $mockedFeUserAuth = $this->createPartialMock(FrontendUserAuthentication::class, ['getKey', 'setKey']);
+
+        $mockedTSFE = $this->getAccessibleMock(TypoScriptFrontendController::class, [], [], '', false);
+        $mockedTSFE->fe_user = $mockedFeUserAuth;
+        $GLOBALS['TSFE'] = $mockedTSFE;
+
+        $answerData = [
+            1 => [
+                12 => 'test'
+            ]
+        ];
+
+        $mockedFeUserAuth->expects($this->once())->method('getKey')->willReturn($answerData);
+
+        $survey = new Survey();
+        $survey->_setProperty('uid', 1);
+        $question1 = new Question();
+        $question1->_setProperty('uid', 12);
+
+        $question2 = new Question();
+
+        $survey->addQuestion($question1);
+        $survey->addQuestion($question2);
+
+        $this->assertSame(
+            $question2,
+            $subject->_call('getNextQuestion', $survey)
+        );
+
+        unset($GLOBALS['TSFE']);
+    }
+
+    /**
      * Data provider
      *
      * @return array
