@@ -2,7 +2,14 @@
 
     <f:layout name="Default" />
 
-    <f:section name="main">
-        <h5>Thank you .!</h5>
+    <f:section name="main"><f:debug>{_all}</f:debug>
+        <f:if condition="{settings.thanksMessage}">
+            <f:then>
+                <f:format.html>{settings.thanksMessage}</f:format.html>
+            </f:then>
+            <f:else>
+                <h5><f:translate key="fe.thanks_message"/></h5>
+            </f:else>
+        </f:if>
     </f:section>
 </html>

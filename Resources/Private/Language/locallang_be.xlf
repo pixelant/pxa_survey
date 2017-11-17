@@ -16,6 +16,9 @@
             <trans-unit id="flexform.show_all_questions">
                 <source>Show all questions at once</source>
             </trans-unit>
+            <trans-unit id="thanks_message">
+                <source>Message displayed when survey is finished</source>
+            </trans-unit>
 
             <trans-unit id="plugin.name">
                 <source>Simple survey</source>

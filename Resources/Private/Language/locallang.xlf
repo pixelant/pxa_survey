@@ -28,6 +28,9 @@
             <trans-unit id="fe.progress">
                 <source>Question %d of %d.</source>
             </trans-unit>
+            <trans-unit id="fe.thanks_message">
+                <source>Thank you for your participation.</source>
+            </trans-unit>
         </body>
     </file>
 </xliff>

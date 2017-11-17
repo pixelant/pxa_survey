@@ -31,6 +31,7 @@
 * Add new content element, go to "Plugins" tab and choose "Simple survey"
     * Choose survey from storage
     * Mark checkbox in case you want to show all questions at once
+    * Add message displayed when user has finished survey
 
 
 ### Module usage
