@@ -241,7 +241,7 @@ class SurveyAnalysisController extends ActionController
     protected function calculatePercentsForQuestionData(array $questionData, int $allAnswersCount): array
     {
         foreach ($questionData as &$questionItem) {
-            $questionItem['percents'] = round($questionItem['count'] / $allAnswersCount, 3) * 100;
+            $questionItem['percents'] = (string)(round($questionItem['count'] / $allAnswersCount, 3) * 100);
         }
 
         return $questionData;
