@@ -18,6 +18,7 @@ use Pixelant\PxaSurvey\Domain\Model\Question;
 use Pixelant\PxaSurvey\Domain\Model\Survey;
 use Pixelant\PxaSurvey\Domain\Model\UserAnswer;
 use Pixelant\PxaSurvey\Utility\SurveyMainUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\StringUtility;
 use TYPO3\CMS\Extbase\Domain\Model\FrontendUser;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
@@ -71,6 +72,10 @@ class SurveyController extends ActionController
             $survey = $this->surveyRepository->findByUid($surveyUid);
         }
 
+        if ($survey !== null && !$this->isSurveyAllowed($survey)) {
+            $this->forward('finish', null, null, ['survey' => $survey, 'alreadyFinished' => true]);
+        }
+
         if ($survey !== null && (int)$this->settings['showAllQuestions'] === 0) {
             $currentQuestion = $this->getNextQuestion($survey);
             $currentPosition = $survey->getQuestions()->getPosition($currentQuestion);
@@ -117,10 +122,13 @@ class SurveyController extends ActionController
      * After survey was finished
      *
      * @param Survey $survey
+     * @param bool $alreadyFinished User already finished this survey and is not allowed take it again
      */
-    public function finishAction(Survey $survey)
+    public function finishAction(Survey $survey, bool $alreadyFinished = false)
     {
-        $this->view->assign('survey', $survey);
+        $this->view
+            ->assign('survey', $survey)
+            ->assign('alreadyFinished', $alreadyFinished);
     }
 
     /**
@@ -225,7 +233,19 @@ class SurveyController extends ActionController
         }
 
         SurveyMainUtility::clearAnswersSessionData($survey->getUid());
+        $this->addSurveyToCookie($survey);
+
         $this->redirect('finish', null, null, ['survey' => $survey]);
+    }
+
+    /**
+     * Wrapper function for testing
+     *
+     * @param Survey $survey
+     */
+    protected function addSurveyToCookie(Survey $survey)
+    {
+        SurveyMainUtility::addValueToListCookie(SurveyMainUtility::SURVEY_FINISHED_COOKIE_NAME, $survey->getUid());
     }
 
     /**
@@ -266,5 +286,36 @@ class SurveyController extends ActionController
         }
 
         return null;
+    }
+
+    /**
+     * Check if user can take survey
+     *
+     * @param Survey $survey
+     * @return bool
+     */
+    protected function isSurveyAllowed(Survey $survey): bool
+    {
+        if ((int)$this->settings['allowMultipleAnswerOnSurvey'] === 1) {
+            return true;
+        }
+
+        // Check by fe user
+        if (SurveyMainUtility::getTSFE()->loginUser) {
+            /** @var FrontendUser $frontendUser */
+            $frontendUser = $this->frontendUserRepository->findByUid(
+                SurveyMainUtility::getTSFE()->fe_user->user['uid']
+            );
+            $frontendUserAnswers = $this->userAnswerRepository->countGivenUserAnswer($survey, $frontendUser);
+            $countQuestions = $survey->getQuestions()->count();
+
+            if ($countQuestions > 0 && $frontendUserAnswers >= $countQuestions) {
+                return false;
+            }
+        }
+
+        // check by cookie
+        $surveysFinished = $_COOKIE[SurveyMainUtility::SURVEY_FINISHED_COOKIE_NAME] ?? '';
+        return !GeneralUtility::inList($surveysFinished, $survey->getUid());
     }
 }

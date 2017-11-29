@@ -2,6 +2,7 @@
 
 namespace Pixelant\PxaSurvey\Utility;
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use TYPO3\CMS\Lang\LanguageService;
 
@@ -14,6 +15,11 @@ class SurveyMainUtility
      * Store in session with such name
      */
     const SESSION_KEY = 'pxa_survey_answers';
+
+    /**
+     * Name of cookie that keep list of finished surveys
+     */
+    const SURVEY_FINISHED_COOKIE_NAME = 'pxa_survey_finished';
 
     /**
      * Path to translation file
@@ -122,6 +128,31 @@ class SurveyMainUtility
         }
 
         return $label;
+    }
+
+    /**
+     * Add value to cookie list
+     *
+     * @param string $name
+     * @param int $value
+     */
+    public static function addValueToListCookie(string $name, int $value)
+    {
+        $cookie = array_key_exists($name, $_COOKIE)
+            ? GeneralUtility::intExplode(',', $_COOKIE[$name], true)
+            : [];
+
+        // If not in array yet
+        if (!in_array($value, $cookie, true)) {
+            $cookie[] = $value;
+        }
+
+        setcookie(
+            $name,
+            implode(',', $cookie),
+            0,
+            '/'
+        );
     }
 
     /**

@@ -43,7 +43,6 @@ class ListTypeInfoPreviewHook
 
             $settings = $flexformData['data']['sDEF']['lDEF'];
             $surveyUid = (int)$settings['settings.survey']['vDEF'];
-            $showAllQuestions = (int)$settings['settings.showAllQuestions']['vDEF'] ? 'yes' : 'no';
 
             $surveyRow = BackendUtility::getRecord(
                 'tx_pxasurvey_domain_model_survey',
@@ -59,11 +58,20 @@ class ListTypeInfoPreviewHook
                 );
             }
 
-            $additionalInfo .= sprintf(
-                '<b>%s</b>: %s<br>',
-                SurveyMainUtility::translate('extension_info.show_all'),
-                SurveyMainUtility::translate('extension_info.' . $showAllQuestions)
-            );
+            $checkboxes = [
+                'show_all' => 'showAllQuestions',
+                'multiple_participation' => 'allowMultipleAnswerOnSurvey'
+            ];
+            foreach ($checkboxes as $translationKey => $checkbox) {
+                $label = (int)$settings['settings.' . $checkbox]['vDEF'] ? 'yes' : 'no';
+
+                $additionalInfo .= sprintf(
+                    '<b>%s</b>: %s<br>',
+                    SurveyMainUtility::translate('extension_info.' . $translationKey),
+                    SurveyMainUtility::translate('extension_info.' . $label)
+                );
+            }
+
         }
 
         return $header . (isset($additionalInfo) ? '<br><pre>' . $additionalInfo . '</pre>' : '');

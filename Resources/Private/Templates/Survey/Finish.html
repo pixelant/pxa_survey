@@ -3,12 +3,26 @@
     <f:layout name="Default" />
 
     <f:section name="main">
-        <f:if condition="{settings.thanksMessage}">
+        <f:if condition="{alreadyFinished}">
             <f:then>
-                <f:format.html>{settings.thanksMessage}</f:format.html>
+                <f:if condition="{settings.alreadyFinishedMessage}">
+                    <f:then>
+                        <f:format.html>{settings.alreadyFinishedMessage}</f:format.html>
+                    </f:then>
+                    <f:else>
+                        <h5><f:translate key="fe.already_finished"/></h5>
+                    </f:else>
+                </f:if>
             </f:then>
             <f:else>
-                <h5><f:translate key="fe.thanks_message"/></h5>
+                <f:if condition="{settings.thanksMessage}">
+                    <f:then>
+                        <f:format.html>{settings.thanksMessage}</f:format.html>
+                    </f:then>
+                    <f:else>
+                        <h5><f:translate key="fe.thanks_message"/></h5>
+                    </f:else>
+                </f:if>
             </f:else>
         </f:if>
     </f:section>

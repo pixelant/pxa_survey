@@ -10,6 +10,8 @@ use Pixelant\PxaSurvey\Domain\Model\Survey;
 use Pixelant\PxaSurvey\Domain\Model\UserAnswer;
 use Pixelant\PxaSurvey\Domain\Repository\AnswerRepository;
 use Pixelant\PxaSurvey\Domain\Repository\UserAnswerRepository;
+use Pixelant\PxaSurvey\Utility\SurveyMainUtility;
+use TYPO3\CMS\Extbase\Domain\Model\FrontendUser;
 use TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository;
 use TYPO3\CMS\Extbase\Mvc\Request;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
@@ -107,7 +109,7 @@ class SurveyControllerTest extends UnitTestCase
     {
         $subject = $this->getAccessibleMock(
             SurveyController::class,
-            ['redirect', 'forward', 'addFlashMessage', 'getQuestionFromSurveyByUid', 'setUserAnswerFromRequestData'],
+            ['redirect', 'forward', 'addFlashMessage', 'getQuestionFromSurveyByUid', 'setUserAnswerFromRequestData', 'addSurveyToCookie'],
             [],
             '',
             false
@@ -148,6 +150,7 @@ class SurveyControllerTest extends UnitTestCase
             $subject->expects($this->once())->method('setUserAnswerFromRequestData');
         }
         $subject->expects($this->once())->method('redirect')->with('finish', null, null, ['survey' => $survey]);
+        $subject->expects($this->once())->method('addSurveyToCookie')->with($survey);
 
         $subject->_call('saveResultAndFinish', $survey, $answerData);
 
@@ -275,6 +278,144 @@ class SurveyControllerTest extends UnitTestCase
         $this->assertSame(
             $question2,
             $subject->_call('getNextQuestion', $survey)
+        );
+
+        unset($GLOBALS['TSFE']);
+    }
+
+    /**
+     * @test
+     */
+    public function surveyIsNotAllowedIfUserAnswerCountEqualsQuestionCount()
+    {
+        $subject = $this->getAccessibleMock(
+            SurveyController::class,
+            ['dummy'],
+            [],
+            '',
+            false
+        );
+
+        $mockedTSFE = $this->createMock(TypoScriptFrontendController::class);
+        $feUser = new FrontendUser();
+
+        $mockedTSFE->loginUser = true;
+        $GLOBALS['TSFE'] = $mockedTSFE;
+
+        $mockedFrontendUserRepository = $this->createPartialMock(FrontendUserRepository::class, ['findByUid']);
+        $mockedFrontendUserRepository->expects($this->once())->method('findByUid')->willReturn($feUser);
+
+        $mockedUserAnswerRepository = $this->createPartialMock(UserAnswerRepository::class, ['countGivenUserAnswer']);
+        $mockedUserAnswerRepository->expects($this->once())->method('countGivenUserAnswer')->willReturn(2);
+
+        $subject->_set('frontendUserRepository', $mockedFrontendUserRepository);
+        $subject->_set('userAnswerRepository', $mockedUserAnswerRepository);
+
+        $survey = new Survey();
+        $survey->_setProperty('uid', 1);
+        $survey->addQuestion(new Question());
+        $survey->addQuestion(new Question());
+
+        $this->assertFalse(
+            $subject->_call('isSurveyAllowed', $survey)
+        );
+
+        unset($GLOBALS['TSFE']);
+    }
+
+    /**
+     * @test
+     */
+    public function surveyIsAllowedIfUserAnswerCountLessThanQuestionCount()
+    {
+        $subject = $this->getAccessibleMock(
+            SurveyController::class,
+            ['dummy'],
+            [],
+            '',
+            false
+        );
+
+        $mockedTSFE = $this->createMock(TypoScriptFrontendController::class);
+        $feUser = new FrontendUser();
+
+        $mockedTSFE->loginUser = true;
+        $GLOBALS['TSFE'] = $mockedTSFE;
+
+        $mockedFrontendUserRepository = $this->createPartialMock(FrontendUserRepository::class, ['findByUid']);
+        $mockedFrontendUserRepository->expects($this->once())->method('findByUid')->willReturn($feUser);
+
+        $mockedUserAnswerRepository = $this->createPartialMock(UserAnswerRepository::class, ['countGivenUserAnswer']);
+        $mockedUserAnswerRepository->expects($this->once())->method('countGivenUserAnswer')->willReturn(0);
+
+        $subject->_set('frontendUserRepository', $mockedFrontendUserRepository);
+        $subject->_set('userAnswerRepository', $mockedUserAnswerRepository);
+
+        $survey = new Survey();
+        $survey->_setProperty('uid', 1);
+        $survey->addQuestion(new Question());
+        $survey->addQuestion(new Question());
+
+        $this->assertTrue(
+            $subject->_call('isSurveyAllowed', $survey)
+        );
+
+        unset($GLOBALS['TSFE']);
+    }
+
+    /**
+     * @test
+     */
+    public function surveyIsAllowedIfNoLoginAndNotInCookies()
+    {
+        $subject = $this->getAccessibleMock(
+            SurveyController::class,
+            ['dummy'],
+            [],
+            '',
+            false
+        );
+
+        $_COOKIE[SurveyMainUtility::SURVEY_FINISHED_COOKIE_NAME] = '2,4';
+        $mockedTSFE = $this->createMock(TypoScriptFrontendController::class);
+
+        $mockedTSFE->loginUser = false;
+        $GLOBALS['TSFE'] = $mockedTSFE;
+
+        $survey = new Survey();
+        $survey->_setProperty('uid', 1);
+
+        $this->assertTrue(
+            $subject->_call('isSurveyAllowed', $survey)
+        );
+
+        unset($GLOBALS['TSFE']);
+    }
+
+    /**
+     * @test
+     */
+    public function surveyIsNotAllowedIfNoLoginAndInCookies()
+    {
+        $subject = $this->getAccessibleMock(
+            SurveyController::class,
+            ['dummy'],
+            [],
+            '',
+            false
+        );
+
+        $_COOKIE[SurveyMainUtility::SURVEY_FINISHED_COOKIE_NAME] = '2,4,1';
+        $mockedTSFE = $this->createMock(TypoScriptFrontendController::class);
+
+        $mockedTSFE->loginUser = false;
+        $GLOBALS['TSFE'] = $mockedTSFE;
+
+        $survey = new Survey();
+        $survey->_setProperty('uid', 1);
+
+        $this->assertFalse(
+            $subject->_call('isSurveyAllowed', $survey)
         );
 
         unset($GLOBALS['TSFE']);
