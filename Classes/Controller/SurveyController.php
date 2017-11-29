@@ -233,9 +233,19 @@ class SurveyController extends ActionController
         }
 
         SurveyMainUtility::clearAnswersSessionData($survey->getUid());
-        SurveyMainUtility::addValueToListCookie(SurveyMainUtility::SURVEY_FINISHED_COOKIE_NAME, $survey->getUid());
+        $this->addSurveyToCookie($survey);
 
         $this->redirect('finish', null, null, ['survey' => $survey]);
+    }
+
+    /**
+     * Wrapper function for testing
+     *
+     * @param Survey $survey
+     */
+    protected function addSurveyToCookie(Survey $survey)
+    {
+        SurveyMainUtility::addValueToListCookie(SurveyMainUtility::SURVEY_FINISHED_COOKIE_NAME, $survey->getUid());
     }
 
     /**
