@@ -7,6 +7,9 @@
             <trans-unit id="flexform.sheet_title">
                 <source>Configuration</source>
             </trans-unit>
+            <trans-unit id="flexform.sheet_messages_title">
+                <source>Messages</source>
+            </trans-unit>
             <trans-unit id="flexform.mode">
                 <source>Plugin mode</source>
             </trans-unit>
@@ -17,7 +20,13 @@
                 <source>Show all questions at once</source>
             </trans-unit>
             <trans-unit id="flexform.thanks_message">
-                <source>Message displayed when survey is finished</source>
+                <source>Message displayed right after survey is finished</source>
+            </trans-unit>
+            <trans-unit id="flexform.already_finished_message">
+                <source>Message for user that has finished survey already</source>
+            </trans-unit>
+            <trans-unit id="flexform.allow_multiple_answer_on_survey">
+                <source>Allow user to take part in survey more than once</source>
             </trans-unit>
 
             <trans-unit id="plugin.name">
@@ -42,6 +51,9 @@
             </trans-unit>
             <trans-unit id="extension_info.show_all">
                 <source>Show all question</source>
+            </trans-unit>
+            <trans-unit id="extension_info.multiple_participation">
+                <source>Multiple participation in survey</source>
             </trans-unit>
             <!--Plugin BE View:END-->
 
@@ -104,6 +116,9 @@
                 <source>Go back to list</source>
             </trans-unit>
             <!--MODULE:END-->
+
+            <!--EXT_CONF:START-->
+
         </body>
     </file>
 </xliff>

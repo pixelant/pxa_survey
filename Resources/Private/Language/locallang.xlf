@@ -31,6 +31,9 @@
             <trans-unit id="fe.thanks_message">
                 <source>Thank you for your participation.</source>
             </trans-unit>
+            <trans-unit id="fe.already_finished">
+                <source>You have already passed this survey</source>
+            </trans-unit>
         </body>
     </file>
 </xliff>
