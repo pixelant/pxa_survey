@@ -22,6 +22,7 @@
                             <f:render partial="Survey/Question" arguments="{question: question}"/>
                         </f:for>
 
+                        <f:render partial="Survey/ReCaptcha"/>
                         <button type="submit" class="btn btn-default"><f:translate key="fe.send"/></button>
                     </f:then>
                     <f:else>
@@ -31,6 +32,12 @@
                         <f:render partial="Survey/Question" arguments="{question: currentQuestion}"/>
 
                         <f:form.hidden name="currentQuestion" value="{currentQuestion.uid}"/>
+
+                        <f:comment>Show reCAPTCHA only for first question</f:comment>
+                        <f:if condition="{currentPosition} == 1">
+                            <f:render partial="Survey/ReCaptcha"/>
+                        </f:if>
+
                         <button type="submit" class="btn btn-default"><f:translate key="fe.next"/></button>
                     </f:else>
                 </f:if>

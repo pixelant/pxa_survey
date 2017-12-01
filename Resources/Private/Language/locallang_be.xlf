@@ -28,6 +28,9 @@
             <trans-unit id="flexform.allow_multiple_answer_on_survey">
                 <source>Allow user to take part in survey more than once</source>
             </trans-unit>
+            <trans-unit id="flexform.protect_with_re_captcha">
+                <source>Protect with reCAPTCHA</source>
+            </trans-unit>
 
             <trans-unit id="plugin.name">
                 <source>Simple survey</source>
@@ -54,6 +57,9 @@
             </trans-unit>
             <trans-unit id="extension_info.multiple_participation">
                 <source>Multiple participation in survey</source>
+            </trans-unit>
+            <trans-unit id="extension_info.protect_with_re_captcha">
+                <source>Protect with reCAPTCHA</source>
             </trans-unit>
             <!--Plugin BE View:END-->
 
@@ -117,8 +123,20 @@
             </trans-unit>
             <!--MODULE:END-->
 
-            <!--EXT_CONF:START-->
-
+            <!--Constant editor:START-->
+            <trans-unit id="editor.category_name">
+                <source>Simple survey settings</source>
+            </trans-unit>
+            <trans-unit id="editor.recaptcha_title">
+                <source>reCAPTCHA secret</source>
+            </trans-unit>
+            <trans-unit id="editor.recaptcha.site_secret">
+                <source>Site secret</source>
+            </trans-unit>
+            <trans-unit id="editor.recaptcha.site_key">
+                <source>Site key</source>
+            </trans-unit>
+            <!--Constant editor:END-->
         </body>
     </file>
 </xliff>

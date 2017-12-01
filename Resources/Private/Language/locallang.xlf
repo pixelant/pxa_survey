@@ -25,6 +25,9 @@
             <trans-unit id="fe.error.required">
                 <source>This question is required to be answered.</source>
             </trans-unit>
+            <trans-unit id="fe.error.recaptcha">
+                <source>You didn't pass reCAPTCHA check. Please, try again.</source>
+            </trans-unit>
             <trans-unit id="fe.progress">
                 <source>Question %d of %d.</source>
             </trans-unit>
@@ -33,6 +36,9 @@
             </trans-unit>
             <trans-unit id="fe.already_finished">
                 <source>You have already passed this survey</source>
+            </trans-unit>
+            <trans-unit id="fe.recaptcha_key_secret_missing">
+                <source>Key or secret is missing for reCAPTCHA.</source>
             </trans-unit>
         </body>
     </file>

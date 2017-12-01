@@ -1,0 +1,34 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:pxa="http://typo3.org/ns/Pixelant/PxaSurvey/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:alias map="{validation: '{pxa:validationResults(for: \'survey.recaptcha\')}'}">
+    <f:if condition="{validation.errors}">
+        <f:then>
+            <div class="has-error">
+                <f:render section="recaptcha"/>
+
+                <f:for each="{validation.errors}" as="error">
+                    <span class="help-block">{error.message}</span>
+                </f:for>
+            </div>
+        </f:then>
+        <f:else>
+            <f:render section="recaptcha"/>
+        </f:else>
+    </f:if>
+</f:alias>
+
+<f:section name="recaptcha">
+    <f:if condition="{settings.protectWithReCaptcha}">
+        <hr>
+        <div class="form-group">
+            <f:if condition="{settings.recaptcha.siteKey} && {settings.recaptcha.siteSecret}">
+                <f:then>
+                    <div class="g-recaptcha" data-sitekey="{settings.recaptcha.siteKey}"></div>
+                </f:then>
+                <f:else>
+                    <p class="bg-danger"><f:translate key="fe.recaptcha_key_secret_missing"/></p>
+                </f:else>
+            </f:if>
+        </div>
+    </f:if>
+</f:section>
+</html>

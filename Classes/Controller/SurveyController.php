@@ -18,6 +18,7 @@ use Pixelant\PxaSurvey\Domain\Model\Question;
 use Pixelant\PxaSurvey\Domain\Model\Survey;
 use Pixelant\PxaSurvey\Domain\Model\UserAnswer;
 use Pixelant\PxaSurvey\Utility\SurveyMainUtility;
+use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\StringUtility;
 use TYPO3\CMS\Extbase\Domain\Model\FrontendUser;
@@ -61,6 +62,31 @@ class SurveyController extends ActionController
     protected $frontendUserRepository = null;
 
     /**
+     * Include reCAPTCHA api js
+     */
+    public function initializeShowAction()
+    {
+        if ((int)$this->settings['protectWithReCaptcha'] === 1
+            && (int)$this->settings['recaptcha']['donNotIncludeJsApi'] === 0
+            && !empty($this->settings['recaptcha']['siteKey'])
+            && !empty($this->settings['recaptcha']['siteSecret'])
+        ) {
+            /** @var PageRenderer $pageRenderer */
+            $pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
+            $pageRenderer->addJsFile(
+                'https://www.google.com/recaptcha/api.js',
+                'text/javascript',
+                false,
+                false,
+                '',
+                true,
+                '|',
+                true
+            );
+        }
+    }
+
+    /**
      * action show
      *
      * @param Survey $survey
@@ -98,6 +124,7 @@ class SurveyController extends ActionController
      * @param Survey $survey
      * @param Question $currentQuestion
      * @validate $survey \Pixelant\PxaSurvey\Domain\Validation\Validator\SurveyAnswerValidator
+     * @validate $survey \Pixelant\PxaSurvey\Domain\Validation\Validator\ReCaptchaValidator
      */
     public function answerAction(Survey $survey, Question $currentQuestion = null)
     {
@@ -301,7 +328,7 @@ class SurveyController extends ActionController
         }
 
         // Check by fe user
-        if (SurveyMainUtility::getTSFE()->loginUser) {
+        if (SurveyMainUtility::getTSFE()->loginUser && GeneralUtility::_GP('ADMCMD_simUser') === null) {
             /** @var FrontendUser $frontendUser */
             $frontendUser = $this->frontendUserRepository->findByUid(
                 SurveyMainUtility::getTSFE()->fe_user->user['uid']
