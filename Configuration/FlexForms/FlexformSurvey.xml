@@ -46,6 +46,16 @@
                             </config>
                         </TCEforms>
                     </settings.allowMultipleAnswerOnSurvey>
+
+                    <settings.protectWithReCaptcha>
+                        <TCEforms>
+                            <label>LLL:EXT:pxa_survey/Resources/Private/Language/locallang_be.xlf:flexform.protect_with_re_captcha</label>
+                            <config>
+                                <type>check</type>
+                                <default>0</default>
+                            </config>
+                        </TCEforms>
+                    </settings.protectWithReCaptcha>
                 </el>
             </ROOT>
         </sDEF>

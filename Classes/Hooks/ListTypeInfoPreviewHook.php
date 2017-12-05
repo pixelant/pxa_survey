@@ -13,9 +13,10 @@ namespace Pixelant\PxaSurvey\Hooks;
  *
  ***/
 
-use Pixelant\PxaSurvey\Utility\SurveyMainUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
+use TYPO3\CMS\Fluid\View\StandaloneView;
 
 /**
  * Class ListTypeInfoPreviewHook
@@ -31,49 +32,70 @@ class ListTypeInfoPreviewHook
      */
     public function getExtensionSummary(array $params): string
     {
-        $header = sprintf(
-            '<strong>%s</strong><br>',
-            SurveyMainUtility::translate('extension_info.name')
-        );
+        $flexFormData = GeneralUtility::xml2array($params['row']['pi_flexform'] ?? '');
+        $flexFormSettings = [];
 
-        $flexformData = GeneralUtility::xml2array($params['row']['pi_flexform'] ?? '');
-
-        if (is_array($flexformData)) {
-            $additionalInfo = '';
-
-            $settings = $flexformData['data']['sDEF']['lDEF'];
-            $surveyUid = (int)$settings['settings.survey']['vDEF'];
-
-            $surveyRow = BackendUtility::getRecord(
-                'tx_pxasurvey_domain_model_survey',
-                $surveyUid,
-                'name'
-            );
-
-            if (is_array($surveyRow)) {
-                $additionalInfo .= sprintf(
-                    '<b>%s</b>: %s<br>',
-                    SurveyMainUtility::translate('extension_info.survey'),
-                    $surveyRow['name']
-                );
+        if (is_array($flexFormData['data']['sDEF']['lDEF'])) {
+            foreach ($flexFormData['data'] as $sheet) {
+                $rawSettings = $sheet['lDEF'];
+                foreach ($rawSettings as $field => $rawSetting) {
+                    $this->flexFormToArray($field, $rawSetting['vDEF'], $flexFormSettings);
+                }
             }
-
-            $checkboxes = [
-                'show_all' => 'showAllQuestions',
-                'multiple_participation' => 'allowMultipleAnswerOnSurvey'
-            ];
-            foreach ($checkboxes as $translationKey => $checkbox) {
-                $label = (int)$settings['settings.' . $checkbox]['vDEF'] ? 'yes' : 'no';
-
-                $additionalInfo .= sprintf(
-                    '<b>%s</b>: %s<br>',
-                    SurveyMainUtility::translate('extension_info.' . $translationKey),
-                    SurveyMainUtility::translate('extension_info.' . $label)
-                );
-            }
-
         }
 
-        return $header . (isset($additionalInfo) ? '<br><pre>' . $additionalInfo . '</pre>' : '');
+        $surveyRow = BackendUtility::getRecord(
+            'tx_pxasurvey_domain_model_survey',
+            $surveyUid = (int)$flexFormSettings['settings']['survey'],
+            'name'
+        );
+
+        $view = $this->getView();
+        $view
+            ->assign('settings', $flexFormSettings['settings'])
+            ->assign('surveyRow', $surveyRow);
+
+        return $view->render();
+    }
+
+    /**
+     * Initalize view
+     *
+     * @return StandaloneView
+     */
+    protected function getView(): StandaloneView
+    {
+        /** @var StandaloneView $view */
+        $view = GeneralUtility::makeInstance(ObjectManager::class)->get(StandaloneView::class);
+        $templatePath = GeneralUtility::getFileAbsFileName(
+            'EXT:pxa_survey/Resources/Private/Templates/PageLayoutPreview/ListTypeInfoPreviewHook.html'
+        );
+
+        $view->setTemplatePathAndFilename($templatePath);
+
+        return $view;
+    }
+
+    /**
+     * Go through all settings and generate array
+     *
+     * @param string $field
+     * @param mixed $value
+     * @param array $settings
+     * @return void
+     */
+    protected function flexFormToArray($field, $value, &$settings)
+    {
+        $fieldNameParts = GeneralUtility::trimExplode('.', $field);
+        if (count($fieldNameParts) > 1) {
+            $name = $fieldNameParts[0];
+            unset($fieldNameParts[0]);
+            if (!isset($settings[$name])) {
+                $settings[$name] = [];
+            }
+            $this->flexFormToArray(implode('.', $fieldNameParts), $value, $settings[$name]);
+        } else {
+            $settings[$fieldNameParts[0]] = $value;
+        }
     }
 }
