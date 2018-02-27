@@ -11,6 +11,7 @@ use Pixelant\PxaSurvey\Domain\Model\UserAnswer;
 use Pixelant\PxaSurvey\Domain\Repository\AnswerRepository;
 use Pixelant\PxaSurvey\Domain\Repository\UserAnswerRepository;
 use Pixelant\PxaSurvey\Utility\SurveyMainUtility;
+use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Extbase\Domain\Model\FrontendUser;
 use TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository;
 use TYPO3\CMS\Extbase\Mvc\Request;
@@ -446,5 +447,93 @@ class SurveyControllerTest extends UnitTestCase
                 true // multiple
             ]
         ];
+    }
+
+    /**
+     * @test
+     */
+    public function includeReCaptchaScriptIfItsEnabled()
+    {
+        $subject = $this->getAccessibleMock(
+            SurveyController::class,
+            ['getPageRenderer'],
+            [],
+            '',
+            false
+        );
+        $settings = [
+            'protectWithReCaptcha' => 1,
+            'recaptcha' => [
+                'donNotIncludeJsApi' => 0,
+                'siteKey' => 1,
+                'siteSecret' => 123
+            ]
+        ];
+        $mockedPageRenderer = $this->createMock(PageRenderer::class);
+        $mockedPageRenderer->expects($this->once())
+            ->method('addJsFile');
+
+        $subject->_set('settings', $settings);
+        $subject->expects($this->once())
+            ->method('getPageRenderer')
+            ->willReturn($mockedPageRenderer);
+
+        $subject->initializeShowAction();
+    }
+
+    /**
+     * @test
+     */
+    public function disableIncludingReCaptchaScriptWillNotIncludeScript()
+    {
+        $subject = $this->getAccessibleMock(
+            SurveyController::class,
+            ['getPageRenderer'],
+            [],
+            '',
+            false
+        );
+        $settings = [
+            'protectWithReCaptcha' => 1,
+            'recaptcha' => [
+                'donNotIncludeJsApi' => 1,
+                'siteKey' => 1,
+                'siteSecret' => 123
+            ]
+        ];
+
+        $subject->_set('settings', $settings);
+        $subject->expects($this->never())
+            ->method('getPageRenderer');
+
+        $subject->initializeShowAction();
+    }
+
+    /**
+     * @test
+     */
+    public function incorrectSettingsWillNotIncludeScriptReCaptchaScript()
+    {
+        $subject = $this->getAccessibleMock(
+            SurveyController::class,
+            ['getPageRenderer'],
+            [],
+            '',
+            false
+        );
+        $settings = [
+            'protectWithReCaptcha' => 1,
+            'recaptcha' => [
+                'donNotIncludeJsApi' => 0,
+                'siteKey' => '',
+                'siteSecret' => ''
+            ]
+        ];
+
+        $subject->_set('settings', $settings);
+        $subject->expects($this->never())
+            ->method('getPageRenderer');
+
+        $subject->initializeShowAction();
     }
 }

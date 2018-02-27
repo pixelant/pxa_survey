@@ -71,8 +71,7 @@ class SurveyController extends ActionController
             && !empty($this->settings['recaptcha']['siteKey'])
             && !empty($this->settings['recaptcha']['siteSecret'])
         ) {
-            /** @var PageRenderer $pageRenderer */
-            $pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
+            $pageRenderer = $this->getPageRenderer();
             $pageRenderer->addJsFile(
                 'https://www.google.com/recaptcha/api.js',
                 'text/javascript',
@@ -99,6 +98,7 @@ class SurveyController extends ActionController
         }
 
         if ($survey !== null && !$this->isSurveyAllowed($survey)) {
+            /** @noinspection PhpUnhandledExceptionInspection */
             $this->forward('finish', null, null, ['survey' => $survey, 'alreadyFinished' => true]);
         }
 
@@ -141,6 +141,7 @@ class SurveyController extends ActionController
             SurveyMainUtility::addAnswerToSessionData($survey->getUid(), $answers);
 
             // Show next question
+            /** @noinspection PhpUnhandledExceptionInspection */
             $this->forward('show', null, null, ['survey' => $survey]);
         }
     }
@@ -168,6 +169,7 @@ class SurveyController extends ActionController
         $answers = [];
 
         if ($this->request->hasArgument('answers')) {
+            /** @noinspection PhpUnhandledExceptionInspection */
             $requestAnswers = $this->request->getArgument('answers');
 
             /** @noinspection PhpWrongForeachArgumentTypeInspection */
@@ -256,12 +258,14 @@ class SurveyController extends ActionController
                 }
             }
 
+            /** @noinspection PhpUnhandledExceptionInspection */
             $this->userAnswerRepository->add($userAnswer);
         }
 
         SurveyMainUtility::clearAnswersSessionData($survey->getUid());
         $this->addSurveyToCookie($survey);
 
+        /** @noinspection PhpUnhandledExceptionInspection */
         $this->redirect('finish', null, null, ['survey' => $survey]);
     }
 
@@ -344,5 +348,16 @@ class SurveyController extends ActionController
         // check by cookie
         $surveysFinished = $_COOKIE[SurveyMainUtility::SURVEY_FINISHED_COOKIE_NAME] ?? '';
         return !GeneralUtility::inList($surveysFinished, $survey->getUid());
+    }
+
+    /**
+     * Wrapper for testing
+     *
+     * @return PageRenderer
+     */
+    protected function getPageRenderer(): PageRenderer
+    {
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
+        return GeneralUtility::makeInstance(PageRenderer::class);
     }
 }

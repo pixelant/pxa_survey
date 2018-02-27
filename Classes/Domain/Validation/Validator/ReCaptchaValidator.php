@@ -9,7 +9,6 @@ use TYPO3\CMS\Core\Http\RequestFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Error\Error;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
 
@@ -60,8 +59,7 @@ class ReCaptchaValidator extends AbstractValidator
             $reCaptchaCode = GeneralUtility::_GP('g-recaptcha-response');
 
             if ($reCaptchaCode !== null && !empty($this->settings['recaptcha']['siteSecret'])) {
-                /** @var RequestFactory $httpRequest */
-                $requestFactory = GeneralUtility::makeInstance(RequestFactory::class);
+                $requestFactory = $this->getRequestFactory();
                 /** @var ResponseInterface $response */
                 $response = $requestFactory->request(
                     'https://www.google.com/recaptcha/api/siteverify',
@@ -84,7 +82,7 @@ class ReCaptchaValidator extends AbstractValidator
         if (!$isValid) {
             $this->result->forProperty('recaptcha')->addError(
                 new Error(
-                    LocalizationUtility::translate('fe.error.recaptcha', 'PxaSurvey'),
+                    $this->localize('fe.error.recaptcha'),
                     1512131546169
                 )
             );
@@ -119,5 +117,24 @@ class ReCaptchaValidator extends AbstractValidator
 
         // reCAPTCHA disabled
         return false;
+    }
+
+    /**
+     * @return RequestFactory
+     */
+    protected function getRequestFactory(): RequestFactory
+    {
+        return GeneralUtility::makeInstance(RequestFactory::class);
+    }
+
+    /**
+     * Wrapper for localization
+     *
+     * @param string $key
+     * @return NULL|string
+     */
+    protected function localize(string $key)
+    {
+        return LocalizationUtility::translate($key, 'PxaSurvey');
     }
 }
