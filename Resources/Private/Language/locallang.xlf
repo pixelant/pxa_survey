@@ -28,6 +28,9 @@
             <trans-unit id="fe.error.recaptcha">
                 <source>You didn't pass reCAPTCHA check. Please, try again.</source>
             </trans-unit>
+            <trans-unit id="fe.error.no_answers_at_all">
+                <source>You should answer at least one question.</source>
+            </trans-unit>
             <trans-unit id="fe.progress">
                 <source>Question %d of %d.</source>
             </trans-unit>
