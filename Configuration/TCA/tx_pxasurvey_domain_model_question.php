@@ -170,6 +170,7 @@ return [
                 'type' => 'inline',
                 'foreign_table' => 'tx_pxasurvey_domain_model_answer',
                 'foreign_field' => 'question',
+                'foreign_sortby' => 'sorting',
                 'maxitems' => 9999,
                 'minitems' => 1,
                 'appearance' => [
