@@ -157,6 +157,7 @@ return [
                 'type' => 'inline',
                 'foreign_table' => 'tx_pxasurvey_domain_model_question',
                 'foreign_field' => 'survey',
+                'foreign_sortby' => 'sorting',
                 'maxitems' => 9999,
                 'appearance' => [
                     'collapseAll' => 1,
