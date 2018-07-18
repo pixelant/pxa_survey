@@ -12,13 +12,13 @@
 
 $EM_CONF[$_EXTKEY] = [
     'title' => 'Simple Survey',
-    'description' => 'Create simple survey. View results in the BE module',
+    'description' => 'Create simple survey. Simpel view of result on FE. View results in the BE module',
     'category' => 'plugin',
     'author' => 'Andriy Oprysko',
     'author_email' => '',
     'state' => 'alpha',
     'clearCacheOnLoad' => 0,
-    'version' => '1.1.0',
+    'version' => '1.2.0',
     'constraints' => [
         'depends' => [
             'typo3' => '8.7.0-8.7.99',
