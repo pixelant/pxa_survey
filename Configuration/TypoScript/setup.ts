@@ -57,4 +57,7 @@ page {
     includeJSFooter {
         pxa_survey = EXT:pxa_survey/Resources/Public/JavaScript/pxa_survey.js
     }
+    includeCSS {
+        pxa_survey = EXT:pxa_survey/Resources/Public/Css/pxa_survey.css
+    }
 }

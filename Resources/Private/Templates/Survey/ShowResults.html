@@ -13,7 +13,10 @@
                             {questionRow.label} (<f:translate key="fe.total_answers" arguments="{0: questionRow.allAnswersCount}"/>)
                             <ol>
                                 <f:for each="{questionRow.questionData}" as="questionData">
-                                    <li>{questionData.label} - {questionData.count}({questionData.percents}%)</li>
+                                    <li class="pxa-result-row">
+                                        <span class="pxa-result-text">{questionData.label} - {questionData.count} ({questionData.percents}%)</span>
+                                        <span class="pxa-result-bar" style="width:{questionData.percents}%"></span>
+                                    </li>
                                 </f:for>
                             </ol>
                         </li>
