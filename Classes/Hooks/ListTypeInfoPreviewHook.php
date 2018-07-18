@@ -42,7 +42,8 @@ class ListTypeInfoPreviewHook
 
         if (is_array($flexFormData)) {
             $surveyUid = (int)$flexFormData['settings']['survey'];
-            list(, $action) = GeneralUtility::trimExplode('->', $flexFormData['switchableControllerActions']);
+            $allowedActions = GeneralUtility::trimExplode(';', $flexFormData['switchableControllerActions']);
+            list(, $action) = GeneralUtility::trimExplode('->', $allowedActions[0]);
 
             $additionalInfo = sprintf(
                 '<b>%s</b>: %s<br>',

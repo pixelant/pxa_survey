@@ -19,7 +19,7 @@
 								<items>
 									<numIndex index="1">
 										<numIndex index="0">LLL:EXT:pxa_survey/Resources/Private/Language/locallang_be.xlf:flexform.mode.show</numIndex>
-										<numIndex index="1">Survey->show</numIndex>
+										<numIndex index="1">Survey->show;Survey->answer;Survey->finish</numIndex>
 									</numIndex>
 									<numIndex index="2">
 										<numIndex index="0">LLL:EXT:pxa_survey/Resources/Private/Language/locallang_be.xlf:flexform.mode.show_results</numIndex>
