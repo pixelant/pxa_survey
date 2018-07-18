@@ -30,6 +30,7 @@
 * Create page that'll contain plugin
 * Add new content element, go to "Plugins" tab and choose "Simple survey"
     * Choose survey from storage
+    * Choose plugin mode, either "show survey" or "survey results".
     * Mark checkbox in case you want to show all questions at once
     * Allow/Disallow user to take part in survey more than once
     * Add message displayed when user has finished survey
