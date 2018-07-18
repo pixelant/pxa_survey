@@ -63,12 +63,11 @@ class SurveyController extends ActionController
     /**
      * action show
      *
-     * @param Survey $survey
      * @return void
      */
-    public function showAction(Survey $survey = null)
+    public function showAction()
     {
-        if ($survey === null && ($surveyUid = (int)$this->settings['survey'])) {
+        if ($surveyUid = (int)$this->settings['survey']) {
             $survey = $this->surveyRepository->findByUid($surveyUid);
         }
 
@@ -114,7 +113,7 @@ class SurveyController extends ActionController
             SurveyMainUtility::addAnswerToSessionData($survey->getUid(), $answers);
 
             // Show next question
-            $this->forward('show', null, null, ['survey' => $survey]);
+            $this->forward('show');
         }
     }
 
