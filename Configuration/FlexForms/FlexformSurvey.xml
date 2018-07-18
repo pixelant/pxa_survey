@@ -9,18 +9,18 @@
                 <el>
                     <switchableControllerActions>
                         <TCEforms>
-                            <label>LLL:EXT:pxa_survey/Resources/Private/Language/locallang_be.xlf:flexform.mode</label>
+                            <label>LLL:EXT:pxa_survey/Resources/Private/Language/locallang_be.xlf:flexform.choose_mode</label>
                             <onChange>reload</onChange>
                             <config>
                                 <type>select</type>
                                 <renderType>selectSingle</renderType>
                                 <items>
                                     <numIndex index="1">
-                                        <numIndex index="0">LLL:EXT:pxa_survey/Resources/Private/Language/locallang_be.xlf:flexform.mode.survey</numIndex>
+                                        <numIndex index="0">LLL:EXT:pxa_survey/Resources/Private/Language/locallang_be.xlf:flexform.mode.show</numIndex>
                                         <numIndex index="1">Survey->show</numIndex>
                                     </numIndex>
                                     <numIndex index="2">
-                                        <numIndex index="0">LLL:EXT:pxa_survey/Resources/Private/Language/locallang_be.xlf:flexform.mode.survey_results</numIndex>
+                                        <numIndex index="0">LLL:EXT:pxa_survey/Resources/Private/Language/locallang_be.xlf:flexform.mode.show_results</numIndex>
                                         <numIndex index="1">Survey->showResults</numIndex>
                                     </numIndex>
                                 </items>

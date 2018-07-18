@@ -34,6 +34,9 @@
             <trans-unit id="fe.already_finished">
                 <source>You have already passed this survey</source>
             </trans-unit>
+            <trans-unit id="fe.total_answers">
+                <source>total answers count - %d</source>
+            </trans-unit>
         </body>
     </file>
 </xliff>

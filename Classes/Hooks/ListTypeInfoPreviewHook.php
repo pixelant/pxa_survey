@@ -13,9 +13,10 @@ namespace Pixelant\PxaSurvey\Hooks;
  *
  ***/
 
-use Pixelant\PxaSurvey\Utility\SurveyMainUtility;
+use Pixelant\PxaSurvey\Utility\SurveyMainUtility as MainUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Service\FlexFormService;
 
 /**
  * Class ListTypeInfoPreviewHook
@@ -33,16 +34,21 @@ class ListTypeInfoPreviewHook
     {
         $header = sprintf(
             '<strong>%s</strong><br>',
-            SurveyMainUtility::translate('extension_info.name')
+            MainUtility::translate('extension_info.name')
         );
 
-        $flexformData = GeneralUtility::xml2array($params['row']['pi_flexform'] ?? '');
+        $flexFormService = GeneralUtility::makeInstance(FlexFormService::class);
+        $flexFormData = $flexFormService->convertFlexFormContentToArray($params['row']['pi_flexform'] ?? '');
 
-        if (is_array($flexformData)) {
-            $additionalInfo = '';
+        if (is_array($flexFormData)) {
+            $surveyUid = (int)$flexFormData['settings']['survey'];
+            list(, $action) = GeneralUtility::trimExplode('->', $flexFormData['switchableControllerActions']);
 
-            $settings = $flexformData['data']['sDEF']['lDEF'];
-            $surveyUid = (int)$settings['settings.survey']['vDEF'];
+            $additionalInfo = sprintf(
+                '<b>%s</b>: %s<br>',
+                MainUtility::translate('flexform.mode'),
+                MainUtility::translate('flexform.mode.' . GeneralUtility::camelCaseToLowerCaseUnderscored($action))
+            );
 
             $surveyRow = BackendUtility::getRecord(
                 'tx_pxasurvey_domain_model_survey',
@@ -53,27 +59,46 @@ class ListTypeInfoPreviewHook
             if (is_array($surveyRow)) {
                 $additionalInfo .= sprintf(
                     '<b>%s</b>: %s<br>',
-                    SurveyMainUtility::translate('extension_info.survey'),
+                    MainUtility::translate('extension_info.survey'),
                     $surveyRow['name']
                 );
             }
 
-            $checkboxes = [
-                'show_all' => 'showAllQuestions',
-                'multiple_participation' => 'allowMultipleAnswerOnSurvey'
-            ];
-            foreach ($checkboxes as $translationKey => $checkbox) {
-                $label = (int)$settings['settings.' . $checkbox]['vDEF'] ? 'yes' : 'no';
-
-                $additionalInfo .= sprintf(
-                    '<b>%s</b>: %s<br>',
-                    SurveyMainUtility::translate('extension_info.' . $translationKey),
-                    SurveyMainUtility::translate('extension_info.' . $label)
-                );
+            switch ($action) {
+                case 'showResults':
+                    break;
+                default:
+                    $additionalInfo .= $this->getPreviewForShowAction($flexFormData['settings']);
             }
-
         }
 
         return $header . (isset($additionalInfo) ? '<br><pre>' . $additionalInfo . '</pre>' : '');
+    }
+
+    /**
+     * Get information for show action
+     *
+     * @param array $settings
+     * @return string
+     */
+    protected function getPreviewForShowAction(array $settings): string
+    {
+        $preview = '';
+
+        $checkboxes = [
+            'show_all' => 'showAllQuestions',
+            'multiple_participation' => 'allowMultipleAnswerOnSurvey'
+        ];
+        foreach ($checkboxes as $translationKey => $checkbox) {
+            $label = (int)$settings[$checkbox] ? 'yes' : 'no';
+
+            $preview .= sprintf(
+                '<b>%s</b>: %s<br>',
+                MainUtility::translate('extension_info.' . $translationKey),
+                MainUtility::translate('extension_info.' . $label)
+            );
+        }
+
+        return $preview;
     }
 }

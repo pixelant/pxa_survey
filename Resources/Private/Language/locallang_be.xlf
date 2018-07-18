@@ -28,14 +28,17 @@
             <trans-unit id="flexform.allow_multiple_answer_on_survey">
                 <source>Allow user to take part in survey more than once</source>
             </trans-unit>
-            <trans-unit id="flexform.mode">
+            <trans-unit id="flexform.choose_mode">
                 <source>Choose mode</source>
             </trans-unit>
-            <trans-unit id="flexform.mode.survey">
+            <trans-unit id="flexform.mode.show">
                 <source>Show survey questions</source>
             </trans-unit>
-            <trans-unit id="flexform.mode.survey_results">
+            <trans-unit id="flexform.mode.show_results">
                 <source>Show survey results</source>
+            </trans-unit>
+            <trans-unit id="flexform.mode">
+                <source>Mode</source>
             </trans-unit>
 
             <trans-unit id="plugin.name">

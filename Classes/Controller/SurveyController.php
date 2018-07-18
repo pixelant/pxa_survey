@@ -21,45 +21,12 @@ use Pixelant\PxaSurvey\Utility\SurveyMainUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\StringUtility;
 use TYPO3\CMS\Extbase\Domain\Model\FrontendUser;
-use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
 /**
  * SurveyController
  */
-class SurveyController extends ActionController
+class SurveyController extends AbstractController
 {
-    /**
-     * Survey Repository
-     *
-     * @var \Pixelant\PxaSurvey\Domain\Repository\SurveyRepository
-     * @inject
-     */
-    protected $surveyRepository = null;
-
-    /**
-     * User Answer Repository
-     *
-     * @var \Pixelant\PxaSurvey\Domain\Repository\UserAnswerRepository
-     * @inject
-     */
-    protected $userAnswerRepository = null;
-
-    /**
-     * Answer Repository
-     *
-     * @var \Pixelant\PxaSurvey\Domain\Repository\AnswerRepository
-     * @inject
-     */
-    protected $answerRepository = null;
-
-    /**
-     * Frontend User Repository
-     *
-     * @var \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository
-     * @inject
-     */
-    protected $frontendUserRepository = null;
-
     /**
      * action show
      *
@@ -128,6 +95,22 @@ class SurveyController extends ActionController
         $this->view
             ->assign('survey', $survey)
             ->assign('alreadyFinished', $alreadyFinished);
+    }
+
+    /**
+     * Show survey results
+     */
+    public function showResultsAction()
+    {
+        $surveyUid = (int)$this->settings['survey'];
+        /** @var Survey $survey */
+        $survey = $this->surveyRepository->findByUid($surveyUid);
+
+        $data = $this->generateAnalysisData($survey);
+
+        $this->view
+            ->assign('survey', $survey)
+            ->assign('data', $data);
     }
 
     /**

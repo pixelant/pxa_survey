@@ -1,0 +1,28 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+
+    <f:layout name="Default" />
+
+    <f:section name="main"><f:debug>{_all}</f:debug>
+        <f:if condition="{survey}">
+            <f:then>
+                <h1>{survey.title}</h1>
+
+                <f:for each="{data}" as="questionRow">
+                    <ul>
+                        <li>
+                            {questionRow.label} (<f:translate key="fe.total_answers" arguments="{0: questionRow.allAnswersCount}"/>)
+                            <ol>
+                                <f:for each="{questionRow.questionData}" as="questionData">
+                                    <li>{questionData.label} - {questionData.count}({questionData.percents}%)</li>
+                                </f:for>
+                            </ol>
+                        </li>
+                    </ul>
+                </f:for>
+            </f:then>
+            <f:else>
+                <p><i><f:translate key="fe.not_found"/></i></p>
+            </f:else>
+        </f:if>
+    </f:section>
+</html>
