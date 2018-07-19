@@ -131,7 +131,9 @@ class SurveyController extends AbstractController
         /** @var Survey $survey */
         $survey = $this->surveyRepository->findByUid((int)$this->settings['survey']);
 
-        $data = $this->generateAnalysisData($survey);
+        $data = $survey !== null
+            ? $this->generateAnalysisData($survey)
+            : [];
 
         $this->view
             ->assign('survey', $survey)
