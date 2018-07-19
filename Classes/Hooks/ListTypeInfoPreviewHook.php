@@ -40,7 +40,7 @@ class ListTypeInfoPreviewHook
         $flexFormService = GeneralUtility::makeInstance(FlexFormService::class);
         $flexFormData = $flexFormService->convertFlexFormContentToArray($params['row']['pi_flexform'] ?? '');
 
-        if (is_array($flexFormData)) {
+        if (is_array($flexFormData['settings'])) {
             $surveyUid = (int)$flexFormData['settings']['survey'];
             $allowedActions = GeneralUtility::trimExplode(';', $flexFormData['switchableControllerActions']);
             list(, $action) = GeneralUtility::trimExplode('->', $allowedActions[0]);
