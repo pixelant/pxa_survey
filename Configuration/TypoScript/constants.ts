@@ -12,6 +12,18 @@ plugin.tx_pxasurvey_survey {
         # cat=plugin.tx_pxasurvey_survey//a; type=string; label=Default storage PID
         storagePid =
     }
+
+    #customcategory=tx_pxasurvey_survey=LLL:EXT:pxa_survey/Resources/Private/Language/locallang_be.xlf:editor.category_name
+    settings {
+        # customsubcategory=recaptcha=LLL:EXT:pxa_survey/Resources/Private/Language/locallang_be.xlf:editor.recaptcha_title
+        recaptcha {
+            #cat=tx_pxasurvey_survey/recaptcha/010; type=string; label=LLL:EXT:pxa_survey/Resources/Private/Language/locallang_be.xlf:editor.recaptcha.site_key
+            siteKey =
+
+            #cat=tx_pxasurvey_survey/recaptcha/020; type=string; label=LLL:EXT:pxa_survey/Resources/Private/Language/locallang_be.xlf:editor.recaptcha.site_secret
+            siteSecret =
+        }
+    }
 }
 
 module.tx_pxasurvey_surveyanalysis {

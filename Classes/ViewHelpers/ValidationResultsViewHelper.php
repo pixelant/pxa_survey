@@ -16,6 +16,11 @@ class ValidationResultsViewHelper extends AbstractViewHelper
     use CompileWithRenderStatic;
 
     /**
+     * @var Result
+     */
+    protected static $validationResults = null;
+
+    /**
      * Initialize arguments
      *
      * @api
@@ -39,18 +44,32 @@ class ValidationResultsViewHelper extends AbstractViewHelper
         RenderingContextInterface $renderingContext
     ) {
         $for = $arguments['for'];
-
-        /** @noinspection PhpUndefinedMethodInspection */
-        /** @var Result $validationResults */
-        $validationResults = $renderingContext
-            ->getControllerContext()
-            ->getRequest()
-            ->getOriginalRequestMappingResults();
+        $validationResults = self::getValidationResults($renderingContext);
 
         if ($validationResults !== null) {
             $validationResults = $validationResults->forProperty($for);
         }
 
         return $validationResults;
+    }
+
+    /**
+     * Return validation results
+     *
+     * @param RenderingContextInterface $renderingContext
+     * @return Result|null
+     */
+    protected static function getValidationResults(RenderingContextInterface $renderingContext)
+    {
+        if (self::$validationResults === null) {
+            /** @noinspection PhpUndefinedMethodInspection */
+            /** @var Result $validationResults */
+            self::$validationResults = $renderingContext
+                ->getControllerContext()
+                ->getRequest()
+                ->getOriginalRequestMappingResults();
+        }
+
+        return self::$validationResults;
     }
 }

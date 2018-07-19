@@ -64,20 +64,41 @@ class SurveyAnswerValidator extends AbstractValidator
         }
         // check for missing answers
         if ((int)$arguments['showAllQuestions']) {
-            $givenAnswersFor = empty($arguments['answers']) ? '' : implode(',', array_keys($arguments['answers']));
+            $answers = is_array($arguments['answers']) ? $arguments['answers'] : [];
+            if (empty($requiredQuestions)) {
+                $answers = array_filter(
+                    $answers,
+                    function ($v) {
+                        return !empty($v['answer']) || !empty($v['otherAnswer']);
+                    }
+                );
+            }
+            $givenAnswersFor = implode(',', array_keys($answers));
 
-            foreach (explode(',', $requiredQuestions) as $requiredQuestionUid) {
-                if (!GeneralUtility::inList($givenAnswersFor, $requiredQuestionUid)) {
-                    $this->result->forProperty('question-' . $requiredQuestionUid)->addError(
-                        new Error(
-                            $this->translate('fe.error.required'),
-                            1510659509774
-                        )
-                    );
+            if (empty($givenAnswersFor) && empty($requiredQuestions)) {
+                $this->result->addError(
+                    new Error(
+                        $this->translate('fe.error.no_answers_at_all'),
+                        1519726630388
+                    )
+                );
 
-                    $isValid = false;
+                $isValid = false;
+            } else {
+                foreach (GeneralUtility::intExplode(',', $requiredQuestions, true) as $requiredQuestionUid) {
+                    if (!GeneralUtility::inList($givenAnswersFor, $requiredQuestionUid)) {
+                        $this->result->forProperty('question-' . $requiredQuestionUid)->addError(
+                            new Error(
+                                $this->translate('fe.error.required'),
+                                1510659509774
+                            )
+                        );
+
+                        $isValid = false;
+                    }
                 }
             }
+
         }
 
         return $isValid;
@@ -113,11 +134,11 @@ class SurveyAnswerValidator extends AbstractValidator
     protected function isAnswerRequiredError($answer, $requiredList, $questionUid)
     {
         return empty($answer['answer'])
-                && empty($answer['otherAnswer'])
-                && GeneralUtility::inList(
-                    $requiredList,
-                    $questionUid
-                );
+            && empty($answer['otherAnswer'])
+            && GeneralUtility::inList(
+                $requiredList,
+                $questionUid
+            );
     }
 
     /**

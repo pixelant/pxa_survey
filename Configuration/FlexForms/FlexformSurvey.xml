@@ -3,15 +3,13 @@
 		<sDEF>
 			<ROOT>
 				<TCEforms>
-					<sheetTitle>LLL:EXT:pxa_survey/Resources/Private/Language/locallang_be.xlf:flexform.sheet_title
-					</sheetTitle>
+					<sheetTitle>LLL:EXT:pxa_survey/Resources/Private/Language/locallang_be.xlf:flexform.sheet_title</sheetTitle>
 				</TCEforms>
 				<type>array</type>
 				<el>
 					<switchableControllerActions>
 						<TCEforms>
-							<label>LLL:EXT:pxa_survey/Resources/Private/Language/locallang_be.xlf:flexform.choose_mode
-							</label>
+							<label>LLL:EXT:pxa_survey/Resources/Private/Language/locallang_be.xlf:flexform.choose_mode</label>
 							<onChange>reload</onChange>
 							<config>
 								<type>select</type>
@@ -61,20 +59,31 @@
 						</TCEforms>
 					</settings.showAllQuestions>
 
-					<settings.allowMultipleAnswerOnSurvey>
-						<TCEforms>
-							<label>LLL:EXT:pxa_survey/Resources/Private/Language/locallang_be.xlf:flexform.allow_multiple_answer_on_survey</label>
+                    <settings.allowMultipleAnswerOnSurvey>
+                        <TCEforms>
+                            <label>LLL:EXT:pxa_survey/Resources/Private/Language/locallang_be.xlf:flexform.allow_multiple_answer_on_survey</label>
 							<onChange>reload</onChange>
 							<displayCond>FIELD:switchableControllerActions:!=:Survey->showResults</displayCond>
-							<config>
-								<type>check</type>
-								<default>0</default>
-							</config>
-						</TCEforms>
-					</settings.allowMultipleAnswerOnSurvey>
-				</el>
-			</ROOT>
-		</sDEF>
+                            <config>
+                                <type>check</type>
+                                <default>0</default>
+                            </config>
+                        </TCEforms>
+                    </settings.allowMultipleAnswerOnSurvey>
+
+                    <settings.protectWithReCaptcha>
+                        <TCEforms>
+                            <label>LLL:EXT:pxa_survey/Resources/Private/Language/locallang_be.xlf:flexform.protect_with_re_captcha</label>
+							<displayCond>FIELD:switchableControllerActions:!=:Survey->showResults</displayCond>
+                            <config>
+                                <type>check</type>
+                                <default>0</default>
+                            </config>
+                        </TCEforms>
+                    </settings.protectWithReCaptcha>
+                </el>
+            </ROOT>
+        </sDEF>
 		<messages>
 			<ROOT>
 				<TCEforms>

@@ -1,4 +1,4 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:pxa="http://typo3.org/ns/Pixelant/PxaSurvey/ViewHelpers" data-namespace-typo3-fluid="true">
 
 <f:layout name="Default"/>
 
@@ -18,10 +18,21 @@
 
                 <f:if condition="{settings.showAllQuestions}">
                     <f:then>
+                        <f:alias map="{validation: '{pxa:validationResults(for: \'survey\')}'}">
+                            <f:if condition="{validation.errors}">
+                                <div class="has-error">
+                                    <f:for each="{validation.errors}" as="error">
+                                        <span class="help-block">{error.message}</span>
+                                    </f:for>
+                                </div>
+                            </f:if>
+                        </f:alias>
+
                         <f:for each="{survey.questions}" as="question">
                             <f:render partial="Survey/Question" arguments="{question: question}"/>
                         </f:for>
 
+                        <f:render partial="Survey/ReCaptcha"/>
                         <button type="submit" class="btn btn-default"><f:translate key="fe.send"/></button>
                     </f:then>
                     <f:else>
@@ -31,6 +42,12 @@
                         <f:render partial="Survey/Question" arguments="{question: currentQuestion}"/>
 
                         <f:form.hidden name="currentQuestion" value="{currentQuestion.uid}"/>
+
+                        <f:comment>Show reCAPTCHA only for first question</f:comment>
+                        <f:if condition="{currentPosition} == 1">
+                            <f:render partial="Survey/ReCaptcha"/>
+                        </f:if>
+
                         <button type="submit" class="btn btn-default"><f:translate key="fe.next"/></button>
                     </f:else>
                 </f:if>

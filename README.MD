@@ -32,7 +32,9 @@
     * Choose survey from storage
     * Choose plugin mode, either "show survey" or "survey results".
     * Mark checkbox in case you want to show all questions at once
+    * Show all questions at once - show questions step by step or all
     * Allow/Disallow user to take part in survey more than once
+    * Protect with [reCAPTCHA](https://www.google.com/recaptcha/)
     * Add message displayed when user has finished survey
 
 

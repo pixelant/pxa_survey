@@ -27,6 +27,15 @@ plugin.tx_pxasurvey_survey {
     mvc {
         #callDefaultActionIfActionCantBeResolved = 1
     }
+    settings {
+        recaptcha {
+            siteKey = {$plugin.tx_pxasurvey_survey.settings.recaptcha.siteKey}
+            siteSecret = {$plugin.tx_pxasurvey_survey.settings.recaptcha.siteSecret}
+
+            # In case someone doesn't want to get it automatically included
+            donNotIncludeJsApi = 0
+        }
+    }
 }
 
 # Module configuration

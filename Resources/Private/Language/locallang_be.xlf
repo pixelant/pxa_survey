@@ -1,136 +1,154 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-    <file source-language="en" datatype="plaintext" original="messages" date="2017-11-13T15:58:32Z"
-          product-name="pxa_survey">
-        <header/>
-        <body>
-            <trans-unit id="flexform.sheet_title">
-                <source>Configuration</source>
-            </trans-unit>
-            <trans-unit id="flexform.sheet_messages_title">
-                <source>Messages</source>
-            </trans-unit>
-            <trans-unit id="flexform.mode">
-                <source>Plugin mode</source>
-            </trans-unit>
-            <trans-unit id="flexform.choose_survey">
-                <source>Choose survey</source>
-            </trans-unit>
-            <trans-unit id="flexform.show_all_questions">
-                <source>Show all questions at once</source>
-            </trans-unit>
-            <trans-unit id="flexform.thanks_message">
-                <source>Message displayed right after survey is finished</source>
-            </trans-unit>
-            <trans-unit id="flexform.already_finished_message">
-                <source>Message for user that has finished survey already</source>
-            </trans-unit>
-            <trans-unit id="flexform.allow_multiple_answer_on_survey">
-                <source>Allow user to take part in survey more than once</source>
-            </trans-unit>
-            <trans-unit id="flexform.choose_mode">
-                <source>Choose mode</source>
-            </trans-unit>
-            <trans-unit id="flexform.mode.show">
-                <source>Show survey questions</source>
-            </trans-unit>
-            <trans-unit id="flexform.mode.show_results">
-                <source>Show survey results</source>
-            </trans-unit>
-            <trans-unit id="flexform.mode">
-                <source>Mode</source>
-            </trans-unit>
+	<file source-language="en" datatype="plaintext" original="messages" date="2017-11-13T15:58:32Z"
+		  product-name="pxa_survey">
+		<header/>
+		<body>
+			<trans-unit id="flexform.sheet_title">
+				<source>Configuration</source>
+			</trans-unit>
+			<trans-unit id="flexform.sheet_messages_title">
+				<source>Messages</source>
+			</trans-unit>
+			<trans-unit id="flexform.mode">
+				<source>Plugin mode</source>
+			</trans-unit>
+			<trans-unit id="flexform.choose_survey">
+				<source>Choose survey</source>
+			</trans-unit>
+			<trans-unit id="flexform.show_all_questions">
+				<source>Show all questions at once</source>
+			</trans-unit>
+			<trans-unit id="flexform.thanks_message">
+				<source>Message displayed right after survey is finished</source>
+			</trans-unit>
+			<trans-unit id="flexform.already_finished_message">
+				<source>Message for user that has finished survey already</source>
+			</trans-unit>
+			<trans-unit id="flexform.allow_multiple_answer_on_survey">
+				<source>Allow user to take part in survey more than once</source>
+			</trans-unit>
+			<trans-unit id="flexform.choose_mode">
+				<source>Choose mode</source>
+			</trans-unit>
+			<trans-unit id="flexform.mode.show">
+				<source>Show survey questions</source>
+			</trans-unit>
+			<trans-unit id="flexform.mode.show_results">
+				<source>Show survey results</source>
+			</trans-unit>
+			<trans-unit id="flexform.mode">
+				<source>Mode</source>
+			</trans-unit>
+			<trans-unit id="flexform.protect_with_re_captcha">
+				<source>Protect with reCAPTCHA</source>
+			</trans-unit>
 
-            <trans-unit id="plugin.name">
-                <source>Simple survey</source>
-            </trans-unit>
-            <trans-unit id="plugin.description">
-                <source>Survey form output.</source>
-            </trans-unit>
+			<trans-unit id="plugin.name">
+				<source>Simple survey</source>
+			</trans-unit>
+			<trans-unit id="plugin.description">
+				<source>Survey form output.</source>
+			</trans-unit>
 
-            <!--Plugin BE View:START-->
-            <trans-unit id="extension_info.name">
-                <source>Simple survey</source>
-            </trans-unit>
-            <trans-unit id="extension_info.yes">
-                <source>Yes</source>
-            </trans-unit>
-            <trans-unit id="extension_info.no">
-                <source>No</source>
-            </trans-unit>
-            <trans-unit id="extension_info.survey">
-                <source>Survey</source>
-            </trans-unit>
-            <trans-unit id="extension_info.show_all">
-                <source>Show all question</source>
-            </trans-unit>
-            <trans-unit id="extension_info.multiple_participation">
-                <source>Multiple participation in survey</source>
-            </trans-unit>
-            <!--Plugin BE View:END-->
+			<!--Plugin BE View:START-->
+			<trans-unit id="extension_info.name">
+				<source>Simple survey</source>
+			</trans-unit>
+			<trans-unit id="extension_info.yes">
+				<source>Yes</source>
+			</trans-unit>
+			<trans-unit id="extension_info.no">
+				<source>No</source>
+			</trans-unit>
+			<trans-unit id="extension_info.survey">
+				<source>Survey</source>
+			</trans-unit>
+			<trans-unit id="extension_info.show_all">
+				<source>Show all question</source>
+			</trans-unit>
+			<trans-unit id="extension_info.multiple_participation">
+				<source>Multiple participation in survey</source>
+			</trans-unit>
+			<trans-unit id="extension_info.protect_with_re_captcha">
+				<source>Protect with reCAPTCHA</source>
+			</trans-unit>
+			<!--Plugin BE View:END-->
 
-            <!--MODULE:START-->
-            <trans-unit id="module.no_survey_found_title">
-                <source>No surveys found</source>
-            </trans-unit>
-            <trans-unit id="module.no_survey_found_desc">
-                <source>The current page does not contain any survey records. Select another page.</source>
-            </trans-unit>
-            <trans-unit id="module.header">
-                <source>Survey analysis</source>
-            </trans-unit>
-            <trans-unit id="module.survey_name">
-                <source>Survey name</source>
-            </trans-unit>
-            <trans-unit id="module.analysis">
-                <source>Analysis</source>
-            </trans-unit>
-            <trans-unit id="module.see_analysis">
-                <source>See analysis</source>
-            </trans-unit>
-            <trans-unit id="module.edit">
-                <source>Edit</source>
-            </trans-unit>
-            <trans-unit id="module.edit_survey">
-                <source>Edit survey</source>
-            </trans-unit>
-            <trans-unit id="module.new_survey">
-                <source>Create survey</source>
-            </trans-unit>
-            <trans-unit id="module.percentages">
-                <source>Percentages</source>
-            </trans-unit>
-            <trans-unit id="module.count">
-                <source>Count</source>
-            </trans-unit>
-            <trans-unit id="module.no_answers">
-                <source>No answers yet.</source>
-            </trans-unit>
-            <trans-unit id="module.total_answers">
-                <source>Total answers - %d.</source>
-            </trans-unit>
-            <trans-unit id="module.pie_chart">
-                <source>Pie chart view</source>
-            </trans-unit>
-            <trans-unit id="module.bar_chart">
-                <source>Bar chart view</source>
-            </trans-unit>
-            <trans-unit id="module.export">
-                <source>Export in CSV format</source>
-            </trans-unit>
-            <trans-unit id="module.export_survey_csv">
-                <source>Export survey</source>
-            </trans-unit>
-            <trans-unit id="module.answers">
-                <source>Answers</source>
-            </trans-unit>
-            <trans-unit id="module.go_back">
-                <source>Go back to list</source>
-            </trans-unit>
-            <!--MODULE:END-->
+			<!--MODULE:START-->
+			<trans-unit id="module.no_survey_found_title">
+				<source>No surveys found</source>
+			</trans-unit>
+			<trans-unit id="module.no_survey_found_desc">
+				<source>The current page does not contain any survey records. Select another page.</source>
+			</trans-unit>
+			<trans-unit id="module.header">
+				<source>Survey analysis</source>
+			</trans-unit>
+			<trans-unit id="module.survey_name">
+				<source>Survey name</source>
+			</trans-unit>
+			<trans-unit id="module.analysis">
+				<source>Analysis</source>
+			</trans-unit>
+			<trans-unit id="module.see_analysis">
+				<source>See analysis</source>
+			</trans-unit>
+			<trans-unit id="module.edit">
+				<source>Edit</source>
+			</trans-unit>
+			<trans-unit id="module.edit_survey">
+				<source>Edit survey</source>
+			</trans-unit>
+			<trans-unit id="module.new_survey">
+				<source>Create survey</source>
+			</trans-unit>
+			<trans-unit id="module.percentages">
+				<source>Percentages</source>
+			</trans-unit>
+			<trans-unit id="module.count">
+				<source>Count</source>
+			</trans-unit>
+			<trans-unit id="module.no_answers">
+				<source>No answers yet.</source>
+			</trans-unit>
+			<trans-unit id="module.total_answers">
+				<source>Total answers - %d.</source>
+			</trans-unit>
+			<trans-unit id="module.pie_chart">
+				<source>Pie chart view</source>
+			</trans-unit>
+			<trans-unit id="module.bar_chart">
+				<source>Bar chart view</source>
+			</trans-unit>
+			<trans-unit id="module.export">
+				<source>Export in CSV format</source>
+			</trans-unit>
+			<trans-unit id="module.export_survey_csv">
+				<source>Export survey</source>
+			</trans-unit>
+			<trans-unit id="module.answers">
+				<source>Answers</source>
+			</trans-unit>
+			<trans-unit id="module.go_back">
+				<source>Go back to list</source>
+			</trans-unit>
+			<!--MODULE:END-->
 
-            <!--EXT_CONF:START-->
-
-        </body>
-    </file>
+			<!--Constant editor:START-->
+			<trans-unit id="editor.category_name">
+				<source>Simple survey settings</source>
+			</trans-unit>
+			<trans-unit id="editor.recaptcha_title">
+				<source>reCAPTCHA secret</source>
+			</trans-unit>
+			<trans-unit id="editor.recaptcha.site_secret">
+				<source>Site secret</source>
+			</trans-unit>
+			<trans-unit id="editor.recaptcha.site_key">
+				<source>Site key</source>
+			</trans-unit>
+			<!--Constant editor:END-->
+		</body>
+	</file>
 </xliff>

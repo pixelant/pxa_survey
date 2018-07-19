@@ -18,6 +18,7 @@ use Pixelant\PxaSurvey\Domain\Model\Question;
 use Pixelant\PxaSurvey\Domain\Model\Survey;
 use Pixelant\PxaSurvey\Domain\Model\UserAnswer;
 use Pixelant\PxaSurvey\Utility\SurveyMainUtility;
+use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\StringUtility;
 use TYPO3\CMS\Extbase\Domain\Model\FrontendUser;
@@ -28,17 +29,45 @@ use TYPO3\CMS\Extbase\Domain\Model\FrontendUser;
 class SurveyController extends AbstractController
 {
     /**
+     * Include reCAPTCHA api js
+     */
+    public function initializeShowAction()
+    {
+        if ((int)$this->settings['protectWithReCaptcha'] === 1
+            && (int)$this->settings['recaptcha']['donNotIncludeJsApi'] === 0
+            && !empty($this->settings['recaptcha']['siteKey'])
+            && !empty($this->settings['recaptcha']['siteSecret'])
+        ) {
+            $pageRenderer = $this->getPageRenderer();
+            $pageRenderer->addJsFile(
+                'https://www.google.com/recaptcha/api.js',
+                'text/javascript',
+                false,
+                false,
+                '',
+                true,
+                '|',
+                true
+            );
+        }
+    }
+
+    /**
      * action show
      *
      * @return void
      */
     public function showAction()
     {
+        $survey = null;
+
         if ($surveyUid = (int)$this->settings['survey']) {
+            /** @var Survey $survey */
             $survey = $this->surveyRepository->findByUid($surveyUid);
         }
 
         if ($survey !== null && !$this->isSurveyAllowed($survey)) {
+            /** @noinspection PhpUnhandledExceptionInspection */
             $this->forward('finish', null, null, ['survey' => $survey, 'alreadyFinished' => true]);
         }
 
@@ -64,6 +93,7 @@ class SurveyController extends AbstractController
      * @param Survey $survey
      * @param Question $currentQuestion
      * @validate $survey \Pixelant\PxaSurvey\Domain\Validation\Validator\SurveyAnswerValidator
+     * @validate $survey \Pixelant\PxaSurvey\Domain\Validation\Validator\ReCaptchaValidator
      */
     public function answerAction(Survey $survey, Question $currentQuestion = null)
     {
@@ -123,6 +153,7 @@ class SurveyController extends AbstractController
         $answers = [];
 
         if ($this->request->hasArgument('answers')) {
+            /** @noinspection PhpUnhandledExceptionInspection */
             $requestAnswers = $this->request->getArgument('answers');
 
             /** @noinspection PhpWrongForeachArgumentTypeInspection */
@@ -211,12 +242,14 @@ class SurveyController extends AbstractController
                 }
             }
 
+            /** @noinspection PhpUnhandledExceptionInspection */
             $this->userAnswerRepository->add($userAnswer);
         }
 
         SurveyMainUtility::clearAnswersSessionData($survey->getUid());
         $this->addSurveyToCookie($survey);
 
+        /** @noinspection PhpUnhandledExceptionInspection */
         $this->redirect('finish', null, null, ['survey' => $survey]);
     }
 
@@ -283,7 +316,7 @@ class SurveyController extends AbstractController
         }
 
         // Check by fe user
-        if (SurveyMainUtility::getTSFE()->loginUser) {
+        if (SurveyMainUtility::getTSFE()->loginUser && GeneralUtility::_GP('ADMCMD_simUser') === null) {
             /** @var FrontendUser $frontendUser */
             $frontendUser = $this->frontendUserRepository->findByUid(
                 SurveyMainUtility::getTSFE()->fe_user->user['uid']
@@ -299,5 +332,16 @@ class SurveyController extends AbstractController
         // check by cookie
         $surveysFinished = $_COOKIE[SurveyMainUtility::SURVEY_FINISHED_COOKIE_NAME] ?? '';
         return !GeneralUtility::inList($surveysFinished, $survey->getUid());
+    }
+
+    /**
+     * Wrapper for testing
+     *
+     * @return PageRenderer
+     */
+    protected function getPageRenderer(): PageRenderer
+    {
+        /** @noinspection PhpIncompatibleReturnTypeInspection */
+        return GeneralUtility::makeInstance(PageRenderer::class);
     }
 }
