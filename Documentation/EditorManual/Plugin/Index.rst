@@ -12,6 +12,7 @@ Add plugin with survey on a page
 
 - Create a new Content Element **Plugins -> Simple survey**
 - In plugin settings window **choose Survey from storage folder**
+- Choose plugin mode, either **"show survey" or "survey results"**
 - It is possible to show all question at once or do survey step by step, depends on **Show all questions at once" checkbox**
 - Enable or disable multiple participation in survey , depends on **Allow user to take part in survey more than once" checkbox**
 - Enable or disable reCAPTCHA protection **Protect with reCAPTCHA**
