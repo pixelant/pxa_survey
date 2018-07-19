@@ -14,6 +14,6 @@ Editor Manual
 	:maxdepth: 5
 	:titlesonly:
 
-       	CreateSurvey/Index
-           Plugin/Index
-           Recaptcha/Index
+    	CreateSurvey/Index
+        Plugin/Index
+        Recaptcha/Index
