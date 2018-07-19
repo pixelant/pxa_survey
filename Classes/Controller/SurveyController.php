@@ -59,12 +59,8 @@ class SurveyController extends AbstractController
      */
     public function showAction()
     {
-        $survey = null;
-
-        if ($surveyUid = (int)$this->settings['survey']) {
-            /** @var Survey $survey */
-            $survey = $this->surveyRepository->findByUid($surveyUid);
-        }
+        /** @var Survey $survey */
+        $survey = $this->surveyRepository->findByUid((int)$this->settings['survey']);
 
         if ($survey !== null && !$this->isSurveyAllowed($survey)) {
             /** @noinspection PhpUnhandledExceptionInspection */
@@ -132,9 +128,8 @@ class SurveyController extends AbstractController
      */
     public function showResultsAction()
     {
-        $surveyUid = (int)$this->settings['survey'];
         /** @var Survey $survey */
-        $survey = $this->surveyRepository->findByUid($surveyUid);
+        $survey = $this->surveyRepository->findByUid((int)$this->settings['survey']);
 
         $data = $this->generateAnalysisData($survey);
 
