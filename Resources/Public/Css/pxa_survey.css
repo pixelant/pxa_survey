@@ -1,0 +1,26 @@
+.pxa-result-bar {
+    display: inline-block;
+    height: 10px;
+    background: #7d7d7d;
+}
+
+.pxa-result-row {
+    position: relative;
+    width: 100%;
+}
+
+.pxa-result-percents {
+    position: absolute;
+    right: 0;
+}
+
+.pxa-result-bar {
+    position: absolute;
+    top: 25px;
+    left: 0;
+}
+
+.pxa-result-text {
+    padding-bottom: 15px;
+    display: inline-block;
+}

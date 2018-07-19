@@ -30,6 +30,7 @@
 * Create page that'll contain plugin
 * Add new content element, go to "Plugins" tab and choose "Simple survey"
     * Choose survey from storage
+    * Choose plugin mode, either "show survey" or "survey results".
     * Show all questions at once - show questions step by step or all
     * Allow/Disallow user to take part in survey more than once
     * Protect with [reCAPTCHA](https://www.google.com/recaptcha/)

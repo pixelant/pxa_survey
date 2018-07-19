@@ -14,8 +14,8 @@ PxaSurvey = (function () {
 	function PxaSurvey(settings) {
 		this._cacheQuestionIds = {};
 		this._$additionalAnswerInput = $(settings.additionalAnswerInput);
-		this._$progressBar =$(settings.progressBar);
-		this._$form =$(settings.form);
+		this._$progressBar = $(settings.progressBar);
+		this._$form = $(settings.form);
 	}
 
 	PxaSurvey.prototype = {

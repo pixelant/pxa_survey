@@ -13,10 +13,14 @@ namespace Pixelant\PxaSurvey\Hooks;
  *
  ***/
 
+
+use Pixelant\PxaSurvey\Utility\SurveyMainUtility as MainUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Service\FlexFormService;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Fluid\View\StandaloneView;
+
 
 /**
  * Class ListTypeInfoPreviewHook
@@ -32,30 +36,31 @@ class ListTypeInfoPreviewHook
      */
     public function getExtensionSummary(array $params): string
     {
-        $flexFormData = GeneralUtility::xml2array($params['row']['pi_flexform'] ?? '');
-        $flexFormSettings = [];
 
-        if (is_array($flexFormData['data']['sDEF']['lDEF'])) {
-            foreach ($flexFormData['data'] as $sheet) {
-                $rawSettings = $sheet['lDEF'];
-                foreach ($rawSettings as $field => $rawSetting) {
-                    $this->flexFormToArray($field, $rawSetting['vDEF'], $flexFormSettings);
-                }
-            }
+        $flexFormService = GeneralUtility::makeInstance(FlexFormService::class);
+        $flexFormData = $flexFormService->convertFlexFormContentToArray($params['row']['pi_flexform'] ?? '');
+
+        if (is_array($flexFormData['settings'])) {
+            $surveyUid = (int)$flexFormData['settings']['survey'];
+            $allowedActions = GeneralUtility::trimExplode(';', $flexFormData['switchableControllerActions']);
+            list(, $action) = GeneralUtility::trimExplode('->', $allowedActions[0]);
+
+            $surveyRow = BackendUtility::getRecord(
+                'tx_pxasurvey_domain_model_survey',
+                $surveyUid,
+                'name'
+            );
+
+            $view = $this->getView();
+            $view
+                ->assign('settings', $flexFormData['settings'])
+                ->assign('surveyRow', $surveyRow)
+                ->assign('action', GeneralUtility::camelCaseToLowerCaseUnderscored($action));
+
+            return $view->render();
         }
 
-        $surveyRow = BackendUtility::getRecord(
-            'tx_pxasurvey_domain_model_survey',
-            $surveyUid = (int)$flexFormSettings['settings']['survey'],
-            'name'
-        );
-
-        $view = $this->getView();
-        $view
-            ->assign('settings', $flexFormSettings['settings'])
-            ->assign('surveyRow', $surveyRow);
-
-        return $view->render();
+        return '';
     }
 
     /**
@@ -74,28 +79,5 @@ class ListTypeInfoPreviewHook
         $view->setTemplatePathAndFilename($templatePath);
 
         return $view;
-    }
-
-    /**
-     * Go through all settings and generate array
-     *
-     * @param string $field
-     * @param mixed $value
-     * @param array $settings
-     * @return void
-     */
-    protected function flexFormToArray($field, $value, &$settings)
-    {
-        $fieldNameParts = GeneralUtility::trimExplode('.', $field);
-        if (count($fieldNameParts) > 1) {
-            $name = $fieldNameParts[0];
-            unset($fieldNameParts[0]);
-            if (!isset($settings[$name])) {
-                $settings[$name] = [];
-            }
-            $this->flexFormToArray(implode('.', $fieldNameParts), $value, $settings[$name]);
-        } else {
-            $settings[$fieldNameParts[0]] = $value;
-        }
     }
 }

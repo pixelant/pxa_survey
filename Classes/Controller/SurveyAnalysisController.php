@@ -24,14 +24,13 @@ use TYPO3\CMS\Backend\View\BackendTemplateView;
 use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 
 /**
  * Class SurveyAnalysisController
  * @package Pixelant\PxaSurvey\Controller
  */
-class SurveyAnalysisController extends ActionController
+class SurveyAnalysisController extends AbstractController
 {
     /**
      * BackendTemplateContainer
@@ -46,22 +45,6 @@ class SurveyAnalysisController extends ActionController
      * @var BackendTemplateView
      */
     protected $defaultViewObjectName = BackendTemplateView::class;
-
-    /**
-     * Survey Repository
-     *
-     * @var \Pixelant\PxaSurvey\Domain\Repository\SurveyRepository
-     * @inject
-     */
-    protected $surveyRepository = null;
-
-    /**
-     * User Answer Repository
-     *
-     * @var \Pixelant\PxaSurvey\Domain\Repository\UserAnswerRepository
-     * @inject
-     */
-    protected $userAnswerRepository = null;
 
     /**
      * Current page
@@ -166,85 +149,6 @@ class SurveyAnalysisController extends ActionController
         fclose($output);
 
         exit(0);
-    }
-
-    /**
-     * Generate data for Charts.js
-     *
-     * @param Survey $survey
-     * @return array
-     */
-    protected function generateAnalysisData(Survey $survey): array
-    {
-        $data = [];
-
-        /** @var Question $question */
-        foreach ($survey->getQuestions() as $question) {
-            $questionData = [];
-            $allAnswersCount = 0;
-
-            /** @noinspection PhpUndefinedMethodInspection */
-            $userAnswers = $this->userAnswerRepository->findByQuestion($question);
-
-            /** @var UserAnswer $userAnswer */
-            foreach ($userAnswers as $userAnswer) {
-                // if check box or radio
-                if ($userAnswer->getAnswers()->count() > 0) {
-                    /** @var Answer $answer */
-                    foreach ($userAnswer->getAnswers() as $answer) {
-                        if (!is_array($questionData[$answer->getUid()])) {
-                            $questionData[$answer->getUid()] = [
-                                'label' => $answer->getText(),
-                                'count' => 1
-                            ];
-                        } else {
-                            $questionData[$answer->getUid()]['count'] += 1;
-                        }
-
-                        $allAnswersCount++;
-                    }
-                } elseif (!empty($userAnswer->getCustomValue())) { // custom value
-                    $identifier = GeneralUtility::shortMD5($userAnswer->getCustomValue());
-
-                    if (!is_array($questionData[$identifier])) {
-                        $questionData[$identifier] = [
-                            'label' => $userAnswer->getCustomValue(),
-                            'count' => 1
-                        ];
-                    } else {
-                        $questionData[$identifier]['count'] += 1;
-                    }
-
-                    $allAnswersCount++;
-                }
-            }
-
-            // add to data array
-            $data[$question->getUid()] = [
-                'questionData' => $this->calculatePercentsForQuestionData($questionData, $allAnswersCount),
-                'labelChart' => SurveyMainUtility::translate('module.percentages'),
-                'label' => $question->getText(),
-                'allAnswersCount' => $allAnswersCount
-            ];
-        }
-
-        return $data;
-    }
-
-    /**
-     * Count in percents user answers
-     *
-     * @param array $questionData
-     * @param int $allAnswersCount
-     * @return array
-     */
-    protected function calculatePercentsForQuestionData(array $questionData, int $allAnswersCount): array
-    {
-        foreach ($questionData as &$questionItem) {
-            $questionItem['percents'] = (string)(round($questionItem['count'] / $allAnswersCount, 3) * 100);
-        }
-
-        return $questionData;
     }
 
     /**

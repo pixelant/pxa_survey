@@ -22,45 +22,12 @@ use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\StringUtility;
 use TYPO3\CMS\Extbase\Domain\Model\FrontendUser;
-use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
 /**
  * SurveyController
  */
-class SurveyController extends ActionController
+class SurveyController extends AbstractController
 {
-    /**
-     * Survey Repository
-     *
-     * @var \Pixelant\PxaSurvey\Domain\Repository\SurveyRepository
-     * @inject
-     */
-    protected $surveyRepository = null;
-
-    /**
-     * User Answer Repository
-     *
-     * @var \Pixelant\PxaSurvey\Domain\Repository\UserAnswerRepository
-     * @inject
-     */
-    protected $userAnswerRepository = null;
-
-    /**
-     * Answer Repository
-     *
-     * @var \Pixelant\PxaSurvey\Domain\Repository\AnswerRepository
-     * @inject
-     */
-    protected $answerRepository = null;
-
-    /**
-     * Frontend User Repository
-     *
-     * @var \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository
-     * @inject
-     */
-    protected $frontendUserRepository = null;
-
     /**
      * Include reCAPTCHA api js
      */
@@ -88,14 +55,12 @@ class SurveyController extends ActionController
     /**
      * action show
      *
-     * @param Survey $survey
      * @return void
      */
-    public function showAction(Survey $survey = null)
+    public function showAction()
     {
-        if ($survey === null && ($surveyUid = (int)$this->settings['survey'])) {
-            $survey = $this->surveyRepository->findByUid($surveyUid);
-        }
+        /** @var Survey $survey */
+        $survey = $this->surveyRepository->findByUid((int)$this->settings['survey']);
 
         if ($survey !== null && !$this->isSurveyAllowed($survey)) {
             /** @noinspection PhpUnhandledExceptionInspection */
@@ -141,8 +106,7 @@ class SurveyController extends ActionController
             SurveyMainUtility::addAnswerToSessionData($survey->getUid(), $answers);
 
             // Show next question
-            /** @noinspection PhpUnhandledExceptionInspection */
-            $this->forward('show', null, null, ['survey' => $survey]);
+            $this->forward('show');
         }
     }
 
@@ -157,6 +121,23 @@ class SurveyController extends ActionController
         $this->view
             ->assign('survey', $survey)
             ->assign('alreadyFinished', $alreadyFinished);
+    }
+
+    /**
+     * Show survey results
+     */
+    public function showResultsAction()
+    {
+        /** @var Survey $survey */
+        $survey = $this->surveyRepository->findByUid((int)$this->settings['survey']);
+
+        $data = $survey !== null
+            ? $this->generateAnalysisData($survey)
+            : [];
+
+        $this->view
+            ->assign('survey', $survey)
+            ->assign('data', $data);
     }
 
     /**

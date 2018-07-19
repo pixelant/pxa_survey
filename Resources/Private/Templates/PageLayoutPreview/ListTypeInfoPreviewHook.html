@@ -1,17 +1,37 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
       xmlns:pxa="http://typo3.org/ns/Pixelant/PxaSurvey/ViewHelpers/Backend" data-namespace-typo3-fluid="true">
-<strong>
-    <pxa:translate key="extension_info.name"/>
-</strong>
-<br><br>
-<pre><f:spaceless>
-    <b><pxa:translate key="extension_info.survey"/></b>: {surveyRow.name}<br>
 
-    <f:comment>Checkboxes values</f:comment>
-    <f:render section="checkbox" arguments="{translationKey: 'show_all', value: settings.showAllQuestions}"/>
-    <f:render section="checkbox" arguments="{translationKey: 'multiple_participation', value: settings.allowMultipleAnswerOnSurvey}"/>
-    <f:render section="checkbox" arguments="{translationKey: 'protect_with_re_captcha', value: settings.protectWithReCaptcha}"/>
-</f:spaceless></pre>
+<f:render section="{action}" arguments="{_all}"/>
+
+<f:section name="show">
+    <strong>
+        <pxa:translate key="extension_info.name"/>
+    </strong>
+    <br><br>
+    <pre><f:spaceless>
+        <f:render section="header" arguments="{surveyRow: surveyRow, action: action}" />
+
+        <f:comment>Checkboxes values</f:comment>
+        <f:render section="checkbox" arguments="{translationKey: 'show_all', value: settings.showAllQuestions}"/>
+        <f:render section="checkbox" arguments="{translationKey: 'multiple_participation', value: settings.allowMultipleAnswerOnSurvey}"/>
+        <f:render section="checkbox" arguments="{translationKey: 'protect_with_re_captcha', value: settings.protectWithReCaptcha}"/>
+    </f:spaceless></pre>
+</f:section>
+
+<f:section name="show_results">
+    <strong>
+        <pxa:translate key="extension_info.name"/>
+    </strong>
+    <br><br>
+    <pre><f:spaceless>
+        <f:render section="header" arguments="{surveyRow: surveyRow, action: action}" />
+    </f:spaceless></pre>
+</f:section>
+
+<f:section name="header">
+    <b><pxa:translate key="extension_info.survey"/></b>: {surveyRow.name}<br>
+    <b><pxa:translate key="flexform.mode"/></b>: <pxa:translate key="flexform.mode.{action}"/><br>
+</f:section>
 
 <f:section name="checkbox">
     <b><pxa:translate key="extension_info.{translationKey}"/></b>: <f:if condition="{value}" then="{pxa:translate(key: 'extension_info.yes')}" else="{pxa:translate(key: 'extension_info.no')}"/><br>

@@ -1,48 +1,51 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-    <file source-language="en" datatype="plaintext" original="messages" date="2017-11-13T15:58:32Z"
-          product-name="pxa_survey">
-        <header/>
-        <body>
-            <trans-unit id="fe.not_found">
-                <source>Survey was not found</source>
-            </trans-unit>
-            <trans-unit id="fe.other_answer_label">
-                <source>Other:</source>
-            </trans-unit>
-            <trans-unit id="fe.user_answer_placeholder">
-                <source>type answer</source>
-            </trans-unit>
-            <trans-unit id="fe.send">
-                <source>Send</source>
-            </trans-unit>
-            <trans-unit id="fe.next">
-                <source>Next</source>
-            </trans-unit>
-            <trans-unit id="fe.error.double_result">
-                <source>You should either specified one of the options or use input field.</source>
-            </trans-unit>
-            <trans-unit id="fe.error.required">
-                <source>This question is required to be answered.</source>
-            </trans-unit>
-            <trans-unit id="fe.error.recaptcha">
-                <source>You didn't pass reCAPTCHA check. Please, try again.</source>
-            </trans-unit>
-            <trans-unit id="fe.error.no_answers_at_all">
-                <source>You should answer at least one question.</source>
-            </trans-unit>
-            <trans-unit id="fe.progress">
-                <source>Question %d of %d.</source>
-            </trans-unit>
-            <trans-unit id="fe.thanks_message">
-                <source>Thank you for your participation.</source>
-            </trans-unit>
-            <trans-unit id="fe.already_finished">
-                <source>You have already passed this survey</source>
-            </trans-unit>
-            <trans-unit id="fe.recaptcha_key_secret_missing">
-                <source>Key or secret is missing for reCAPTCHA.</source>
-            </trans-unit>
-        </body>
-    </file>
+	<file source-language="en" datatype="plaintext" original="messages" date="2017-11-13T15:58:32Z"
+		  product-name="pxa_survey">
+		<header/>
+		<body>
+			<trans-unit id="fe.not_found">
+				<source>Survey was not found</source>
+			</trans-unit>
+			<trans-unit id="fe.other_answer_label">
+				<source>Other:</source>
+			</trans-unit>
+			<trans-unit id="fe.user_answer_placeholder">
+				<source>type answer</source>
+			</trans-unit>
+			<trans-unit id="fe.send">
+				<source>Send</source>
+			</trans-unit>
+			<trans-unit id="fe.next">
+				<source>Next</source>
+			</trans-unit>
+			<trans-unit id="fe.error.double_result">
+				<source>You should either specified one of the options or use input field.</source>
+			</trans-unit>
+			<trans-unit id="fe.error.required">
+				<source>This question is required to be answered.</source>
+			</trans-unit>
+			<trans-unit id="fe.error.recaptcha">
+				<source>You didn't pass reCAPTCHA check. Please, try again.</source>
+			</trans-unit>
+			<trans-unit id="fe.error.no_answers_at_all">
+				<source>You should answer at least one question.</source>
+			</trans-unit>
+			<trans-unit id="fe.progress">
+				<source>Question %d of %d.</source>
+			</trans-unit>
+			<trans-unit id="fe.thanks_message">
+				<source>Thank you for your participation.</source>
+			</trans-unit>
+			<trans-unit id="fe.already_finished">
+				<source>You have already passed this survey</source>
+			</trans-unit>
+			<trans-unit id="fe.recaptcha_key_secret_missing">
+				<source>Key or secret is missing for reCAPTCHA.</source>
+			</trans-unit>
+			<trans-unit id="fe.total_answers">
+				<source>total answers count - %d</source>
+			</trans-unit>
+		</body>
+	</file>
 </xliff>
