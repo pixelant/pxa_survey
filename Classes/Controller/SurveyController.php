@@ -231,7 +231,7 @@ class SurveyController extends AbstractController
                 }
             }
 
-            if (SurveyMainUtility::getTSFE()->loginUser) {
+            if (SurveyMainUtility::isFrontendLogin()) {
                 /** @var FrontendUser $frontendUser */
                 $frontendUser = $this->frontendUserRepository->findByUid(
                     SurveyMainUtility::getTSFE()->fe_user->user['uid']
