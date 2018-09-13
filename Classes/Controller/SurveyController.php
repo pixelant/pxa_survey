@@ -217,9 +217,11 @@ class SurveyController extends AbstractController
 
             /** @var UserAnswer $userAnswer */
             $userAnswer = $this->objectManager->get(UserAnswer::class);
-            $userAnswer->setQuestion(
-                $this->getQuestionFromSurveyByUid($survey, (int)$questionUid)
-            );
+            $question = $this->getQuestionFromSurveyByUid($survey, (int)$questionUid);
+            if ($question !== null) {
+                $userAnswer->setQuestion($question);
+                $userAnswer->setPid($question->getPid());
+            }
 
             if (is_string($answerData)) {
                 $this->setUserAnswerFromRequestData($userAnswer, $answerData);
