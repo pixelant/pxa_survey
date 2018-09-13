@@ -22,7 +22,7 @@
     <p>{question.text}<f:if condition="{question.required}"> <span>*</span></f:if></p>
     <f:render partial="Answers/AnswerType-{question.type}" arguments="{question: question}"/>
 
-    <f:if condition="{question.appendWithInput}">
+    <f:if condition="{question.appendWithInput} && {question.type} != 3">
         <f:render partial="Answers/AnswerTypeUserAnswer" arguments="{question: question}"/>
     </f:if>
 </f:section>
