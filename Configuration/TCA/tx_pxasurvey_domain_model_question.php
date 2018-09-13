@@ -3,7 +3,7 @@ $ll = 'LLL:EXT:pxa_survey/Resources/Private/Language/locallang_db.xlf:';
 
 return [
     'ctrl' => [
-        'title' => $ll .'tx_pxasurvey_domain_model_question',
+        'title' => $ll . 'tx_pxasurvey_domain_model_question',
         'label' => 'text',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
@@ -29,7 +29,7 @@ return [
     ],
     'types' => [
         // remove default fields to make it more compact
-        '1' => ['showitem' => '--palette--;;options, text, answers'],
+        '1' => ['showitem' => '--palette--;;options, text, answers']
         // remove access tab.
         //, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime
     ],
@@ -123,7 +123,7 @@ return [
 
         'text' => [
             'exclude' => true,
-            'label' => $ll .'tx_pxasurvey_domain_model_question.text',
+            'label' => $ll . 'tx_pxasurvey_domain_model_question.text',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
@@ -132,7 +132,7 @@ return [
         ],
         'type' => [
             'exclude' => true,
-            'label' => $ll .'tx_pxasurvey_domain_model_question.type',
+            'label' => $ll . 'tx_pxasurvey_domain_model_question.type',
             'config' => [
                 'type' => 'select',
                 'renderType' => 'selectSingle',
@@ -147,25 +147,28 @@ return [
         ],
         'append_with_input' => [
             'exclude' => true,
-            'displayCond' => 'FIELD:type:!=:' . \Pixelant\PxaSurvey\Domain\Model\Question::ANSWER_TYPE_INPUT,
-            'label' => $ll .'tx_pxasurvey_domain_model_question.append_with_input',
+            'label' => $ll . 'tx_pxasurvey_domain_model_question.append_with_input',
             'config' => [
-                'type' => 'check',
-                'default' => 0
+                'type' => 'select',
+                'items' => [],
+                'itemsProcFunc' => \Pixelant\PxaSurvey\UserFunction\AnswerInputTypeSelect::class . '->renderItems'
             ],
         ],
         'required' => [
             'exclude' => true,
-            'label' => $ll .'tx_pxasurvey_domain_model_question.required',
+            'label' => $ll . 'tx_pxasurvey_domain_model_question.required',
             'config' => [
                 'type' => 'check',
+                'items' => [
+                    [$ll . 'tx_pxasurvey_domain_model_question.required.label', '1']
+                ],
                 'default' => 1
             ],
         ],
         'answers' => [
             'exclude' => true,
             'displayCond' => 'FIELD:type:!=:' . \Pixelant\PxaSurvey\Domain\Model\Question::ANSWER_TYPE_INPUT,
-            'label' => $ll .'tx_pxasurvey_domain_model_question.answers',
+            'label' => $ll . 'tx_pxasurvey_domain_model_question.answers',
             'config' => [
                 'type' => 'inline',
                 'foreign_table' => 'tx_pxasurvey_domain_model_answer',
@@ -182,7 +185,6 @@ return [
                 ],
             ],
         ],
-    
         'survey' => [
             'config' => [
                 'type' => 'passthrough',

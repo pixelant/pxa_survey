@@ -3,7 +3,7 @@ $ll = 'LLL:EXT:pxa_survey/Resources/Private/Language/locallang_db.xlf:';
 
 return [
     'ctrl' => [
-        'title' => $ll .'tx_pxasurvey_domain_model_answer',
+        'title' => $ll . 'tx_pxasurvey_domain_model_answer',
         'label' => 'text',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
@@ -113,17 +113,15 @@ return [
                 ],
             ],
         ],
-
         'text' => [
             'exclude' => true,
-            'label' => $ll .'tx_pxasurvey_domain_model_answer.text',
+            'label' => $ll . 'tx_pxasurvey_domain_model_answer.text',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
                 'eval' => 'trim,required'
             ],
         ],
-    
         'question' => [
             'config' => [
                 'type' => 'passthrough',

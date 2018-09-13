@@ -15,6 +15,9 @@
 			<trans-unit id="append_with_input.description">
 			    <source>Add text field where user can enter his/her own answer.</source>
 			</trans-unit>
+			<trans-unit id="required.description">
+			    <source>Is required?</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
