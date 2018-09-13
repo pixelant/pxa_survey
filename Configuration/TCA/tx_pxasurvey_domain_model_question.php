@@ -120,7 +120,6 @@ return [
                 ],
             ],
         ],
-
         'text' => [
             'exclude' => true,
             'label' => $ll . 'tx_pxasurvey_domain_model_question.text',
