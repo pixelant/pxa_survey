@@ -3,15 +3,15 @@
 .. --------------------------------------------------
 .. -*- coding: utf-8 -*- with BOM.
 
-.. include:: ../Includes.txt
+.. include:: ../../Includes.txt
 
 .. _editor-enable-recaptcha:
 
 Enable reCAPTCHA
-------------
+----------------
 
 Configure TypoScript constants
-""""""""""""""""""""
+""""""""""""""""""""""""""""""
 
 Configure constants with site key and secret.
 https://www.google.com/recaptcha/
@@ -33,6 +33,6 @@ https://www.google.com/recaptcha/
    Editor
 
 Protect survey with reCAPTCHA
-""""""""""""""""""""
+"""""""""""""""""""""""""""""
 
 Don't forget to enable reCAPTCHA protection in plugin settings

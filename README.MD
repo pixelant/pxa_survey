@@ -20,7 +20,7 @@
         * Checkboxes if multiple answer allowed
         * Free input field
     * Is question required
-    * Add free input field after options list
+    * Free input field type
     * List of answers
 * Create answers for each question
 * Survey is ready
