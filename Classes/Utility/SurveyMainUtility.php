@@ -30,29 +30,6 @@ class SurveyMainUtility
     public static $LL = 'LLL:EXT:pxa_survey/Resources/Private/Language/locallang_be.xlf:';
 
     /**
-     * Extension configuration
-     *
-     * @var array
-     */
-    protected static $extensionConfiguration;
-
-    /**
-     * Get extension configuration
-     *
-     * @return array
-     */
-    public static function getExtensionConfiguration(): array
-    {
-        if (self::$extensionConfiguration === null) {
-            self::$extensionConfiguration = unserialize(
-                $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['pxa_survey']
-            );
-        }
-
-        return self::$extensionConfiguration ?? [];
-    }
-
-    /**
      * Add single answer to session
      *
      * @param int $surveyUid
