@@ -13,14 +13,9 @@ namespace Pixelant\PxaSurvey\Controller;
  *
  ***/
 
-use Pixelant\PxaSurvey\Domain\Model\Answer;
-use Pixelant\PxaSurvey\Domain\Model\Question;
 use Pixelant\PxaSurvey\Domain\Model\Survey;
-use Pixelant\PxaSurvey\Domain\Model\UserAnswer;
-use Pixelant\PxaSurvey\Utility\SurveyMainUtility;
 use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Backend\Template\Components\ButtonBar;
-use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Backend\View\BackendTemplateView;
 use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Imaging\IconFactory;
