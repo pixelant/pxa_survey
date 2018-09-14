@@ -118,6 +118,12 @@ class SurveyController extends AbstractController
      */
     public function finishAction(Survey $survey, bool $alreadyFinished = false)
     {
+        // If there are more than one survey on page and one of them redirect to finish
+        // only real one that was finished should show message
+        if ((int)$this->settings['survey'] !== $survey->getUid()) {
+            $this->forward('show');
+        }
+
         $this->view
             ->assign('survey', $survey)
             ->assign('alreadyFinished', $alreadyFinished);
@@ -315,7 +321,7 @@ class SurveyController extends AbstractController
         }
 
         // Check by fe user
-        if (SurveyMainUtility::getTSFE()->loginUser && GeneralUtility::_GP('ADMCMD_simUser') === null) {
+        if (SurveyMainUtility::isFrontendLogin() && GeneralUtility::_GP('ADMCMD_simUser') === null) {
             /** @var FrontendUser $frontendUser */
             $frontendUser = $this->frontendUserRepository->findByUid(
                 SurveyMainUtility::getTSFE()->fe_user->user['uid']
