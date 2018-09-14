@@ -5,7 +5,7 @@
 
 <f:section name="main">
     <h1>
-        <pxa:translate key="module.header"/>
+        <f:translate key="module.header"/>
     </h1>
     <f:if condition="{surveys -> f:count()}">
         <f:then>
@@ -14,16 +14,16 @@
                 <tr>
                     <th># UID</th>
                     <th>
-                        <pxa:translate key="module.survey_name"/>
+                        <f:translate key="module.survey_name"/>
                     </th>
                     <th>
-                        <pxa:translate key="module.export"/>
+                        <f:translate key="module.export"/>
                     </th>
                     <th>
-                        <pxa:translate key="module.analysis"/>
+                        <f:translate key="module.analysis"/>
                     </th>
                     <th>
-                        <pxa:translate key="module.edit"/>
+                        <f:translate key="module.edit"/>
                     </th>
                 </tr>
                 </thead>
@@ -36,17 +36,17 @@
                         </td>
                         <td>
                             <f:link.action action="exportCsv" arguments="{survey: survey}">
-                                <pxa:translate key="module.export_survey_csv"/>
+                                <f:translate key="module.export_survey_csv"/>
                             </f:link.action>
                         </td>
                         <td>
                             <f:link.action action="seeAnalysis" arguments="{survey: survey}">
-                                <pxa:translate key="module.see_analysis"/>
+                                <f:translate key="module.see_analysis"/>
                             </f:link.action>
                         </td>
                         <td>
                             <a href="{pxa:recordEditUrl(uid: survey.uid)}" title="UID: {popup.uid}">
-                                <pxa:translate key="module.edit_survey"/>
+                                <f:translate key="module.edit_survey"/>
                             </a>
                         </td>
                     </tr>
@@ -63,11 +63,11 @@
                     </div>
                     <div class="media-body">
                         <h4 class="callout-title">
-                            <pxa:translate key="module.no_survey_found_title"/>
+                            <f:translate key="module.no_survey_found_title"/>
                         </h4>
                         <div class="callout-body">
                             <p>
-                                <pxa:translate key="module.no_survey_found_desc"/>
+                                <f:translate key="module.no_survey_found_desc"/>
                             </p>
                         </div>
                     </div>

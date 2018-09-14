@@ -4,7 +4,6 @@ namespace Pixelant\PxaSurvey\Utility;
 
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use TYPO3\CMS\Lang\LanguageService;
 
@@ -114,9 +113,22 @@ class SurveyMainUtility
      * @param array $arguments
      * @return string
      */
-    public static function translate(string $key, array $arguments = null): string
+    public static function translate(string $key, array $arguments = []): string
     {
-        return LocalizationUtility::translate($key, 'PxaSurvey', $arguments) ?? '';
+        if (TYPO3_MODE !== 'BE') {
+            return '';
+        }
+
+        $label = self::getLanguageService()->sL(self::$LL . $key);
+
+        if (!empty($arguments)) {
+            $label = vsprintf(
+                $label,
+                $arguments
+            );
+        }
+
+        return $label;
     }
 
     /**
@@ -142,6 +154,14 @@ class SurveyMainUtility
             0,
             '/'
         );
+    }
+
+    /**
+     * @return LanguageService
+     */
+    public static function getLanguageService(): LanguageService
+    {
+        return $GLOBALS['LANG'];
     }
 
     /**

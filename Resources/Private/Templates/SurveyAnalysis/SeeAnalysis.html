@@ -1,22 +1,21 @@
-<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
-      xmlns:pxa="http://typo3.org/ns/Pixelant/PxaSurvey/ViewHelpers/Backend" data-namespace-typo3-fluid="true">
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 
 <f:layout name="Backend/Default"/>
 
 <f:section name="main">
     <f:link.action action="main" class="go-back btn btn-default">
-        <pxa:translate key="module.go_back"/>
+        <f:translate key="module.go_back"/>
     </f:link.action>
 
     <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active">
             <a href="#bar" aria-controls="bar" role="tab" data-toggle="tab">
-                <pxa:translate key="module.bar_chart"/>
+                <f:translate key="module.bar_chart"/>
             </a>
         </li>
         <li role="presentation">
             <a href="#pie" aria-controls="Pie" role="tab" data-toggle="tab">
-                <pxa:translate key="module.pie_chart"/>
+                <f:translate key="module.pie_chart"/>
             </a>
         </li>
     </ul>
@@ -52,7 +51,7 @@
                     <f:if condition="{questionItem.allAnswersCount} > 0">
                         <f:then>
                             <i>
-                                <pxa:translate key="module.total_answers"
+                                <f:translate key="module.total_answers"
                                               arguments="{0: questionItem.allAnswersCount}"/>
                             </i>
                             <br>
@@ -65,7 +64,7 @@
                             </ol>
                         </f:then>
                         <f:else>
-                            <pxa:translate key="module.no_answers"/>
+                            <f:translate key="module.no_answers"/>
                         </f:else>
                     </f:if>
                 </p>
