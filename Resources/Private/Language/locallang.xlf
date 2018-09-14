@@ -4,6 +4,7 @@
 		  product-name="pxa_survey">
 		<header/>
 		<body>
+			<!--Frontend labels:START-->
 			<trans-unit id="fe.not_found">
 				<source>Survey was not found</source>
 			</trans-unit>
@@ -46,6 +47,67 @@
 			<trans-unit id="fe.total_answers">
 				<source>total answers count - %d</source>
 			</trans-unit>
+			<!--Frontend labels:END-->
+
+			<!--MODULE:START-->
+			<trans-unit id="module.no_survey_found_title">
+				<source>No surveys found</source>
+			</trans-unit>
+			<trans-unit id="module.no_survey_found_desc">
+				<source>The current page does not contain any survey records. Select another page.</source>
+			</trans-unit>
+			<trans-unit id="module.header">
+				<source>Survey analysis</source>
+			</trans-unit>
+			<trans-unit id="module.survey_name">
+				<source>Survey name</source>
+			</trans-unit>
+			<trans-unit id="module.analysis">
+				<source>Analysis</source>
+			</trans-unit>
+			<trans-unit id="module.see_analysis">
+				<source>See analysis</source>
+			</trans-unit>
+			<trans-unit id="module.edit">
+				<source>Edit</source>
+			</trans-unit>
+			<trans-unit id="module.edit_survey">
+				<source>Edit survey</source>
+			</trans-unit>
+			<trans-unit id="module.new_survey">
+				<source>Create survey</source>
+			</trans-unit>
+			<trans-unit id="module.percentages">
+				<source>Percentages</source>
+			</trans-unit>
+			<trans-unit id="module.count">
+				<source>Count</source>
+			</trans-unit>
+			<trans-unit id="module.no_answers">
+				<source>No answers yet.</source>
+			</trans-unit>
+			<trans-unit id="module.total_answers">
+				<source>Total answers - %d.</source>
+			</trans-unit>
+			<trans-unit id="module.pie_chart">
+				<source>Pie chart view</source>
+			</trans-unit>
+			<trans-unit id="module.bar_chart">
+				<source>Bar chart view</source>
+			</trans-unit>
+			<trans-unit id="module.export">
+				<source>Export in CSV format</source>
+			</trans-unit>
+			<trans-unit id="module.export_survey_csv">
+				<source>Export survey</source>
+			</trans-unit>
+			<trans-unit id="module.answers">
+				<source>Answers</source>
+			</trans-unit>
+			<trans-unit id="module.go_back">
+				<source>Go back to list</source>
+			</trans-unit>
+			<!--MODULE:END-->
 		</body>
 	</file>
 </xliff>
