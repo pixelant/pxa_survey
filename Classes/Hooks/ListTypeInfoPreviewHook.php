@@ -14,13 +14,10 @@ namespace Pixelant\PxaSurvey\Hooks;
  ***/
 
 
-use Pixelant\PxaSurvey\Utility\SurveyMainUtility as MainUtility;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Service\FlexFormService;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Fluid\View\StandaloneView;
-
 
 /**
  * Class ListTypeInfoPreviewHook
@@ -36,8 +33,11 @@ class ListTypeInfoPreviewHook
      */
     public function getExtensionSummary(array $params): string
     {
+        $flexFormServiceClass = version_compare(TYPO3_version, '9.0', '<')
+            ? 'TYPO3\\CMS\\Extbase\\Service\\FlexFormService'
+            : 'TYPO3\\CMS\\Core\\Service\\FlexFormService';
 
-        $flexFormService = GeneralUtility::makeInstance(FlexFormService::class);
+        $flexFormService = GeneralUtility::makeInstance($flexFormServiceClass);
         $flexFormData = $flexFormService->convertFlexFormContentToArray($params['row']['pi_flexform'] ?? '');
 
         if (is_array($flexFormData['settings'])) {
