@@ -110,16 +110,19 @@ class SurveyControllerTest extends UnitTestCase
     {
         $subject = $this->getAccessibleMock(
             SurveyController::class,
-            ['redirect', 'forward', 'addFlashMessage', 'getQuestionFromSurveyByUid', 'setUserAnswerFromRequestData', 'addSurveyToCookie'],
+            ['redirect', 'forward', 'addFlashMessage', 'getQuestionFromSurveyByUid', 'setUserAnswerFromRequestData', 'addSurveyToCookie', 'isUserLoggedIn'],
             [],
             '',
             false
         );
+        $subject
+            ->expects($this->once())
+            ->method('isUserLoggedIn')
+            ->willReturn(true); // Simulate login
 
         $mockedFeUserAuth = $this->createPartialMock(FrontendUserAuthentication::class, ['getKey', 'setKey']);
 
         $mockedTSFE = $this->getAccessibleMock(TypoScriptFrontendController::class, [], [], '', false);
-        $mockedTSFE->loginUser = true;
         $mockedTSFE->fe_user = $mockedFeUserAuth;
         $GLOBALS['TSFE'] = $mockedTSFE;
 
@@ -291,16 +294,19 @@ class SurveyControllerTest extends UnitTestCase
     {
         $subject = $this->getAccessibleMock(
             SurveyController::class,
-            ['dummy'],
+            ['isUserLoggedIn'],
             [],
             '',
             false
         );
+        $subject
+            ->expects($this->once())
+            ->method('isUserLoggedIn')
+            ->willReturn(true); // Simulate login
 
         $mockedTSFE = $this->createMock(TypoScriptFrontendController::class);
         $feUser = new FrontendUser();
 
-        $mockedTSFE->loginUser = true;
         $GLOBALS['TSFE'] = $mockedTSFE;
 
         $mockedFrontendUserRepository = $this->createPartialMock(FrontendUserRepository::class, ['findByUid']);
@@ -331,16 +337,19 @@ class SurveyControllerTest extends UnitTestCase
     {
         $subject = $this->getAccessibleMock(
             SurveyController::class,
-            ['dummy'],
+            ['isUserLoggedIn'],
             [],
             '',
             false
         );
+        $subject
+            ->expects($this->once())
+            ->method('isUserLoggedIn')
+            ->willReturn(true); // Simulate login
 
         $mockedTSFE = $this->createMock(TypoScriptFrontendController::class);
         $feUser = new FrontendUser();
 
-        $mockedTSFE->loginUser = true;
         $GLOBALS['TSFE'] = $mockedTSFE;
 
         $mockedFrontendUserRepository = $this->createPartialMock(FrontendUserRepository::class, ['findByUid']);
@@ -371,16 +380,19 @@ class SurveyControllerTest extends UnitTestCase
     {
         $subject = $this->getAccessibleMock(
             SurveyController::class,
-            ['dummy'],
+            ['isUserLoggedIn'],
             [],
             '',
             false
         );
+        $subject
+            ->expects($this->once())
+            ->method('isUserLoggedIn')
+            ->willReturn(false); // Not logged in
 
         $_COOKIE[SurveyMainUtility::SURVEY_FINISHED_COOKIE_NAME] = '2,4';
         $mockedTSFE = $this->createMock(TypoScriptFrontendController::class);
 
-        $mockedTSFE->loginUser = false;
         $GLOBALS['TSFE'] = $mockedTSFE;
 
         $survey = new Survey();
@@ -400,16 +412,19 @@ class SurveyControllerTest extends UnitTestCase
     {
         $subject = $this->getAccessibleMock(
             SurveyController::class,
-            ['dummy'],
+            ['isUserLoggedIn'],
             [],
             '',
             false
         );
+        $subject
+            ->expects($this->once())
+            ->method('isUserLoggedIn')
+            ->willReturn(false); // Not logged in
 
         $_COOKIE[SurveyMainUtility::SURVEY_FINISHED_COOKIE_NAME] = '2,4,1';
         $mockedTSFE = $this->createMock(TypoScriptFrontendController::class);
 
-        $mockedTSFE->loginUser = false;
         $GLOBALS['TSFE'] = $mockedTSFE;
 
         $survey = new Survey();

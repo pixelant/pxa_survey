@@ -237,7 +237,7 @@ class SurveyController extends AbstractController
                 }
             }
 
-            if (SurveyMainUtility::isFrontendLogin()) {
+            if ($this->isUserLoggedIn()) {
                 /** @var FrontendUser $frontendUser */
                 $frontendUser = $this->frontendUserRepository->findByUid(
                     SurveyMainUtility::getTSFE()->fe_user->user['uid']
@@ -321,7 +321,7 @@ class SurveyController extends AbstractController
         }
 
         // Check by fe user
-        if (SurveyMainUtility::isFrontendLogin() && GeneralUtility::_GP('ADMCMD_simUser') === null) {
+        if ($this->isUserLoggedIn() && GeneralUtility::_GP('ADMCMD_simUser') === null) {
             /** @var FrontendUser $frontendUser */
             $frontendUser = $this->frontendUserRepository->findByUid(
                 SurveyMainUtility::getTSFE()->fe_user->user['uid']
@@ -348,5 +348,15 @@ class SurveyController extends AbstractController
     {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return GeneralUtility::makeInstance(PageRenderer::class);
+    }
+
+    /**
+     * Wrapper
+     *
+     * @return bool
+     */
+    protected function isUserLoggedIn(): bool
+    {
+        return SurveyMainUtility::isFrontendLogin();
     }
 }
