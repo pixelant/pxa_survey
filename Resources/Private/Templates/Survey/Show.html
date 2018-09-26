@@ -12,8 +12,7 @@
                 <f:format.html>{survey.description}</f:format.html>
             </f:if>
 
-            <f:form action="answer" name="pxa-survey">
-                <f:form.hidden name="survey" value="{survey.uid}"/>
+            <f:form action="answer" name="pxa-survey" arguments="{survey: survey}">
                 <f:form.hidden name="showAllQuestions" value="{f:if(condition: settings.showAllQuestions, then: '1', else: '0')}"/>
 
                 <f:if condition="{settings.showAllQuestions}">
@@ -32,7 +31,7 @@
                             <f:render partial="Survey/Question" arguments="{question: question}"/>
                         </f:for>
 
-                        <f:render partial="Survey/ReCaptcha"/>
+                        <f:render partial="Survey/ReCaptcha" arguments="{survey: survey}" />
                         <button type="submit" class="btn btn-default"><f:translate key="fe.send"/></button>
                     </f:then>
                     <f:else>
@@ -45,7 +44,7 @@
 
                         <f:comment>Show reCAPTCHA only for first question</f:comment>
                         <f:if condition="{currentPosition} == 1">
-                            <f:render partial="Survey/ReCaptcha"/>
+                            <f:render partial="Survey/ReCaptcha" arguments="{survey: survey}" />
                         </f:if>
 
                         <button type="submit" class="btn btn-default"><f:translate key="fe.next"/></button>

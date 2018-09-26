@@ -6,10 +6,22 @@
     <label for="user-answer-{question.uid}">
         <f:translate key="fe.user_answer_label"/>
     </label>
-    <f:form.textfield
-            name="answers[{question.uid}][answer]"
-            class="form-control"
-            id="user-answer-{question.uid}"
-            placeholder="{f:translate(key: 'fe.user_answer_placeholder')}"/>
+
+    <f:if condition="{question.appendWithInput} == 2">
+        <f:then>
+            <f:form.textarea
+                    name="answers[{question.uid}][answer]"
+                    class="form-control"
+                    id="user-answer-{question.uid}"
+                    placeholder="{f:translate(key: 'fe.user_answer_placeholder')}"/>
+        </f:then>
+        <f:else>
+            <f:form.textfield
+                    name="answers[{question.uid}][answer]"
+                    class="form-control"
+                    id="user-answer-{question.uid}"
+                    placeholder="{f:translate(key: 'fe.user_answer_placeholder')}"/>
+        </f:else>
+    </f:if>
 </div>
 </html>

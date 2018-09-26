@@ -3,7 +3,7 @@
 .. --------------------------------------------------
 .. -*- coding: utf-8 -*- with BOM.
 
-.. include:: ../Includes.txt
+.. include:: ../../Includes.txt
 
 .. important::
 	It may be that not all options visible here in this documentation are also visible to every editor.
@@ -13,7 +13,7 @@
 .. _editor-create-simple-survey:
 
 Create simple survey
-------------
+--------------------
 
 Prepare storage with new record
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -71,12 +71,12 @@ Type
 Question is required to be answered.
       Check if question is required
 |
-Add free input field after options
-      If checked, after list of answers free input field will be added for user to provide his own answer
+Free input field type
+      Select input or text area in order to add free field answer for user
 |
 Text
       Text of question
-.. figure:: ../../Images/EditorManual/Selection_018.jpg
+.. figure:: ../../Images/EditorManual/Selection_025.jpg
    :alt: question_record
 
    Question fields

@@ -3,10 +3,14 @@
 namespace Pixelant\PxaSurvey\ViewHelpers\Backend;
 
 use Pixelant\PxaSurvey\Utility\SurveyMainUtility;
-use TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
+use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
+/**
+ * Class TranslateViewHelper
+ * @package Pixelant\PxaSurvey\ViewHelpers\Backend
+ */
 class TranslateViewHelper extends AbstractViewHelper
 {
     use CompileWithRenderStatic;

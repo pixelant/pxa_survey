@@ -3,12 +3,12 @@
 .. --------------------------------------------------
 .. -*- coding: utf-8 -*- with BOM.
 
-.. include:: ../Includes.txt
+.. include:: ../../Includes.txt
 
 .. _editor-add-plugin:
 
 Add plugin with survey on a page
-------------
+--------------------------------
 
 - Create a new Content Element **Plugins -> Simple survey**
 - In plugin settings window **choose Survey from storage folder**

@@ -26,10 +26,22 @@
                 <source>Text</source>
             </trans-unit>
             <trans-unit id="tx_pxasurvey_domain_model_question.append_with_input">
-                <source>Add free input field after options</source>
+                <source>Free input field type</source>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_question.append.none">
+                <source>None</source>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_question.append.input">
+                <source>Input</source>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_question.append.textarea">
+                <source>Text area</source>
             </trans-unit>
             <trans-unit id="tx_pxasurvey_domain_model_question.required">
-                <source>Question is required to be answered.</source>
+                <source>Question require answer</source>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_question.required.label">
+                <source>Is required</source>
             </trans-unit>
             <trans-unit id="tx_pxasurvey_domain_model_question.type">
                 <source>Type</source>

@@ -34,6 +34,13 @@ class Question extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     const ANSWER_TYPE_INPUT = 3;
 
     /**
+     * Free answer types
+     */
+    const INPUT_TYPE_NONE = 0;
+    const INPUT_TYPE_INPUT = 1;
+    const INPUT_TYPE_TEXTAREA = 2;
+
+    /**
      * text
      *
      * @var string
@@ -48,9 +55,9 @@ class Question extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $type = 0;
 
     /**
-     * @var bool
+     * @var int
      */
-    protected $appendWithInput = false;
+    protected $appendWithInput = 0;
 
     /**
      * @var bool
@@ -130,17 +137,17 @@ class Question extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * @return bool
+     * @return int
      */
-    public function isAppendWithInput(): bool
+    public function getAppendWithInput(): int
     {
         return $this->appendWithInput;
     }
 
     /**
-     * @param bool $appendWithInput
+     * @param int $appendWithInput
      */
-    public function setAppendWithInput(bool $appendWithInput)
+    public function setAppendWithInput(int $appendWithInput)
     {
         $this->appendWithInput = $appendWithInput;
     }

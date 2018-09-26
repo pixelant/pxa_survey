@@ -2,6 +2,7 @@
 
 namespace Pixelant\PxaSurvey\Utility;
 
+use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 use TYPO3\CMS\Lang\LanguageService;
@@ -27,29 +28,6 @@ class SurveyMainUtility
      * @var string
      */
     public static $LL = 'LLL:EXT:pxa_survey/Resources/Private/Language/locallang_be.xlf:';
-
-    /**
-     * Extension configuration
-     *
-     * @var array
-     */
-    protected static $extensionConfiguration;
-
-    /**
-     * Get extension configuration
-     *
-     * @return array
-     */
-    public static function getExtensionConfiguration(): array
-    {
-        if (self::$extensionConfiguration === null) {
-            self::$extensionConfiguration = unserialize(
-                $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['pxa_survey']
-            );
-        }
-
-        return self::$extensionConfiguration ?? [];
-    }
 
     /**
      * Add single answer to session
@@ -169,5 +147,19 @@ class SurveyMainUtility
     public static function getTSFE(): TypoScriptFrontendController
     {
         return $GLOBALS['TSFE'];
+    }
+
+    /**
+     * Check if FE user is logged in
+     *
+     * @return bool
+     */
+    public static function isFrontendLogin(): bool
+    {
+        if (version_compare(TYPO3_version, '9.0', '<')) {
+            return self::getTSFE()->loginUser;
+        } else {
+            return GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('frontend.user', 'isLoggedIn', false);
+        }
     }
 }

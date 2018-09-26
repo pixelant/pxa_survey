@@ -13,18 +13,15 @@ namespace Pixelant\PxaSurvey\Controller;
  *
  ***/
 
-use Pixelant\PxaSurvey\Domain\Model\Answer;
-use Pixelant\PxaSurvey\Domain\Model\Question;
 use Pixelant\PxaSurvey\Domain\Model\Survey;
-use Pixelant\PxaSurvey\Domain\Model\UserAnswer;
-use Pixelant\PxaSurvey\Utility\SurveyMainUtility;
+use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Backend\Template\Components\ButtonBar;
-use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Backend\View\BackendTemplateView;
 use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /**
  * Class SurveyAnalysisController
@@ -106,9 +103,9 @@ class SurveyAnalysisController extends AbstractController
 
             $lines[] = []; // empty line
             $lines[] = [
-                SurveyMainUtility::translate('module.answers'),
-                SurveyMainUtility::translate('module.percentages'),
-                SurveyMainUtility::translate('module.count'),
+                $this->translate('module.answers'),
+                $this->translate('module.percentages'),
+                $this->translate('module.count'),
             ];
 
             foreach ($questionData['questionData'] as $questionAnswerData) {
@@ -121,7 +118,7 @@ class SurveyAnalysisController extends AbstractController
             $lines[] = [
                 '',
                 '',
-                SurveyMainUtility::translate('module.total_answers', [$questionData['allAnswersCount']])
+                $this->translate('module.total_answers', [$questionData['allAnswersCount']])
             ];
 
             $lines[] = []; // empty line
@@ -177,7 +174,7 @@ class SurveyAnalysisController extends AbstractController
 
         $button = $buttonBar->makeLinkButton()
             ->setHref($this->buildNewSurveyUrl())
-            ->setTitle(SurveyMainUtility::translate('module.new_survey'))
+            ->setTitle($this->translate('module.new_survey'))
             ->setIcon($iconFactory->getIcon('actions-document-new', Icon::SIZE_SMALL));
 
         $buttonBar->addButton($button, ButtonBar::BUTTON_POSITION_LEFT);
@@ -190,11 +187,24 @@ class SurveyAnalysisController extends AbstractController
      */
     protected function buildNewSurveyUrl(): string
     {
-        $url = BackendUtility::getModuleUrl('record_edit', [
+        $urlParameters = [
             'edit[tx_pxasurvey_domain_model_survey][' . $this->pid . ']' => 'new',
             'returnUrl' => GeneralUtility::getIndpEnv('REQUEST_URI')
-        ]);
+        ];
+        $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
 
-        return $url;
+        return (string)$uriBuilder->buildUriFromRoute('record_edit', $urlParameters);
+    }
+
+    /**
+     * Translate label
+     *
+     * @param string $key
+     * @param array|null $arguments
+     * @return string
+     */
+    protected function translate(string $key, array $arguments = null): string
+    {
+        return LocalizationUtility::translate($key, 'PxaSurvey', $arguments) ?? '';
     }
 }

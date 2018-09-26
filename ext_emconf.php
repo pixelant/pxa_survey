@@ -18,10 +18,10 @@ $EM_CONF[$_EXTKEY] = [
     'author_email' => '',
     'state' => 'stable',
     'clearCacheOnLoad' => 0,
-    'version' => '1.3.0',
+    'version' => '1.4.0',
     'constraints' => [
         'depends' => [
-            'typo3' => '8.7.0-8.7.99',
+            'typo3' => '8.7.0-9.5.99',
             'php' => '7.0.0-7.2.99'
         ],
         'conflicts' => [],

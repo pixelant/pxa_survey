@@ -80,7 +80,7 @@ class ReCaptchaValidator extends AbstractValidator
         }
 
         if (!$isValid) {
-            $this->result->forProperty('recaptcha')->addError(
+            $this->result->forProperty('recaptcha-' . $survey->getUid())->addError(
                 new Error(
                     $this->localize('fe.error.recaptcha'),
                     1512131546169

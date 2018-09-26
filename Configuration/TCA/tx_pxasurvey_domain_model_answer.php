@@ -3,7 +3,7 @@ $ll = 'LLL:EXT:pxa_survey/Resources/Private/Language/locallang_db.xlf:';
 
 return [
     'ctrl' => [
-        'title' => $ll .'tx_pxasurvey_domain_model_answer',
+        'title' => $ll . 'tx_pxasurvey_domain_model_answer',
         'label' => 'text',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
@@ -88,7 +88,6 @@ return [
         ],
         'starttime' => [
             'exclude' => true,
-            'l10n_mode' => 'mergeIfNotBlank',
             'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.starttime',
             'config' => [
                 'type' => 'input',
@@ -96,11 +95,13 @@ return [
                 'size' => 13,
                 'eval' => 'datetime',
                 'default' => 0,
+                'behaviour' => [
+                    'allowLanguageSynchronization' => true,
+                ]
             ],
         ],
         'endtime' => [
             'exclude' => true,
-            'l10n_mode' => 'mergeIfNotBlank',
             'label' => 'LLL:EXT:lang/locallang_general.xlf:LGL.endtime',
             'config' => [
                 'type' => 'input',
@@ -111,19 +112,20 @@ return [
                 'range' => [
                     'upper' => mktime(0, 0, 0, 1, 1, 2038)
                 ],
+                'behaviour' => [
+                    'allowLanguageSynchronization' => true,
+                ]
             ],
         ],
-
         'text' => [
             'exclude' => true,
-            'label' => $ll .'tx_pxasurvey_domain_model_answer.text',
+            'label' => $ll . 'tx_pxasurvey_domain_model_answer.text',
             'config' => [
                 'type' => 'input',
                 'size' => 30,
                 'eval' => 'trim,required'
             ],
         ],
-    
         'question' => [
             'config' => [
                 'type' => 'passthrough',

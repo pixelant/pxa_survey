@@ -18,10 +18,12 @@ use Pixelant\PxaSurvey\Domain\Model\Question;
 use Pixelant\PxaSurvey\Domain\Model\Survey;
 use Pixelant\PxaSurvey\Domain\Model\UserAnswer;
 use Pixelant\PxaSurvey\Utility\SurveyMainUtility;
+use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\StringUtility;
 use TYPO3\CMS\Extbase\Domain\Model\FrontendUser;
+use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
 /**
  * SurveyController
@@ -118,6 +120,12 @@ class SurveyController extends AbstractController
      */
     public function finishAction(Survey $survey, bool $alreadyFinished = false)
     {
+        // If there are more than one survey on page and one of them redirect to finish
+        // only real one that was finished should show message
+        if ((int)$this->settings['survey'] !== $survey->getUid()) {
+            $this->forward('show');
+        }
+
         $this->view
             ->assign('survey', $survey)
             ->assign('alreadyFinished', $alreadyFinished);
@@ -210,6 +218,7 @@ class SurveyController extends AbstractController
      */
     protected function saveResultAndFinish(Survey $survey, array $data)
     {
+        $userAnswers = [];
         foreach ($data as $questionUid => $answerData) {
             if (empty($answerData)) {
                 continue;
@@ -217,9 +226,14 @@ class SurveyController extends AbstractController
 
             /** @var UserAnswer $userAnswer */
             $userAnswer = $this->objectManager->get(UserAnswer::class);
-            $userAnswer->setQuestion(
-                $this->getQuestionFromSurveyByUid($survey, (int)$questionUid)
-            );
+            $question = $this->getQuestionFromSurveyByUid($survey, (int)$questionUid);
+            if ($question !== null) {
+                $userAnswer->setQuestion($question);
+                $userAnswer->setPid($question->getPid());
+
+                // Save for later fix in TYPO3 version 9.0-9.4
+                $userAnswers[] = $userAnswer;
+            }
 
             if (is_string($answerData)) {
                 $this->setUserAnswerFromRequestData($userAnswer, $answerData);
@@ -229,7 +243,7 @@ class SurveyController extends AbstractController
                 }
             }
 
-            if (SurveyMainUtility::getTSFE()->loginUser) {
+            if ($this->isUserLoggedIn()) {
                 /** @var FrontendUser $frontendUser */
                 $frontendUser = $this->frontendUserRepository->findByUid(
                     SurveyMainUtility::getTSFE()->fe_user->user['uid']
@@ -241,6 +255,10 @@ class SurveyController extends AbstractController
 
             /** @noinspection PhpUnhandledExceptionInspection */
             $this->userAnswerRepository->add($userAnswer);
+        }
+
+        if (version_compare(TYPO3_version, '9.0', '>=') && version_compare(TYPO3_version, '9.5', '<=')) {
+            $this->fixQuestionRelationForUserAnswers($userAnswers);
         }
 
         SurveyMainUtility::clearAnswersSessionData($survey->getUid());
@@ -313,7 +331,7 @@ class SurveyController extends AbstractController
         }
 
         // Check by fe user
-        if (SurveyMainUtility::getTSFE()->loginUser && GeneralUtility::_GP('ADMCMD_simUser') === null) {
+        if ($this->isUserLoggedIn() && GeneralUtility::_GP('ADMCMD_simUser') === null) {
             /** @var FrontendUser $frontendUser */
             $frontendUser = $this->frontendUserRepository->findByUid(
                 SurveyMainUtility::getTSFE()->fe_user->user['uid']
@@ -340,5 +358,37 @@ class SurveyController extends AbstractController
     {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return GeneralUtility::makeInstance(PageRenderer::class);
+    }
+
+    /**
+     * Wrapper
+     *
+     * @return bool
+     */
+    protected function isUserLoggedIn(): bool
+    {
+        return SurveyMainUtility::isFrontendLogin();
+    }
+
+    /**
+     * Fix relation between user answer and question
+     * @TODO remove after support of TYPO3 9.0-9.4 dropped
+     *
+     * @param UserAnswer[] $userAnswers
+     */
+    protected function fixQuestionRelationForUserAnswers(array $userAnswers)
+    {
+        $this->objectManager->get(PersistenceManager::class)->persistAll();
+
+        foreach ($userAnswers as $userAnswer) {
+            GeneralUtility::makeInstance(ConnectionPool::class)
+                ->getConnectionForTable('tx_pxasurvey_domain_model_useranswer')
+                ->update(
+                    'tx_pxasurvey_domain_model_useranswer',
+                    ['question' => $userAnswer->getQuestion()->getUid()],
+                    ['uid' => (int)$userAnswer->getUid()],
+                    [\PDO::PARAM_INT]
+                );
+        }
     }
 }

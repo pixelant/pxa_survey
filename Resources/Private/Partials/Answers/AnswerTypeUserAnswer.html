@@ -4,9 +4,20 @@
 
 <div class="form-group">
     <label for="other-answer-{question.uid}"><f:translate key="fe.other_answer_label"/></label>
-    <f:form.textfield
-            name="answers[{question.uid}][otherAnswer]"
-            class="form-control"
-            id="other-answer-{question.uid}"/>
+
+    <f:if condition="{question.appendWithInput} == 2">
+        <f:then>
+            <f:form.textarea
+                    name="answers[{question.uid}][otherAnswer]"
+                    class="form-control"
+                    id="other-answer-{question.uid}"/>
+        </f:then>
+        <f:else>
+            <f:form.textfield
+                    name="answers[{question.uid}][otherAnswer]"
+                    class="form-control"
+                    id="other-answer-{question.uid}"/>
+        </f:else>
+    </f:if>
 </div>
 </html>

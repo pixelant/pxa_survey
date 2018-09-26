@@ -1,12 +1,15 @@
 language: php
 
-dist: precise
+dist: trusty
 
 matrix:
   include:
     - php: 7.2
+      env: TYPO3_VERSION=^9
     - php: 7.1
+      env: TYPO3_VERSION=^8
     - php: 7.0
+      env: TYPO3_VERSION=^8
 
 addons:
   apt:
@@ -20,12 +23,13 @@ cache:
 sudo: false
 
 before_install:
-  - phpenv config-rm xdebug.ini
   - composer self-update
   - composer --version
-  - composer install --prefer-dist
 
 before_script:
+  - phpenv config-rm xdebug.ini
+  - composer require typo3/minimal=$TYPO3_VERSION
+  - git checkout composer.json
   - export TYPO3_PATH_WEB=$PWD/.Build/Web
 
 script:
