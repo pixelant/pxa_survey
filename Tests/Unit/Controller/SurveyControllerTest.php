@@ -110,7 +110,7 @@ class SurveyControllerTest extends UnitTestCase
     {
         $subject = $this->getAccessibleMock(
             SurveyController::class,
-            ['redirect', 'forward', 'addFlashMessage', 'getQuestionFromSurveyByUid', 'setUserAnswerFromRequestData', 'addSurveyToCookie', 'isUserLoggedIn'],
+            ['redirect', 'forward', 'addFlashMessage', 'getQuestionFromSurveyByUid', 'setUserAnswerFromRequestData', 'addSurveyToCookie', 'isUserLoggedIn', 'fixQuestionRelationForUserAnswers'],
             [],
             '',
             false
