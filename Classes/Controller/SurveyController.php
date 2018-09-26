@@ -18,10 +18,12 @@ use Pixelant\PxaSurvey\Domain\Model\Question;
 use Pixelant\PxaSurvey\Domain\Model\Survey;
 use Pixelant\PxaSurvey\Domain\Model\UserAnswer;
 use Pixelant\PxaSurvey\Utility\SurveyMainUtility;
+use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\StringUtility;
 use TYPO3\CMS\Extbase\Domain\Model\FrontendUser;
+use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 
 /**
  * SurveyController
@@ -216,6 +218,7 @@ class SurveyController extends AbstractController
      */
     protected function saveResultAndFinish(Survey $survey, array $data)
     {
+        $userAnswers = [];
         foreach ($data as $questionUid => $answerData) {
             if (empty($answerData)) {
                 continue;
@@ -227,6 +230,9 @@ class SurveyController extends AbstractController
             if ($question !== null) {
                 $userAnswer->setQuestion($question);
                 $userAnswer->setPid($question->getPid());
+
+                // Save for later fix in TYPO3 version 9.0-9.4
+                $userAnswers[] = $userAnswer;
             }
 
             if (is_string($answerData)) {
@@ -249,6 +255,10 @@ class SurveyController extends AbstractController
 
             /** @noinspection PhpUnhandledExceptionInspection */
             $this->userAnswerRepository->add($userAnswer);
+        }
+
+        if (version_compare(TYPO3_version, '9.0', '>=') && version_compare(TYPO3_version, '9.5', '<=')) {
+            $this->fixQuestionRelationForUserAnswers($userAnswers);
         }
 
         SurveyMainUtility::clearAnswersSessionData($survey->getUid());
@@ -358,5 +368,27 @@ class SurveyController extends AbstractController
     protected function isUserLoggedIn(): bool
     {
         return SurveyMainUtility::isFrontendLogin();
+    }
+
+    /**
+     * Fix relation between user answer and question
+     * @TODO remove after support of TYPO3 9.0-9.4 dropped
+     *
+     * @param UserAnswer[] $userAnswers
+     */
+    protected function fixQuestionRelationForUserAnswers(array $userAnswers)
+    {
+        $this->objectManager->get(PersistenceManager::class)->persistAll();
+
+        foreach ($userAnswers as $userAnswer) {
+            GeneralUtility::makeInstance(ConnectionPool::class)
+                ->getConnectionForTable('tx_pxasurvey_domain_model_useranswer')
+                ->update(
+                    'tx_pxasurvey_domain_model_useranswer',
+                    ['question' => $userAnswer->getQuestion()->getUid()],
+                    ['uid' => (int)$userAnswer->getUid()],
+                    [\PDO::PARAM_INT]
+                );
+        }
     }
 }
