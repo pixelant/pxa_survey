@@ -31,6 +31,9 @@
             <trans-unit id="tx_pxasurvey_domain_model_question.append.none">
                 <source>None</source>
             </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_question.append.default">
+                <source>Default (same as input)</source>
+            </trans-unit>
             <trans-unit id="tx_pxasurvey_domain_model_question.append.input">
                 <source>Input</source>
             </trans-unit>

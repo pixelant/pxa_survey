@@ -92,30 +92,34 @@
 				<type>array</type>
 				<el>
 					<settings.thanksMessage>
-						<label>LLL:EXT:pxa_survey/Resources/Private/Language/locallang_be.xlf:flexform.thanks_message</label>
-						<displayCond>FIELD:sDEF.switchableControllerActions:!=:Survey->showResults</displayCond>
-						<config>
-							<type>text</type>
-							<cols>40</cols>
-							<rows>15</rows>
-							<enableRichtext>1</enableRichtext>
-						</config>
+						<TCEforms>
+							<label>LLL:EXT:pxa_survey/Resources/Private/Language/locallang_be.xlf:flexform.thanks_message</label>
+							<displayCond>FIELD:sDEF.switchableControllerActions:!=:Survey->showResults</displayCond>
+							<config>
+								<type>text</type>
+								<cols>40</cols>
+								<rows>15</rows>
+								<enableRichtext>1</enableRichtext>
+							</config>
+						</TCEforms>
 					</settings.thanksMessage>
 
 					<settings.alreadyFinishedMessage>
-						<label>LLL:EXT:pxa_survey/Resources/Private/Language/locallang_be.xlf:flexform.already_finished_message</label>
-						<displayCond>
-							<AND>
-								<numIndex index="0">FIELD:sDEF.settings.allowMultipleAnswerOnSurvey:REQ:FALSE</numIndex>
-								<numIndex index="1">FIELD:sDEF.switchableControllerActions:!=:Survey->showResults</numIndex>
-							</AND>
-						</displayCond>
-						<config>
-							<type>text</type>
-							<cols>40</cols>
-							<rows>15</rows>
-							<enableRichtext>1</enableRichtext>
-						</config>
+						<TCEforms>
+							<label>LLL:EXT:pxa_survey/Resources/Private/Language/locallang_be.xlf:flexform.already_finished_message</label>
+							<displayCond>
+								<AND>
+									<numIndex index="0">FIELD:sDEF.settings.allowMultipleAnswerOnSurvey:REQ:FALSE</numIndex>
+									<numIndex index="1">FIELD:sDEF.switchableControllerActions:!=:Survey->showResults</numIndex>
+								</AND>
+							</displayCond>
+							<config>
+								<type>text</type>
+								<cols>40</cols>
+								<rows>15</rows>
+								<enableRichtext>1</enableRichtext>
+							</config>
+						</TCEforms>
 					</settings.alreadyFinishedMessage>
 				</el>
 			</ROOT>

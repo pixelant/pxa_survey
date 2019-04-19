@@ -133,12 +133,25 @@ class SurveyAnswerValidator extends AbstractValidator
      */
     protected function isAnswerRequiredError($answer, $requiredList, $questionUid)
     {
-        return empty($answer['answer'])
-            && empty($answer['otherAnswer'])
+        return $this->isAnswerEmpty($answer['answer'])
+            && $this->isAnswerEmpty($answer['otherAnswer'])
             && GeneralUtility::inList(
                 $requiredList,
                 $questionUid
             );
+    }
+
+    /**
+     * Check if answer is empty
+     *
+     * @param $answer
+     * @return bool
+     */
+    protected function isAnswerEmpty($answer): bool
+    {
+        return is_string($answer)
+            ? ($answer === '')
+            : empty($answer);
     }
 
     /**

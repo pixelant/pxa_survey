@@ -22,7 +22,20 @@ class AnswerInputTypeSelect
     {
         $ll = 'LLL:EXT:pxa_survey/Resources/Private/Language/locallang_db.xlf:';
 
+        $type = isset($params['row']['type']) && is_array($params['row']['type']) && !empty($params['row']['type'])
+            ? ((int)current($params['row']['type']))
+            : 0;
+
+        $defaultLabel = $type === Question::ANSWER_TYPE_INPUT
+            ? 'tx_pxasurvey_domain_model_question.append.default'
+            : 'tx_pxasurvey_domain_model_question.append.none';
+
+
         $items = [
+            [
+                $ll . $defaultLabel,
+                \Pixelant\PxaSurvey\Domain\Model\Question::INPUT_TYPE_NONE
+            ],
             [
                 $ll . 'tx_pxasurvey_domain_model_question.append.input',
                 \Pixelant\PxaSurvey\Domain\Model\Question::INPUT_TYPE_INPUT
@@ -32,17 +45,6 @@ class AnswerInputTypeSelect
                 \Pixelant\PxaSurvey\Domain\Model\Question::INPUT_TYPE_TEXTAREA
             ]
         ];
-        $type = isset($params['row']['type']) && is_array($params['row']['type']) && !empty($params['row']['type'])
-            ? ((int)current($params['row']['type']))
-            : 0;
-
-        if ($type !== Question::ANSWER_TYPE_INPUT) {
-            $none = [
-                $ll . 'tx_pxasurvey_domain_model_question.append.none',
-                \Pixelant\PxaSurvey\Domain\Model\Question::INPUT_TYPE_NONE
-            ];
-            array_unshift($items, $none);
-        }
 
         $params['items'] = $items;
     }
