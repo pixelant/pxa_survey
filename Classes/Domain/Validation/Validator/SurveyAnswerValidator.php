@@ -10,6 +10,7 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Extbase\Validation\Error;
 use TYPO3\CMS\Extbase\Validation\Validator\AbstractValidator;
 use TYPO3\CMS\Extbase\Validation\Validator\EmailAddressValidator;
+use TYPO3\CMS\Extbase\Validation\Validator\NumberValidator;
 
 /**
  * Validate answers from user
@@ -37,20 +38,31 @@ class SurveyAnswerValidator extends AbstractValidator
         if (is_array($arguments) && !empty($arguments['answers'])) {
             foreach ($arguments['answers'] as $questionUid => $answer) {
 
-                //Validate if email field fiiled with email
-                if($questionsByUid[$questionUid]->getType() === Question::ANSWER_TYPE_INPUT) {
-                    if($questionsByUid[$questionUid]->getAppendWithInput() === Question::INPUT_TYPE_EMAIL) {
-                        $emailValidator = new EmailAddressValidator();
-                        if($emailValidator->validate($answer['answer'])->hasErrors()) {
-                            $this->result->forProperty('question-' . $questionUid)->addError(
-                                new Error(
-                                    $this->translate('fe.error.email_required'),
-                                    1510659509774
-                                )
-                            );
-                        } else {
-                            echo 'valid!';
-                        }
+                // Validate if email field filled with email
+                if($questionsByUid[$questionUid]->getAppendWithInput() === Question::INPUT_TYPE_EMAIL) {
+                    $emailValidator = new EmailAddressValidator();
+                    if($emailValidator->validate($answer[isset($answer['otherAnswer'])?'otherAnswer':'answer'])->hasErrors()) {
+                        $this->result->forProperty('question-' . $questionUid)->addError(
+                            new Error(
+                                $this->translate('fe.error.email_required'),
+                                1510659509775
+                            )
+                        );
+                    }
+                }
+
+                // Validate if numeric field filled with number
+                if($questionsByUid[$questionUid]->getAppendWithInput() === Question::INPUT_TYPE_NUMBER) {
+                    //var_dump($answer);
+                    //die('catched');
+                    $numberValidator = new NumberValidator();
+                    if($numberValidator->validate($answer[isset($answer['otherAnswer'])?'otherAnswer':'answer'])->hasErrors()) {
+                        $this->result->forProperty('question-' . $questionUid)->addError(
+                            new Error(
+                                $this->translate('fe.error.number_required'),
+                                1510659509776
+                            )
+                        );
                     }
                 }
 

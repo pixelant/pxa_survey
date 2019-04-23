@@ -26,6 +26,9 @@
 			<trans-unit id="fe.error.email_required">
             	<source>You should fill in correct email.</source>
             </trans-unit>
+            <trans-unit id="fe.error.number_required">
+                <source>You should fill in number.</source>
+            </trans-unit>
 			<trans-unit id="fe.error.required">
 				<source>This question is required to be answered.</source>
 			</trans-unit>
