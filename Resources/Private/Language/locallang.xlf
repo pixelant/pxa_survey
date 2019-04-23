@@ -23,9 +23,6 @@
 			<trans-unit id="fe.error.double_result">
 				<source>You should either specified one of the options or use input field.</source>
 			</trans-unit>
-			<trans-unit id="fe.error.email_required">
-            	<source>You should fill in correct email.</source>
-            </trans-unit>
 			<trans-unit id="fe.error.required">
 				<source>This question is required to be answered.</source>
 			</trans-unit>
