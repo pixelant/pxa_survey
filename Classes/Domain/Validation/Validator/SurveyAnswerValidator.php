@@ -53,8 +53,6 @@ class SurveyAnswerValidator extends AbstractValidator
 
                 // Validate if numeric field filled with number
                 if($questionsByUid[$questionUid]->getAppendWithInput() === Question::INPUT_TYPE_NUMBER) {
-                    //var_dump($answer);
-                    //die('catched');
                     $numberValidator = new NumberValidator();
                     if($numberValidator->validate($answer[isset($answer['otherAnswer'])?'otherAnswer':'answer'])->hasErrors()) {
                         $this->result->forProperty('question-' . $questionUid)->addError(
