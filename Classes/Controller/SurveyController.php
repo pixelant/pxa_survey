@@ -111,16 +111,16 @@ class SurveyController extends AbstractController
             $this->forward('show');
         }
     }
-
+    
     /**
-     * Get uid of survey in original language (l10n_parent)
+     * Get uid of original language record (l10n_parent)
      * 
      * @param type $uid
      * @param type $tableName
      * @return int
      */
     protected function getL10nParentUid($translationUid, $tableName) {
-        // Is it a translation? If so, get l10n_parent
+        // Is it a translation? 
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable($tableName);
 
         $query = $queryBuilder->select('l10n_parent')
@@ -129,7 +129,7 @@ class SurveyController extends AbstractController
                  ->andWhere($queryBuilder->expr()->eq('uid', $translationUid))
                  ->execute();
         $row = $query->fetch();
-        return $row?((int)$row['l10n_parent']):$translationUid;
+        return (int)($row['l10n_parent']);
     }
     
     /**
@@ -143,8 +143,10 @@ class SurveyController extends AbstractController
         // If there are more than one survey on page and one of them redirect to finish
         // only real one that was finished should show message
         
-        // Get uid of original language for translations (fix for issue #23)
-        $uid = $this->getL10nParentUid($this->settings['survey'], 'tx_pxasurvey_domain_model_survey');
+        // Translation? Get uid of original language (BUGFIX)
+        $l10nParent = $this->getL10nParentUid($this->settings['survey'], 'tx_pxasurvey_domain_model_survey');
+        $uid = $l10nParent?$l10nParent:(int)$this->settings['survey'];
+        
         if ($uid !== $survey->getUid()) {
             $this->forward('show');
         }
