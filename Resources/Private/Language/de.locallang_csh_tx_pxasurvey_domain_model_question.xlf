@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.2">
+	<file source-language="en" datatype="plaintext" original="messages" date="2017-11-13T15:58:32Z" product-name="pxa_survey" target-language="de">
+		<header/>
+		<body>
+			<trans-unit id="text.description">
+				<source>Question text</source>
+				<target state="translated">Text der Frage</target>
+			</trans-unit>
+			<trans-unit id="type.description">
+				<source>Type of question</source>
+				<target state="translated">Art der Frage</target>
+			</trans-unit>
+			<trans-unit id="answers.description">
+				<source>answers</source>
+				<target state="translated">Antworten</target>
+			</trans-unit>
+			<trans-unit id="append_with_input.description">
+			    <source>Add text field where user can enter his/her own answer.</source>
+			    <target state="translated">Fügen Sie ein Textfeld hinzu, in das der Benutzer seine eigene Antwort eingeben kann.</target>
+			</trans-unit>
+			<trans-unit id="required.description">
+			    <source>Is required?</source>
+			    <target state="translated">Pflichtfeld?</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

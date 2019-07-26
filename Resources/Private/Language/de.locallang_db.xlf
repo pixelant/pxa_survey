@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.2">
+    <file source-language="en" datatype="plaintext" original="messages" date="2017-11-13T15:58:32Z" product-name="pxa_survey" target-language="de">
+        <header/>
+        <body>
+            <trans-unit id="tx_pxasurvey_domain_model_survey">
+                <source>Survey</source>
+                <target state="translated">Umfrage</target>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_survey.name">
+                <source>Name</source>
+                <target state="translated">Name</target>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_survey.title">
+                <source>Title</source>
+                <target state="translated">Titel</target>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_survey.description">
+                <source>Description</source>
+                <target state="translated">Beschreibung</target>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_survey.questions">
+                <source>Questions</source>
+                <target state="translated">Fragen</target>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_question">
+                <source>Question</source>
+                <target state="translated">Frage</target>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_question.text">
+                <source>Text</source>
+                <target state="translated">Text</target>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_question.append_with_input">
+                <source>Free input field type</source>
+                <target state="translated">Freitexteingabe</target>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_question.append.none">
+                <source>None</source>
+                <target state="translated">Keine</target>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_question.append.default">
+                <source>Default (same as input)</source>
+                <target state="translated">Standardeinstellung (wie Eingabefeld)</target>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_question.append.input">
+                <source>Input</source>
+                <target state="translated">Eingabefeld</target>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_question.append.textarea">
+                <source>Text area</source>
+                <target state="translated">Textbereich</target>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_question.required">
+                <source>Question require answer</source>
+                <target state="translated">Frage muss beantwortet werden</target>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_question.required.label">
+                <source>Is required</source>
+                <target state="translated">Pflichtfeld</target>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_question.type">
+                <source>Type</source>
+                <target state="translated">Typ</target>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_question.type.1">
+                <source>Radio button (Single answer)</source>
+                <target state="translated">Radio-Button (nur eine Antwort kann gewählt werden)</target>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_question.type.2">
+                <source>Checkboxes (Multiple answers)</source>
+                <target state="translated">Kontrollkästchen (mehrere Antworten können gewählt werden)</target>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_question.type.3">
+                <source>Input field (Custom text answer)</source>
+                <target state="translated">Eingabefeld (benutzerdefinierte Textantwort)</target>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_question.answers">
+                <source>Answers</source>
+                <target state="translated">Antworten</target>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_answer">
+                <source>Answer</source>
+                <target state="translated">Antwort</target>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_answer.text">
+                <source>Text</source>
+                <target state="translated">Text</target>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_useranswer">
+                <source>User Answer</source>
+                <target state="translated">Benutzerantwort</target>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_useranswer.custom_value">
+                <source>Custom Value</source>
+                <target state="translated">Benutzerdefinierter Wert</target>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_useranswer.question">
+                <source>Question</source>
+                <target state="translated">Frage</target>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_useranswer.answers">
+                <source>Answers</source>
+                <target state="translated">Antworten</target>
+            </trans-unit>
+            <trans-unit id="tx_pxasurvey_domain_model_useranswer.frontend_user">
+                <source>Frontend user</source>
+                <target state="translated">Frontend-Benutzer</target>
+            </trans-unit>
+            <trans-unit id="tabs.questions">
+                <source>Questions</source>
+                <target state="translated">Fragen</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>
