@@ -2,6 +2,7 @@
   "name": "pixelant/pxa-survey",
   "type": "typo3-cms-extension",
   "description": "Create simple survey. View results in the BE module",
+  "license": "GPL-2.0-or-later",
   "authors": [
     {
       "name": "Andriy Oprysko",
@@ -38,6 +39,7 @@
   },
   "extra": {
     "typo3/cms": {
+      "extension-key": "pxa_survey",
       "cms-package-dir": "{$vendor-dir}/typo3/cms",
       "web-dir": ".Build/Web"
     }
