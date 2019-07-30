@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.2">
+	<file source-language="en" datatype="plaintext" original="messages" date="2017-11-13T15:58:32Z" product-name="pxa_survey" target-language="de">
+		<header/>
+		<body>
+			<!--Frontend labels:START-->
+			<trans-unit id="fe.not_found">
+				<source>Survey was not found</source>
+				<target state="translated">Umfrage wurde nicht gefunden</target>
+			</trans-unit>
+			<trans-unit id="fe.other_answer_label">
+				<source>Other:</source>
+				<target state="translated">Andere:</target>
+			</trans-unit>
+			<trans-unit id="fe.user_answer_placeholder">
+				<source>type answer</source>
+				<target state="translated">Antwort hier eintippen</target>
+			</trans-unit>
+			<trans-unit id="fe.send">
+				<source>Send</source>
+				<target state="translated">Absenden</target>
+			</trans-unit>
+			<trans-unit id="fe.next">
+				<source>Next</source>
+				<target state="translated">Nächste</target>
+			</trans-unit>
+			<trans-unit id="fe.error.double_result">
+				<source>You should either specified one of the options or use input field.</source>
+				<target state="translated">Sie sollten entweder eine der Optionen auswählen oder das Eingabefeld verwenden.</target>
+			</trans-unit>
+			<trans-unit id="fe.error.required">
+				<source>This question is required to be answered.</source>
+				<target state="translated">Diese Frage muss beantwortet werden.</target>
+			</trans-unit>
+			<trans-unit id="fe.error.recaptcha">
+				<source>You didn't pass reCAPTCHA check. Please, try again.</source>
+				<target state="translated">Sie haben die reCAPTCHA-Prüfung nicht bestanden. Bitte versuchen Sie es erneut.</target>
+			</trans-unit>
+			<trans-unit id="fe.error.no_answers_at_all">
+				<source>You should answer at least one question.</source>
+				<target state="translated">Sie müssen mindestens eine Frage beantworten.</target>
+			</trans-unit>
+			<trans-unit id="fe.progress">
+				<source>Question %d of %d.</source>
+				<target state="translated">Frage %d von %d.</target>
+			</trans-unit>
+			<trans-unit id="fe.thanks_message">
+				<source>Thank you for your participation.</source>
+				<target state="translated">Vielen Dank für Ihre Teilnahme.</target>
+			</trans-unit>
+			<trans-unit id="fe.already_finished">
+				<source>You have already passed this survey</source>
+				<target state="translated">Sie haben an dieser Umfrage bereits teilgenommen.</target>
+			</trans-unit>
+			<trans-unit id="fe.recaptcha_key_secret_missing">
+				<source>Key or secret is missing for reCAPTCHA.</source>
+				<target state="translated">Schlüssel oder Geheimnis für reCAPTCHA fehlt.</target>
+			</trans-unit>
+			<trans-unit id="fe.total_answers">
+				<source>total answers count - %d</source>
+				<target state="translated">Anzahl der Gesamtantworten - %d</target>
+			</trans-unit>
+			<!--Frontend labels:END-->
+
+			<!--MODULE:START-->
+			<trans-unit id="module.no_survey_found_title">
+				<source>No surveys found</source>
+				<target state="translated">Keine Umfragen gefunden</target>
+			</trans-unit>
+			<trans-unit id="module.no_survey_found_desc">
+				<source>The current page does not contain any survey records. Select another page.</source>
+				<target state="translated">Die aktuelle Seite enthält keine Umfragedatensätze. Wählen Sie eine andere Seite aus.</target>
+			</trans-unit>
+			<trans-unit id="module.header">
+				<source>Survey analysis</source>
+				<target state="translated">Auswertung</target>
+			</trans-unit>
+			<trans-unit id="module.survey_name">
+				<source>Survey name</source>
+				<target state="translated">Name der Umfrage</target>
+			</trans-unit>
+			<trans-unit id="module.analysis">
+				<source>Analysis</source>
+				<target state="translated">Auswertung</target>
+			</trans-unit>
+			<trans-unit id="module.see_analysis">
+				<source>See analysis</source>
+				<target state="translated">Auswertung anzeigen</target>
+			</trans-unit>
+			<trans-unit id="module.edit">
+				<source>Edit</source>
+				<target state="translated">Bearbeiten</target>
+			</trans-unit>
+			<trans-unit id="module.edit_survey">
+				<source>Edit survey</source>
+				<target state="translated">Umfrage bearbeiten</target>
+			</trans-unit>
+			<trans-unit id="module.new_survey">
+				<source>Create survey</source>
+				<target state="translated">Umfrage erstellen</target>
+			</trans-unit>
+			<trans-unit id="module.percentages">
+				<source>Percentages</source>
+				<target state="translated">Prozentwerte</target>
+			</trans-unit>
+			<trans-unit id="module.count">
+				<source>Count</source>
+				<target state="translated">Anzahl</target>
+			</trans-unit>
+			<trans-unit id="module.no_answers">
+				<source>No answers yet.</source>
+				<target state="translated">Noch keine Antworten.</target>
+			</trans-unit>
+			<trans-unit id="module.total_answers">
+				<source>Total answers - %d.</source>
+				<target state="translated">Gesamtzahl der Antworten: %d</target>
+			</trans-unit>
+			<trans-unit id="module.pie_chart">
+				<source>Pie chart view</source>
+				<target state="translated">Kreisdiagramm</target>
+			</trans-unit>
+			<trans-unit id="module.bar_chart">
+				<source>Bar chart view</source>
+				<target state="translated">Balkendiagramm</target>
+			</trans-unit>
+			<trans-unit id="module.export">
+				<source>Export in CSV format</source>
+				<target state="translated">Export im CSV-Format</target>
+			</trans-unit>
+			<trans-unit id="module.export_survey_csv">
+				<source>Export survey</source>
+				<target state="translated">Umfrage exportieren</target>
+			</trans-unit>
+			<trans-unit id="module.answers">
+				<source>Answers</source>
+				<target state="translated">Antworten</target>
+			</trans-unit>
+			<trans-unit id="module.go_back">
+				<source>Go back to list</source>
+				<target state="translated">Zurück zur Liste</target>
+			</trans-unit>
+			<!--MODULE:END-->
+		</body>
+	</file>
+</xliff>

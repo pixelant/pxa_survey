@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.2">
+	<file source-language="en" datatype="plaintext" original="messages" date="2017-11-13T15:58:32Z" product-name="pxa_survey" target-language="de">
+		<header/>
+		<body>
+			<trans-unit id="name.description">
+				<source>System name of survey</source>
+				<target state="translated">Name der Umfrage</target>
+			</trans-unit>
+			<trans-unit id="title.description">
+				<source>Title of survey</source>
+				<target state="translated">Titel der Umfrage</target>
+			</trans-unit>
+			<trans-unit id="description.description">
+				<source>Short description</source>
+				<target state="translated">Kurze Beschreibung</target>
+			</trans-unit>
+			<trans-unit id="questions.description">
+				<source>List of question</source>
+				<target state="translated">Liste der Fragen</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

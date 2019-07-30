@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<xliff version="1.2">
+	<file source-language="en" datatype="plaintext" original="messages" date="2017-11-13T15:58:32Z" product-name="pxa_survey" target-language="de">
+		<header/>
+		<body>
+			<trans-unit id="flexform.sheet_title">
+				<source>Configuration</source>
+				<target state="translated">Konfiguration</target>
+			</trans-unit>
+			<trans-unit id="flexform.sheet_messages_title">
+				<source>Messages</source>
+				<target state="translated">Meldungen</target>
+			</trans-unit>
+			<trans-unit id="flexform.mode">
+				<source>Plugin mode</source>
+				<target state="translated">Plugin-Modus</target>
+			</trans-unit>
+			<trans-unit id="flexform.choose_survey">
+				<source>Choose survey</source>
+				<target state="translated">Wählen Sie eine Umfrage</target>
+			</trans-unit>
+			<trans-unit id="flexform.show_all_questions">
+				<source>Show all questions at once</source>
+				<target state="translated">Alle Fragen auf einmal anzeigen</target>
+			</trans-unit>
+			<trans-unit id="flexform.thanks_message">
+				<source>Message displayed right after survey is finished</source>
+				<target state="translated">Meldung, die direkt nach Abschluss der Umfrage angezeigt wird</target>
+			</trans-unit>
+			<trans-unit id="flexform.already_finished_message">
+				<source>Message for user that has finished survey already</source>
+				<target state="translated">Nachricht für Benutzer, die die Umfrage bereits abgeschlossen haben</target>
+			</trans-unit>
+			<trans-unit id="flexform.allow_multiple_answer_on_survey">
+				<source>Allow user to take part in survey more than once</source>
+				<target state="translated">Benutzer können mehr als einmal an der Umfrage teilnehmen</target>
+			</trans-unit>
+			<trans-unit id="flexform.choose_mode">
+				<source>Choose mode</source>
+				<target state="translated">Wählen Sie den Modus</target>
+			</trans-unit>
+			<trans-unit id="flexform.mode.show">
+				<source>Show survey questions</source>
+				<target state="translated">Fragen anzeigen</target>
+			</trans-unit>
+			<trans-unit id="flexform.mode.show_results">
+				<source>Show survey results</source>
+				<target state="translated">Ergebnisse anzeigen</target>
+			</trans-unit>
+			<trans-unit id="flexform.mode">
+				<source>Mode</source>
+				<target state="translated">Modus</target>
+			</trans-unit>
+			<trans-unit id="flexform.protect_with_re_captcha">
+				<source>Protect with reCAPTCHA</source>
+				<target state="translated">Schützen mit reCAPTCHA</target>
+			</trans-unit>
+
+			<trans-unit id="plugin.name">
+				<source>Simple survey</source>
+				<target state="translated">Einfache Umfrage</target>
+			</trans-unit>
+			<trans-unit id="plugin.description">
+				<source>Survey form output.</source>
+				<target state="translated">Gibt ein Formular zur Teilnahme an einer Umfrage oder die Ergebnisse aus.</target>
+			</trans-unit>
+
+			<!--Plugin BE View:START-->
+			<trans-unit id="extension_info.name">
+				<source>Simple survey</source>
+				<target state="translated">Einfache Umfrage</target>
+			</trans-unit>
+			<trans-unit id="extension_info.yes">
+				<source>Yes</source>
+				<target state="translated">Ja</target>
+			</trans-unit>
+			<trans-unit id="extension_info.no">
+				<source>No</source>
+				<target state="translated">Nein</target>
+			</trans-unit>
+			<trans-unit id="extension_info.survey">
+				<source>Survey</source>
+				<target state="translated">Umfrage</target>
+			</trans-unit>
+			<trans-unit id="extension_info.show_all">
+				<source>Show all question</source>
+				<target state="translated">Alle Fragen anzeigen</target>
+			</trans-unit>
+			<trans-unit id="extension_info.multiple_participation">
+				<source>Multiple participation in survey</source>
+				<target state="translated">Mehrfache Teilnahme an Umfragen</target>
+			</trans-unit>
+			<trans-unit id="extension_info.protect_with_re_captcha">
+				<source>Protect with reCAPTCHA</source>
+				<target state="translated">Schützen mit reCAPTCHA</target>
+			</trans-unit>
+			<!--Plugin BE View:END-->
+
+			<!--Constant editor:START-->
+			<trans-unit id="editor.category_name">
+				<source>Simple survey settings</source>
+				<target state="needs-translation"/>
+			</trans-unit>
+			<trans-unit id="editor.recaptcha_title">
+				<source>reCAPTCHA secret</source>
+				<target state="translated">reCAPTCHA Secret</target>
+			</trans-unit>
+			<trans-unit id="editor.recaptcha.site_secret">
+				<source>Site secret</source>
+			</trans-unit>
+			<trans-unit id="editor.recaptcha.site_key">
+				<source>Site key</source>
+			</trans-unit>
+			<!--Constant editor:END-->
+		</body>
+	</file>
+</xliff>
