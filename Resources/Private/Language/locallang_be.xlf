@@ -37,6 +37,15 @@
 			<trans-unit id="flexform.mode.show_results">
 				<source>Show survey results</source>
 			</trans-unit>
+			<trans-unit id="flexform.finished_mode">
+				<source>Choose what is displayed when finished</source>
+			</trans-unit>
+			<trans-unit id="flexform.finished_mode.message">
+				<source>Show message</source>
+			</trans-unit>
+			<trans-unit id="flexform.finished_mode.results">
+				<source>Show survey results</source>
+			</trans-unit>
 			<trans-unit id="flexform.mode">
 				<source>Mode</source>
 			</trans-unit>

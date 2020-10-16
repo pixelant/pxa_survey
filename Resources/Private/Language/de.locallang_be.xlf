@@ -47,6 +47,18 @@
 				<source>Show survey results</source>
 				<target state="translated">Ergebnisse anzeigen</target>
 			</trans-unit>
+			<trans-unit id="flexform.finished_mode">
+				<source>Choose what is displayed when finished</source>
+				<target state="translated">Was soll bei abgeschlossener Umfrage angezeigt werden</target>
+			</trans-unit>
+			<trans-unit id="flexform.finished_mode.message">
+				<source>Show message</source>
+				<target state="translated">Nachricht anzeigen</target>
+			</trans-unit>
+			<trans-unit id="flexform.finished_mode.results">
+				<source>Show survey results</source>
+				<target state="translated">Ergebnisse anzeigen</target>
+			</trans-unit>
 			<trans-unit id="flexform.mode">
 				<source>Mode</source>
 				<target state="translated">Modus</target>

@@ -48,6 +48,26 @@
 						</TCEforms>
 					</settings.survey>
 
+					<settings.finished_mode>
+						<TCEforms>
+							<label>LLL:EXT:pxa_survey/Resources/Private/Language/locallang_be.xlf:flexform.finished_mode</label>
+							<config>
+								<type>select</type>
+								<renderType>selectSingle</renderType>
+								<items>
+									<numIndex index="1">
+										<numIndex index="0">LLL:EXT:pxa_survey/Resources/Private/Language/locallang_be.xlf:flexform.finished_mode.message</numIndex>
+										<numIndex index="1">1</numIndex>
+									</numIndex>
+									<numIndex index="2">
+										<numIndex index="0">LLL:EXT:pxa_survey/Resources/Private/Language/locallang_be.xlf:flexform.finished_mode.results</numIndex>
+										<numIndex index="1">2</numIndex>
+									</numIndex>
+								</items>
+							</config>
+						</TCEforms>
+					</settings.finished_mode>
+
 					<settings.showAllQuestions>
 						<TCEforms>
 							<label>LLL:EXT:pxa_survey/Resources/Private/Language/locallang_be.xlf:flexform.show_all_questions</label>
