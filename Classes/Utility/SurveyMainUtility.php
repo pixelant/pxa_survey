@@ -3,9 +3,10 @@
 namespace Pixelant\PxaSurvey\Utility;
 
 use TYPO3\CMS\Core\Context\Context;
+use TYPO3\CMS\Core\Information\Typo3Version;
+use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
-use TYPO3\CMS\Lang\LanguageService;
 
 /**
  * Main utility
@@ -156,10 +157,6 @@ class SurveyMainUtility
      */
     public static function isFrontendLogin(): bool
     {
-        if (version_compare(TYPO3_version, '9.0', '<')) {
-            return self::getTSFE()->loginUser;
-        } else {
-            return GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('frontend.user', 'isLoggedIn', false);
-        }
+        return GeneralUtility::makeInstance(Context::class)->getPropertyFromAspect('frontend.user', 'isLoggedIn', false);
     }
 }

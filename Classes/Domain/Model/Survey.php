@@ -42,7 +42,7 @@ class Survey extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * List of question
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Pixelant\PxaSurvey\Domain\Model\Question>
-     * @cascade remove
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
      */
     protected $questions = null;
 
