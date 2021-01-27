@@ -21,7 +21,7 @@ class ReCaptchaValidator extends AbstractValidator
 
     /**
      * @var \TYPO3\CMS\Extbase\Object\ObjectManager
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $objectManager = null;
 

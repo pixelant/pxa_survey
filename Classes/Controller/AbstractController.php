@@ -32,7 +32,7 @@ abstract class AbstractController extends ActionController
      * Survey Repository
      *
      * @var \Pixelant\PxaSurvey\Domain\Repository\SurveyRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $surveyRepository = null;
 
@@ -40,7 +40,7 @@ abstract class AbstractController extends ActionController
      * User Answer Repository
      *
      * @var \Pixelant\PxaSurvey\Domain\Repository\UserAnswerRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $userAnswerRepository = null;
 
@@ -48,7 +48,7 @@ abstract class AbstractController extends ActionController
      * Answer Repository
      *
      * @var \Pixelant\PxaSurvey\Domain\Repository\AnswerRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $answerRepository = null;
 
@@ -56,7 +56,7 @@ abstract class AbstractController extends ActionController
      * Frontend User Repository
      *
      * @var \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $frontendUserRepository = null;
 
