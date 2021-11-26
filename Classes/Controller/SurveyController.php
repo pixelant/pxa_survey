@@ -92,6 +92,8 @@ class SurveyController extends AbstractController
      * @param Question $currentQuestion
      * @validate $survey \Pixelant\PxaSurvey\Domain\Validation\Validator\SurveyAnswerValidator
      * @validate $survey \Pixelant\PxaSurvey\Domain\Validation\Validator\ReCaptchaValidator
+     * @Extbase\Validate("\Pixelant\PxaSurvey\Domain\Validation\Validator\SurveyAnswerValidator", param="survey")
+     * @Extbase\Validate("\Pixelant\PxaSurvey\Domain\Validation\Validator\ReCaptchaValidator", param="survey")
      */
     public function answerAction(Survey $survey, Question $currentQuestion = null)
     {
