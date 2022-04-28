@@ -68,7 +68,12 @@ class SurveyController extends AbstractController
 
         if ($survey !== null && !$this->isSurveyAllowed($survey)) {
             /** @noinspection PhpUnhandledExceptionInspection */
-            $this->forward('finish', null, null, ['survey' => $survey, 'alreadyFinished' => true]);
+            if ((int)$this->settings['finished_mode'] === 2) {
+                $this->forward('showResults', null, null);
+            }
+            else {
+                $this->forward('finish', null, null, ['survey' => $survey, 'alreadyFinished' => true]);
+            }
         }
 
         if ($survey !== null && (int)$this->settings['showAllQuestions'] === 0) {
@@ -269,7 +274,12 @@ class SurveyController extends AbstractController
         $this->addSurveyToCookie($survey);
 
         /** @noinspection PhpUnhandledExceptionInspection */
-        $this->redirect('finish', null, null, ['survey' => $survey]);
+        if ((int)$this->settings['finished_mode'] === 2) {
+            $this->redirect('showResults', null, 'pxa_survey');
+        }
+        else {
+            $this->redirect('finish', null, null, ['survey' => $survey]);
+        }
     }
 
     /**
