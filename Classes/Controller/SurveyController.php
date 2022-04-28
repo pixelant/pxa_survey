@@ -19,11 +19,13 @@ use Pixelant\PxaSurvey\Domain\Model\Survey;
 use Pixelant\PxaSurvey\Domain\Model\UserAnswer;
 use Pixelant\PxaSurvey\Utility\SurveyMainUtility;
 use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\StringUtility;
 use TYPO3\CMS\Extbase\Domain\Model\FrontendUser;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
+use TYPO3\CMS\Extbase\Annotation as Extbase;
 
 /**
  * SurveyController
@@ -90,8 +92,9 @@ class SurveyController extends AbstractController
      *
      * @param Survey $survey
      * @param Question $currentQuestion
-     * @validate $survey \Pixelant\PxaSurvey\Domain\Validation\Validator\SurveyAnswerValidator
-     * @validate $survey \Pixelant\PxaSurvey\Domain\Validation\Validator\ReCaptchaValidator
+
+     * @Extbase\Validate("\Pixelant\PxaSurvey\Domain\Validation\Validator\SurveyAnswerValidator", param="survey")
+     * @Extbase\Validate("\Pixelant\PxaSurvey\Domain\Validation\Validator\ReCaptchaValidator", param="survey")
      */
     public function answerAction(Survey $survey, Question $currentQuestion = null)
     {
@@ -257,7 +260,8 @@ class SurveyController extends AbstractController
             $this->userAnswerRepository->add($userAnswer);
         }
 
-        if (version_compare(TYPO3_version, '9.0', '>=') && version_compare(TYPO3_version, '9.5', '<=')) {
+        $typo3Version = GeneralUtility::makeInstance(Typo3Version::class);
+        if (version_compare($typo3Version->getVersion(), '9.0', '>=') && version_compare($typo3Version->getVersion(), '9.5', '<=')) {
             $this->fixQuestionRelationForUserAnswers($userAnswers);
         }
 
